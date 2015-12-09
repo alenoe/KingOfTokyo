@@ -1,0 +1,8 @@
+.root{
+    -fx-background-image: url(Hintergrund_Pane.jpg);
+    -fx-background-size: cover;
+}
+
+.hboxPlayer1VictoryPoints{
+	-fx-background-color: #FFFFFF;
+}
