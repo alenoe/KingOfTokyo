@@ -257,7 +257,7 @@ public class ClientMessageHandler implements Runnable{
 			
 		case "ChatMessage":
 			String message = (String) msg.getContent();
-			model.broadcastToAll("Message", model.getPlayerList().get(client.getConnectionID())+": "+message);
+			model.broadcastToAll("Message", model.getPlayerList().get(client.getConnectionID()).getName()+": "+message);
 			
 			break;
 			

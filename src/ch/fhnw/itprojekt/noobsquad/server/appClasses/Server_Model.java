@@ -39,6 +39,7 @@ public class Server_Model extends Model{
 				pressedBtnList.add(p);
 			}
 		   
+		   sl.getLogger().info("Server_Model initialisiert!");
 	   }
 
 	   public void startServer(String ip, int port, Logger logger){

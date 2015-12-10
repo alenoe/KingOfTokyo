@@ -294,8 +294,4 @@ public class ServerMessageHandler implements Runnable{
 				});
 		}
 	}
-	
-	public void handleMsg(ServerConnection client, Board_Model model, Message msg){
-		
-	}
 }

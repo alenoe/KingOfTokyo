@@ -5,12 +5,20 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.Locale;
+
 import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.*;
+import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
+import ch.fhnw.itprojekt.noobsquad.server.supportClasses.Translator;
 
 /**
  * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
@@ -20,6 +28,10 @@ import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.*;
  * @author Brad Richards
  */
 public class Login_View extends View<Login_Model>{
+	
+	Menu menuFile;
+    Menu menuFileLanguage;
+    Menu menuHelp;
 
 	Label lblUsername;
 	Label lblIP;
@@ -36,6 +48,7 @@ public class Login_View extends View<Login_Model>{
 
     @Override
     protected Scene create_GUI() {
+       
         BorderPane root = new BorderPane();
         root.setId("splash");
         root.setStyle("-fx-background-color: #FFFFFF");
@@ -71,7 +84,7 @@ public class Login_View extends View<Login_Model>{
             
         tfUsername = new TextField();
         tfUsername.setId("tfUsername");
-        tfUsername.setPromptText("Username eingeben.");
+        tfUsername.setPromptText("gib einen Usernamen ein.");
         gridPane.add(tfUsername, 2, 1);
         GridPane.setMargin(tfUsername, is);
         
@@ -80,14 +93,14 @@ public class Login_View extends View<Login_Model>{
         gridPane.add(tfIP, 2, 2);
         GridPane.setMargin(tfIP, is);
 		tfIP.setText(model.getLokalHost());
-		tfIP.setPromptText("Deine jetztige IP: "+model.getLokalHost());
+		tfIP.setPromptText("deine jetzige IP: "+model.getLokalHost());
 
         tfPort = new TextField();
         tfPort.setId("tfPort");
         gridPane.add(tfPort, 2, 3);
         GridPane.setMargin(tfPort, is);
 		tfPort.setText("14000");
-		tfPort.setPromptText("Bitte Portnummer eingeben.");
+		tfPort.setPromptText("gib eine Portnummer ein.");
 		
 
         Scene scene = new Scene(root, 300, 300, Color.TRANSPARENT);

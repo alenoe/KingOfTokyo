@@ -71,6 +71,7 @@ public class Board_View extends View<Board_Model>{
 	ArrayList<Image> player2Pictures;
 	TreeMap<Integer, Image> dicePictures;
 	TreeMap<Integer, Image> dicePicturesOk;
+	Translator t;
 		
     public Board_View(Stage stage, Board_Model model) {
         super(stage, model);
@@ -109,7 +110,7 @@ public class Board_View extends View<Board_Model>{
     	
     	ServiceLocator sl = ServiceLocator.getServiceLocator();  
 	    Logger logger = sl.getLogger();
-	    Translator t = sl.getTranslator();
+	    t = sl.getTranslator();
 	    
 	    MenuBar menuBar = new MenuBar();
 	    menuFile = new Menu(t.getString("program.menu.file"));
@@ -390,6 +391,7 @@ public class Board_View extends View<Board_Model>{
 		
 		lblGameEnd = new Label();
 		lblGameEnd.setPrefSize(274, 67);
+		lblGameEnd.setAlignment(Pos.CENTER);
 		lblGameEnd.setFont(Font.font ("Verdana", 22));
 		lblGameEnd.setTextFill(Color.web("#9e1f1f"));
 		lblGameEnd.setStyle("-fx-font-weight: bold;");
@@ -425,6 +427,7 @@ public class Board_View extends View<Board_Model>{
         
         tfChat = new TextField();
         tfChat.setId("tfChat");
+        tfChat.setPromptText(t.getString("textfield.chat"));
         chatArea.getChildren().add(tfChat);
         VBox.setMargin(tfChat, new Insets(5));
         
@@ -433,7 +436,7 @@ public class Board_View extends View<Board_Model>{
         chatArea.getChildren().add(btnSend);
         VBox.setMargin(btnSend, new Insets(0,0,0,5));
         
-//        BackgroundImage myBI= new BackgroundImage(new Image("Hintergrundbild_KoT.png"),32, 32, false, true)
+//      BackgroundImage myBI= new BackgroundImage(new Image("Hintergrundbild_KoT.png"),32, 32, false, true)
 
         
 
@@ -445,16 +448,47 @@ public class Board_View extends View<Board_Model>{
     }
     
     protected void updateTexts() {
-	       Translator t = ServiceLocator.getServiceLocator().getTranslator();
+	    Translator t = ServiceLocator.getServiceLocator().getTranslator();
 	        
-	        // The menu entries
-	       menuFile.setText(t.getString("program.menu.file"));
-	       menuFileLanguage.setText(t.getString("program.menu.file.language"));
+	    // The menu entries
+	    menuFile.setText(t.getString("program.menu.file"));
+	    menuFileLanguage.setText(t.getString("program.menu.file.language"));
         menuHelp.setText(t.getString("program.menu.help"));
 	        
 	        // Other controls
         btnRoll.setText(t.getString("button.roll"));
         btnLeaveTokyo.setText(t.getString("button.leaveTokyo"));
         btnSend.setText(t.getString("button.send"));
-	    }
+        
+        tfChat.setPromptText(t.getString("textfield.chat"));
+        
+        int state = model.getGameState();
+        switch (state){
+        case 0:
+        	lblGameEnd.setText("");
+        	break;
+        case 1:
+            lblGameEnd.setText(t.getString("label.gameend.lose"));
+            break;
+        case 2:
+            lblGameEnd.setText(t.getString("label.gameend.lose"));
+            break;
+        case 3:
+            lblGameEnd.setText(t.getString("label.gameend.win"));
+            break;
+        case 4:
+            lblGameEnd.setText(t.getString("label.gameend.win"));
+            break;
+        }
+        if(!model.getPlayer1().getInTokyo()){
+        	lblPlayer1TokyoStatus.setText(t.getString("label.tokyo.out"));
+        } else {
+        	lblPlayer1TokyoStatus.setText(t.getString("label.tokyo.in"));
+        }
+        if(!model.getPlayer2().getInTokyo()){
+        	lblPlayer2TokyoStatus.setText(t.getString("label.tokyo.out"));
+        } else {
+        	lblPlayer2TokyoStatus.setText(t.getString("label.tokyo.in"));
+        }     
+    }
 }

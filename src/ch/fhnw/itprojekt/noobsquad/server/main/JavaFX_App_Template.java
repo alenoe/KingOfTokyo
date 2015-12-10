@@ -141,12 +141,11 @@ public class JavaFX_App_Template extends Application {
      */
     @Override
     public void stop() {
-        serviceLocator.getConfiguration().save();
-        if (serverView != null) {
-            // Make the view invisible
-            serverView.stop();
-        }
 
+		if (serverView != null) {
+			// Make the view invisible
+			serverView.stop();
+		}
         // More cleanup code as needed
 
         serviceLocator.getLogger().info("Application terminated");

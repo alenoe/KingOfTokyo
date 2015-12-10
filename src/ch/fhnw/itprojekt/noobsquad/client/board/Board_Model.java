@@ -36,6 +36,7 @@ public class Board_Model extends Model implements Subject{
 	private Player player2 = new Player("");
 	private DiceM d1 = new DiceM(6);
 	private int rollCounter = 0;
+	private int gameState = 0;
 	
 	private String playersRound = "Player1";
 	InetAddress addr;
@@ -109,6 +110,14 @@ public class Board_Model extends Model implements Subject{
 	
 	public String getChatMessage(){
 		return this.chatMessage;
+	}
+	
+	public int getGameState(){
+		return this.gameState;
+	}
+	
+	public void setGameState(int state){
+		this.gameState = state;
 	}
 	
 	/**

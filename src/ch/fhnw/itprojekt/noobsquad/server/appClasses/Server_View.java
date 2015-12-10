@@ -97,6 +97,7 @@ public class Server_View extends View<Server_Model>{
         
         tfIP = new TextField();
         tfIP.setId("tfIP");
+        tfIP.setEditable(false);
         entryArea.add(tfIP, 1, 0);
         GridPane.setMargin(tfIP, new Insets(5, 5, 0, 0));
         
@@ -148,5 +149,8 @@ public class Server_View extends View<Server_Model>{
 	    btnStart.setText(t.getString("button.start"));
 	    btnClose.setText(t.getString("button.close"));
 	    btnDatabase.setText(t.getString("button.database"));
+	    
+	    //TextField Promt
+	    tfPort.setPromptText(t.getString("textfield.prompt.port"));
 	    }
 }

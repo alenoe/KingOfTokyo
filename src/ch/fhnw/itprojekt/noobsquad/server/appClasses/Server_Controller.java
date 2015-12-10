@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
+import javafx.stage.Stage;
 //import Server.TextAreaHandler;
 import ch.fhnw.itprojekt.noobsquad.server.abstractClasses.Controller;
 import ch.fhnw.itprojekt.noobsquad.server.main.JavaFX_App_Template;
@@ -51,9 +52,12 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 		view.btnClose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 				public void handle(ActionEvent e) {
-				model.closeAllConnections();
+				sl.getConfiguration().save();
+			    // get a handle to the stage
+			    Stage stage = (Stage) view.btnClose.getScene().getWindow();
+			    // do what you have to do
+			    stage.close();
 				main.stop();
-	
 				}
 			});
 		try {

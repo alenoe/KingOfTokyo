@@ -169,9 +169,9 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.lblPlayer1HealthPoints.setText(Integer.toString(player1.getLifePoints()));
 		        	view.lblPlayer1VictoryPoints.setText(Integer.toString(player1.getVictoryPoints()));
 		        	if(player1.getInTokyo() == true){
-		        	view.lblPlayer1TokyoStatus.setText("hat Tokyo besetzt!");
+		        	view.lblPlayer1TokyoStatus.setText(view.t.getString("label.tokyo.in"));
 		        	} else {
-		        		view.lblPlayer1TokyoStatus.setText("befindet sich nicht in Tokyo.");
+		        		view.lblPlayer1TokyoStatus.setText(view.t.getString("label.tokyo.out"));
 		        	}
 		//        	view.imgVPlayer1Monster.setImage(view.player1Pictures.get(0));
 		        	break;
@@ -181,9 +181,9 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.lblPlayer2HealthPoints.setText(Integer.toString(player2.getLifePoints()));
 		        	view.lblPlayer2VictoryPoints.setText(Integer.toString(player2.getVictoryPoints()));
 		        	if(player2.getInTokyo() == true){
-		        	view.lblPlayer2TokyoStatus.setText("hat Tokyo besetzt!");
+		        	view.lblPlayer2TokyoStatus.setText(view.t.getString("label.tokyo.in"));
 		        	} else {
-		        		view.lblPlayer2TokyoStatus.setText("befindet sich nicht in Tokyo.");
+		        		view.lblPlayer2TokyoStatus.setText(view.t.getString("label.tokyo.out"));
 		        	}
 		//        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(0));
 		        	break;
@@ -236,7 +236,8 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.btnDice6.setGraphic(new ImageView(model.getDiePicture(5)));
 		        	break;
 		        case "Player1lost":
-		        	view.lblGameEnd.setText(player1.getName() + "\ndu hast leider verloren!");
+		        	model.setGameState(1);
+		        	view.lblGameEnd.setText(view.t.getString("label.gameend.lose"));
 		        	view.lblGameEnd.setStyle("-fx-background-color: #FFFFFF");
 		        	view.imgVPlayer1Monster.setImage(view.player1Pictures.get(2));
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(1));
@@ -247,7 +248,8 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	}
 		        	break;
 		        case "Player2lost":
-		        	view.lblGameEnd.setText(player2.getName() + "\ndu hast leider verloren!");
+		        	model.setGameState(2);
+		        	view.lblGameEnd.setText(view.t.getString("label.gameend.lose"));
 		        	view.lblGameEnd.setStyle("-fx-background-color: #FFFFFF");
 		        	view.imgVPlayer1Monster.setImage(view.player1Pictures.get(1));
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(2));
@@ -258,7 +260,8 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	}
 		        	break;
 		        case "Player1won":
-		        	view.lblGameEnd.setText(player1.getName() + "\ndu hast gewonnen!");
+		        	model.setGameState(3);
+		        	view.lblGameEnd.setText(view.t.getString("label.gameend.win"));
 		        	view.lblGameEnd.setStyle("-fx-background-color: #FFFFFF");
 		        	view.imgVPlayer1Monster.setImage(view.player1Pictures.get(1));
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(2));
@@ -269,7 +272,8 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	}
 		        	break;
 		        case "Player2won":
-		        	view.lblGameEnd.setText(player2.getName() + "\ndu hast gewonnen!");
+		        	model.setGameState(4);
+		        	view.lblGameEnd.setText(view.t.getString("label.gameend.win"));
 		        	view.lblGameEnd.setStyle("-fx-background-color: #FFFFFF");
 		        	view.imgVPlayer1Monster.setImage(view.player1Pictures.get(2));
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(1));
@@ -316,7 +320,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.btnDice6.setGraphic(new ImageView(model.getDiePicture(5)));
 		        	break;
 				case "chatMessage":
-						view.taChat.appendText(model.getChatMessage()+"\n");
+					view.taChat.appendText(model.getChatMessage()+"\n");
 		        }
         	} catch (NullPointerException e){
         	e.printStackTrace();
