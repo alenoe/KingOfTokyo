@@ -1,5 +1,6 @@
 package ch.fhnw.itprojekt.noobsquad.server.appClasses;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 
 import java.net.InetAddress;
@@ -52,12 +53,7 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 		view.btnClose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 				public void handle(ActionEvent e) {
-				sl.getConfiguration().save();
-			    // get a handle to the stage
-			    Stage stage = (Stage) view.btnClose.getScene().getWindow();
-			    // do what you have to do
-			    stage.close();
-				main.stop();
+				Platform.exit();
 				}
 			});
 		try {

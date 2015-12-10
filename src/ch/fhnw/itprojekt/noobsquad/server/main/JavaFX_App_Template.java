@@ -83,7 +83,12 @@ public class JavaFX_App_Template extends Application {
     	Stage serverStage = new Stage();
         // Create and display the splash screen and model
 
-        
+        // Resources are now initialized
+        serviceLocator = ServiceLocator.getServiceLocator();
+    	
+        // Initialize the application MVC components. Note that these components
+        // can only be initialized now, because they may depend on the
+        // resources initialized by the splash screen     
         Server_Model serverModel = new Server_Model();
         serverView = new Server_View(serverStage, serverModel);
         new Server_Controller(this, serverModel, serverView);
