@@ -49,11 +49,12 @@ public class Board_Model extends Model implements Subject{
 	private String chatMessage;
   
 	public Board_Model() {
-		this.observers = new ArrayList<>();
-		this.serverThread = new ServerConnection(this);
-		this.serverThread.getServerconnection();
-		this.serviceLocator = ServiceLocator.getServiceLocator();        
-		this.serviceLocator.getLogger().info("KingOfTokyo model initialized");
+		observers = new ArrayList<>();
+		serverThread = new ServerConnection(this);
+		serverThread.getServerconnection();
+		
+		serviceLocator = ServiceLocator.getServiceLocator();        
+		serviceLocator.getLogger().info("KingOfTokyo model initialized");
 	}
 	
 	/** 

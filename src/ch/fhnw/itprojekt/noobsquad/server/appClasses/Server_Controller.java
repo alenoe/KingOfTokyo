@@ -15,8 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
-import javafx.stage.Stage;
-//import Server.TextAreaHandler;
 import ch.fhnw.itprojekt.noobsquad.server.abstractClasses.Controller;
 import ch.fhnw.itprojekt.noobsquad.server.main.JavaFX_App_Template;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
@@ -48,7 +46,7 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 						@Override
 						public void run() {
 							try{
-								model.startServer(view.tfIP.getText(), Integer.parseInt(view.tfPort.getText()), defaultLogger);
+								model.startServer(Integer.parseInt(view.tfPort.getText()), defaultLogger);
 							}catch (NumberFormatException e){
 								sl.getLogger().info("Server konnte nicht gestartet werden weil der Port fehlt oder ungültig ist.");
 							}	

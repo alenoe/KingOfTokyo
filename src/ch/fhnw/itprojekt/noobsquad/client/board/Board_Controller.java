@@ -147,11 +147,10 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 				});
 			}
 		});
+		
+        serviceLocator = ServiceLocator.getServiceLocator();        
+        serviceLocator.getLogger().info("Board controller initialized");
     }
-
-
-
-
 
 	@Override
 	public void update() {
@@ -339,10 +338,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		this.subject=sub;
 		
 	}   
-
-//        serviceLocator = ServiceLocator.getServiceLocator();        
-//        serviceLocator.getLogger().info("Application controller initialized");
-
 }
 
 

@@ -22,8 +22,6 @@ public class Server_Model extends Model{
 
 	//-----------------------------------------------------------------------------------
 	//Server / Client
- 	private int port;
-    private String ip; // not used yet
     private ServerSocket socketConnection;
     private Socket pipe;
     private static int client_id = 0;
@@ -56,9 +54,7 @@ public class Server_Model extends Model{
    //-----------------------------------------------------------------------------------
    //Client / Server connection
 
-   public void startServer(String ip, int port, Logger logger){
-	   this.ip = ip;
-	   this.port = port;
+   public void startServer(int port, Logger logger){
 	   this.logger = logger;
 	   int socketCounter = 0;
 	   try {

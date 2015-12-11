@@ -66,7 +66,6 @@ public class Player implements Serializable{
 		} else {
 			this.inTokyo = tokyo;
 		}
-
 	}
 
 	
