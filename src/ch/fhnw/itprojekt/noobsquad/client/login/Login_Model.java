@@ -14,15 +14,16 @@ import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
  * @author Brad Richards
  */
 public class Login_Model extends Model{
-//    ServiceLocator serviceLocator;
+	
     InetAddress addr;
     
     public Login_Model() {
-        
-//        serviceLocator = ServiceLocator.getServiceLocator();        
-//        serviceLocator.getLogger().info("Application model initialized");
+       
     }
     
+    
+    //-----------------------------------------------------------------------------------
+  	// Current IP
     public String getLokalHost() { // wird in der View direkt aufgerufen.
 		try {
 			addr = InetAddress.getLocalHost();
@@ -32,7 +33,9 @@ public class Login_Model extends Model{
 		}
 		return addr.getHostAddress();
     }
-
+    
+    //-----------------------------------------------------------------------------------
+  	// Save the Username, IP and Port in the mainClass from the Login
     public void setUpUser(String username, String iP, int port){
 		JavaFX_App_Template.setUsername(username);
 		JavaFX_App_Template.setIP(iP);

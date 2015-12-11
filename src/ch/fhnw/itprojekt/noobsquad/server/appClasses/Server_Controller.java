@@ -18,6 +18,7 @@ import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
 public class Server_Controller extends Controller<Server_Model, Server_View> {
 	
 	JavaFX_App_Template main;
+	private boolean portValid = false;
 	InetAddress addr; //This class represents an Internet Protocol (IP) address.
 
 	public Server_Controller(JavaFX_App_Template main, Server_Model model, Server_View view) {
@@ -25,12 +26,15 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 		
 		this.main = main;
 		ServiceLocator sl = ServiceLocator.getServiceLocator();
-
+		
+		//-----------------------------------------------------------------------------------
+		//Logmessages werden in der TextArea angezeigt.
 		view.textAreaHandler.setLevel(Level.INFO);
         Logger defaultLogger = sl.getLogger();
         defaultLogger.addHandler(view.textAreaHandler);
-		//Logmessages werden in der TextArea angezeigt.
 		
+        //-----------------------------------------------------------------------------------
+      	//start Server
 		view.btnStart.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 				public void handle(ActionEvent e) {
@@ -41,21 +45,32 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 								model.startServer(view.tfIP.getText(), Integer.parseInt(view.tfPort.getText()), defaultLogger);
 							}catch (NumberFormatException e){
 								sl.getLogger().info("Server konnte nicht gestartet werden weil der Port fehlt oder ungültig ist.");
-							}
-							
-							
+							}	
 						}
 					}).start();
-	
 				}
 			});
 		
+		//-----------------------------------------------------------------------------------
+      	//stop Server
 		view.btnClose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 				public void handle(ActionEvent e) {
 				Platform.exit();
 				}
 			});
+		
+		//-----------------------------------------------------------------------------------
+		// ChangeListener for the text-property of the port number
+		view.tfPort.textProperty().addListener(
+				// Parameters of any PropertyChangeListener
+				(observable, oldValue, newValue) -> {
+					validatePortNumber(newValue);
+				});
+		view.tfPort.setText("14000");
+
+		//-----------------------------------------------------------------------------------
+		// get current IP adress
 		try {
 			addr = InetAddress.getLocalHost();
 			view.tfIP.setText(addr.getHostAddress());
@@ -66,4 +81,42 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 			e1.printStackTrace();
 		}
 	}
+	
+	//-----------------------------------------------------------------------------------
+	//is the portnumber possible
+	private void validatePortNumber(String newValue) {
+		boolean valid = true;
+
+		try {
+			int value = Integer.parseInt(newValue);
+			if (value < 1 || value > 65535) valid = false;
+		} catch (NumberFormatException e) {
+			// wasn't an integer
+			valid = false;
+		}
+
+		// Change text color
+		if (valid) {
+			view.tfPort.setStyle("-fx-text-inner-color: green;");
+		} else {
+			view.tfPort.setStyle("-fx-text-inner-color: red;");
+		}
+
+		// Save result
+		portValid = valid;
+
+		// Enable or disable button, as appropriate
+		enableDisableButton();
+	}
+	
+	/**
+	 * Enable or disable the Connect button, based on the validity of the two
+	 * text controls
+	 */
+	private void enableDisableButton() {
+		boolean valid = portValid;
+		view.btnStart.setDisable(!valid);
+	}
+	
+	
 }

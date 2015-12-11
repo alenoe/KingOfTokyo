@@ -23,20 +23,6 @@ public class Splash_Controller extends Controller<Splash_Model, Splash_View> {
 
         // The stateProperty tells us the status of the task. When the state is SUCCEEDED,
         // the task is finished, so we tell the main program to continue.
-
-        // Below are two equivalent implementations - only one of these should be used!
-        
-        // Using an anonymous class
-//        model.initializer.stateProperty().addListener(
-//                new ChangeListener<Worker.State>() {
-//                    @Override
-//                    public void changed(
-//                            ObservableValue<? extends Worker.State> observable,
-//                            Worker.State oldValue, Worker.State newValue) {
-//                        if (newValue == Worker.State.SUCCEEDED)
-//                            main.startApp();
-//                    }
-//                });
         
         // Using a lambda expression
         model.initializer.stateProperty().addListener(
