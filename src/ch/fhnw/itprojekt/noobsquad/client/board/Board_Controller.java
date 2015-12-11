@@ -16,7 +16,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
-import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.Controller;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.Controller;
 
 public class Board_Controller extends Controller<Board_Model, Board_View> implements Observer{
 	

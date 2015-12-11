@@ -5,7 +5,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import ch.fhnw.itprojekt.noobsquad.server.abstractClasses.Model;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.Model;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.Configuration;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.Translator;

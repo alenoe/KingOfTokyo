@@ -1,7 +1,7 @@
 package ch.fhnw.itprojekt.noobsquad.client.splashScreen;
 
 import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
-import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.Controller;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.Controller;
 import javafx.concurrent.Worker;
 
 /**

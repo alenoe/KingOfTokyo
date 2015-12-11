@@ -9,7 +9,7 @@ package ch.fhnw.itprojekt.noobsquad.server.appClasses;
 import java.util.Locale;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.Translator;
-import ch.fhnw.itprojekt.noobsquad.server.abstractClasses.View;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.View;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

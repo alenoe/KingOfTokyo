@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
-import ch.fhnw.itprojekt.noobsquad.server.abstractClasses.Controller;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.Controller;
 import ch.fhnw.itprojekt.noobsquad.server.main.JavaFX_App_Template;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
 

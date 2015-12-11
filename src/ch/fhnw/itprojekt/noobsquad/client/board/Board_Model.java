@@ -15,7 +15,7 @@ import ch.fhnw.itprojekt.noobsquad.client.serverCommunication.ServerConnection;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.DiceM;
 import ch.fhnw.itprojekt.noobsquad.client.interfaces.Observer;
 import ch.fhnw.itprojekt.noobsquad.client.interfaces.Subject;
-import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.Model;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.Model;
 import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
 
 /**

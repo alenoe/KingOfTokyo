@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.*;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.*;
 
 /**
  * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code

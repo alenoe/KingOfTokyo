@@ -2,8 +2,7 @@ package ch.fhnw.itprojekt.noobsquad.client.login;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
-import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.Model;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.Model;
 import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
 
 /**

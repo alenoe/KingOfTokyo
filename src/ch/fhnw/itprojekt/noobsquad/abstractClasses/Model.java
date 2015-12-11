@@ -1,4 +1,4 @@
-package ch.fhnw.itprojekt.noobsquad.server.abstractClasses;
+package ch.fhnw.itprojekt.noobsquad.abstractClasses;
 
 /**
  * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code

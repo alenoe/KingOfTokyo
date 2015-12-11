@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import ch.fhnw.itprojekt.noobsquad.server.abstractClasses.Model;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.Model;
 import ch.fhnw.itprojekt.noobsquad.server.clientCommunication.ClientConnection;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.*;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;

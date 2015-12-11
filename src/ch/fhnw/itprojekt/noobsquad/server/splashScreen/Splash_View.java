@@ -1,7 +1,7 @@
 package ch.fhnw.itprojekt.noobsquad.server.splashScreen;
 
 
-import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.View;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.View;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;

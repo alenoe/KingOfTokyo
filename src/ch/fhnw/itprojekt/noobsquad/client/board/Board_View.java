@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
-import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.View;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.View;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package ch.fhnw.itprojekt.noobsquad.client.abstractClasses;
+package ch.fhnw.itprojekt.noobsquad.abstractClasses;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

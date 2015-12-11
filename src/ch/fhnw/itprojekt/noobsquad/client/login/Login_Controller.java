@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
-import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.Controller;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.Controller;
 
 /**
  * 
