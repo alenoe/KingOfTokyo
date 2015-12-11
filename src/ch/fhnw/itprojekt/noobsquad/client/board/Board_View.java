@@ -1,11 +1,5 @@
 package ch.fhnw.itprojekt.noobsquad.client.board;
 
-/**
- * 
- * @author Alexander Noever
- * 
- */
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -36,11 +30,9 @@ import ch.fhnw.itprojekt.noobsquad.client.supportClasses.Translator;
 import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
 
 /**
- * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
- * is licensed under the terms of the BSD 3-clause license (see the file
- * license.txt).
+ *
+ * @author Alexander Noever
  * 
- * @author Brad Richards
  */
 public class Board_View extends View<Board_Model>{
 	
@@ -96,19 +88,19 @@ public class Board_View extends View<Board_Model>{
         player2Pictures.add(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"LeApe_purple_King.png"));
         player2Pictures.add(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"LeApe_purple_sad.png"));
         
-        dicePictures = new TreeMap<Integer, Image>();
-        dicePictures.put(1 ,new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_one.png"));
-        dicePictures.put(2, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_two.png"));
-        dicePictures.put(3, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_three.png"));
-        dicePictures.put(4, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_attack.png"));
-        dicePictures.put(5, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_heart.png"));
-        
-        dicePicturesOk = new TreeMap<Integer, Image>();
-        dicePicturesOk.put(1 ,new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_one_ok.png"));
-        dicePicturesOk.put(2, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_two_ok.png"));
-        dicePicturesOk.put(3, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_three_ok.png"));
-        dicePicturesOk.put(4, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_attack_ok.png"));
-        dicePicturesOk.put(5, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_heart_ok.png"));
+//        dicePictures = new TreeMap<Integer, Image>();
+//        dicePictures.put(1 ,new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_one.png"));
+//        dicePictures.put(2, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_two.png"));
+//        dicePictures.put(3, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_three.png"));
+//        dicePictures.put(4, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_attack.png"));
+//        dicePictures.put(5, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_heart.png"));
+//        
+//        dicePicturesOk = new TreeMap<Integer, Image>();
+//        dicePicturesOk.put(1 ,new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_one_ok.png"));
+//        dicePicturesOk.put(2, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_two_ok.png"));
+//        dicePicturesOk.put(3, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_three_ok.png"));
+//        dicePicturesOk.put(4, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_attack_ok.png"));
+//        dicePicturesOk.put(5, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_heart_ok.png"));
     }
 
     @Override

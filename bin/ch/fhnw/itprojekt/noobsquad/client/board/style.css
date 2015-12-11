@@ -1,4 +1,5 @@
 .root{
+	/*Bild aus dem Internet:(30.11.15) http://digital-art-gallery.com/oid/1/763x554_798_Ghost_In_the_Shell_Docks_2d_sci_fi_rain_fan_art_docks_port_city_picture_image_digital_art.jpg */
     -fx-background-image: url(Hintergrund_Pane.jpg);
     -fx-background-size: cover;
 }

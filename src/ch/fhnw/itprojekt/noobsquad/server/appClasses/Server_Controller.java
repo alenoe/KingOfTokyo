@@ -121,6 +121,4 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 		boolean valid = portValid;
 		view.btnStart.setDisable(!valid);
 	}
-	
-	
 }

@@ -1,7 +1,7 @@
 package ch.fhnw.itprojekt.noobsquad.server.clientCommunication;
 
 /**
- * @author Heiko Meyer
+ * @author Simon Zahnd
  */
 
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Button_Lock_Unlock;

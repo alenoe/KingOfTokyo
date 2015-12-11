@@ -113,22 +113,4 @@ public class DieM implements Serializable{
 	public String setFacePictureLock(){
 		return this.facePictureLock = facePicturesLock.get(this.value);
 	}
-	
-/*	public static void main(String[] args) {
-
-		DieM one = new DieM(1);
-		DieM two = new DieM(2);
-		DieM three = new DieM(3);
-		DieM four = new DieM(4);
-		
-		System.out.println(one.toString()+ "\n" + two.toString() + "\n" + three.toString() + "\n" + four.toString());
-		
-		one.roll();
-		two.roll();
-		three.roll();
-		four.roll();
-		
-		System.out.println(one.toString()+ "\n" + two.toString() + "\n" + three.toString() + "\n" + four.toString());
-	}*/
-
 }
