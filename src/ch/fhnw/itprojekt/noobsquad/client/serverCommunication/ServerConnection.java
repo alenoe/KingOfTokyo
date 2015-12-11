@@ -4,11 +4,14 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 
 import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
+import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Message;
+import javafx.application.Platform;
 import ch.fhnw.itprojekt.noobsquad.client.board.Board_Model;
 
 /**
@@ -24,11 +27,15 @@ public class ServerConnection implements Runnable{
 	private Socket client;
 	private static ObjectOutputStream clientOutputStream;
 	private ObjectInputStream clientInputStream;
+	ServiceLocator serviceLocator;
 	
 	InetAddress addr;
 	
 	public ServerConnection(Board_Model model){
 		this.model = model;
+		
+		serviceLocator = ServiceLocator.getServiceLocator();
+		serviceLocator.getLogger().info("ServerConnection initialized");
 	}
 	
 
@@ -40,9 +47,9 @@ public class ServerConnection implements Runnable{
 		
 		try {
 			clientInputStream = new ObjectInputStream(client.getInputStream());
-		}catch (NullPointerException e){
-		}
-		catch (IOException e2) {
+		} catch (NullPointerException e1){
+			Platform.exit();
+		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}  
@@ -59,13 +66,12 @@ public class ServerConnection implements Runnable{
 				
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				serviceLocator.getLogger().info("Class was not found: "+e);
 			} catch(IOException e){
 				try {
 					clientInputStream.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					serviceLocator.getLogger().info("IOException: "+e);
 				}
 			}
 		}
@@ -73,7 +79,7 @@ public class ServerConnection implements Runnable{
 	
 	/**stellt eine Verbindung zum Server her. Die Werte kommen aus dem JavaFX_App_Template**/
 	
-	public void getServerconnection(){
+	public boolean getServerconnection(){
 			
 			System.out.println("controller übergeben!");
 			
@@ -82,12 +88,22 @@ public class ServerConnection implements Runnable{
 	            System.out.println("Netzwerkverbindung konnte hergestellt werden");
 	            clientOutputStream = new ObjectOutputStream(client.getOutputStream());
 	            sendMsg("Username", JavaFX_App_Template.getUsername());
+			} catch (ConnectException e){
+				serviceLocator.getLogger().info(e.toString());
+				serviceLocator.getLogger().info("\n------------------------------------------------------------------------------\n"
+						+ "Netzwerkverbindung konnte nicht hergestellt werden:\n"
+						+ "KingOfTokyo wird beendet.\n"
+						+ "Der ausgewählte Server ist nicht aktiv.\n"
+						+ "Wählen Sie eine andere IP, Portnummer oder versuchen Sie es später erneut.\n"
+						+ "------------------------------------------------------------------------------");
+				return false;
 			} catch(Exception e1) {
 	            System.out.println("Netzwerkverbindung konnte nicht hergestellt werden");
-	            e1.printStackTrace();    
+	            e1.printStackTrace();
 			}
 			Thread t = new Thread(this);
 			t.start();
+			return true;
 		}
 	
 	/** Methode zum versenden von Messages an den Server **/

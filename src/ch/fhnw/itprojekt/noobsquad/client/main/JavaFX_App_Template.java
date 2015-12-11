@@ -81,6 +81,16 @@ public class JavaFX_App_Template extends Application {
         loginView.start();
     }
     
+    public void restart() {
+    	boardView.stop();
+    	boardView = null;
+    	Stage stage = new Stage();
+        // Create and display the splash screen and model
+        Login_Model loginModel = new Login_Model();
+        loginView = new Login_View(stage, loginModel);
+        new Login_Controller(this, loginModel, loginView);
+        loginView.start();
+    }
 
     public void startSplash() {
     	Stage splashStage = new Stage();
@@ -121,7 +131,7 @@ public class JavaFX_App_Template extends Application {
 	    // Create and display the splash screen and model
         Board_Model boardModel = new Board_Model();
         boardView = new Board_View(appStage, boardModel);
-        new Board_Controller(boardModel, boardView);
+        new Board_Controller(mainProgram, boardModel, boardView);
 	    
 	    splashView.stop();
 	    splashView = null;
@@ -143,18 +153,22 @@ public class JavaFX_App_Template extends Application {
      */
     @Override
     public void stop() {
-        serviceLocator.getConfiguration().save();
-        if (boardView != null) {
+    	if(serviceLocator != null){
+    		serviceLocator.getConfiguration().save();
+            if (boardView != null) {
+                // Make the view invisible
+                boardView.stop();
+            }
+            // More cleanup code as needed
+            serviceLocator.getLogger().info("Application terminated");
+    	} else if (loginView != null) {
             // Make the view invisible
-            boardView.stop();
+            loginView.stop();
+            System.out.println("Application terminated");
         }
-
-        // More cleanup code as needed
-
-        serviceLocator.getLogger().info("Application terminated");
     }
     
-
+  
     // Static getter for a reference to the main program object
     protected static JavaFX_App_Template getMainProgram() {
         return mainProgram;

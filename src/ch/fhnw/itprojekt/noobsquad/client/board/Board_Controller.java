@@ -1,5 +1,7 @@
 package ch.fhnw.itprojekt.noobsquad.client.board;
 
+
+
 /**
  * 
  * @author Heiko Meyer
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Player;
 import ch.fhnw.itprojekt.noobsquad.client.interfaces.Observer;
 import ch.fhnw.itprojekt.noobsquad.client.interfaces.Subject;
+import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,14 +29,12 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 	private Player player2;
 	private Subject subject;
 	
-    public Board_Controller(Board_Model model, Board_View view) {
+    public Board_Controller(JavaFX_App_Template main, Board_Model model, Board_View view) {
         super(model, view);
         
         this.subject = model;
         model.register(this);
-        
-        serviceLocator = ServiceLocator.getServiceLocator();        
-        serviceLocator.getLogger().info("KingOfTokyo controller initialized");
+        serviceLocator = ServiceLocator.getServiceLocator();
         
         dicebtnList = new ArrayList<Button>();
         dicebtnList.add(view.btnDice1);
@@ -80,9 +81,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 			public void handle(ActionEvent e) {
 				model.diceBtnLockUnlock(0);
 
-//				Platform.runLater(() -> {
-//					view.btnDice1.setGraphic(new ImageView(btnString));
-//				});
 			}
 		});
 		
@@ -91,9 +89,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 			public void handle(ActionEvent e) {
 				model.diceBtnLockUnlock(1);
 
-//				Platform.runLater(() -> {
-//					view.btnDice2.setGraphic(new ImageView(btnString));
-//				});
 			}
 		});
 		view.btnDice3.setOnAction(new EventHandler<ActionEvent>() {
@@ -101,9 +96,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 			public void handle(ActionEvent e) {
 				model.diceBtnLockUnlock(2);
 
-//				Platform.runLater(() -> {
-//					view.btnDice3.setGraphic(new ImageView(btnString));
-//				});
 			}
 		});
 		view.btnDice4.setOnAction(new EventHandler<ActionEvent>() {
@@ -111,9 +103,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 			public void handle(ActionEvent e) {
 				model.diceBtnLockUnlock(3);
 
-//				Platform.runLater(() -> {
-//					view.btnDice4.setGraphic(new ImageView(btnString));
-//				});
 			}
 		});
 		view.btnDice5.setOnAction(new EventHandler<ActionEvent>() {
@@ -121,9 +110,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 			public void handle(ActionEvent e) {
 				model.diceBtnLockUnlock(4);
 
-//				Platform.runLater(() -> {
-//					view.btnDice5.setGraphic(new ImageView(btnString));
-//				});
 			}
 		});
 		view.btnDice6.setOnAction(new EventHandler<ActionEvent>() {
@@ -131,9 +117,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 			public void handle(ActionEvent e) {
 				model.diceBtnLockUnlock(5);
 
-//				Platform.runLater(() -> {
-//					view.btnDice6.setGraphic(new ImageView(btnString));
-//				});
 			}
 		});
 		
@@ -148,7 +131,19 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 			}
 		});
 		
-        serviceLocator = ServiceLocator.getServiceLocator();        
+			if(!model.getServerConnection().getServerconnection()){
+				
+				view.btnNewConnection.setVisible(true);
+				view.lblNewConnection.setVisible(true);
+				view.hboxNewCon.setStyle("-fx-background-color: #FFFFFF");
+				view.btnNewConnection.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent e) {
+						main.restart();
+					}
+				});			
+			}
+			
         serviceLocator.getLogger().info("Board controller initialized");
     }
 
@@ -190,7 +185,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	} else {
 		        		view.lblPlayer2TokyoStatus.setText(view.t.getString("label.tokyo.out"));
 		        	}
-		//        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(0));
 		        	break;
 		        	
 		        	//
@@ -328,7 +322,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 					view.taChat.appendText(model.getChatMessage()+"\n");
 		        }
         	} catch (NullPointerException e){
-        	e.printStackTrace();
+        		e.printStackTrace();
         	}
         }
 	}

@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TreeMap;
-import java.util.logging.Logger;
-
 import ch.fhnw.itprojekt.noobsquad.abstractClasses.View;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -48,6 +46,7 @@ public class Board_View extends View<Board_Model>{
 	Button btnDice6;
 	Button btnRoll;
 	Button btnLeaveTokyo;
+	Button btnNewConnection;
 	
 	ImageView imgVPlayer1Monster;
 	Label lblPlayer1HealthPoints;
@@ -61,6 +60,9 @@ public class Board_View extends View<Board_Model>{
 	Label lblPlayer2VictoryPoints;
 	Label lblPlayer2TokyoStatus;
 	Label lblGameEnd;
+	Label lblNewConnection;
+	
+	HBox hboxNewCon;
 	
 	TextArea taChat;
 	TextField tfChat;
@@ -69,6 +71,7 @@ public class Board_View extends View<Board_Model>{
 	ArrayList<Image> player2Pictures;
 	TreeMap<Integer, Image> dicePictures;
 	TreeMap<Integer, Image> dicePicturesOk;
+	ServiceLocator serviceLocator;
 	Translator t;
 		
     public Board_View(Stage stage, Board_Model model) {
@@ -76,8 +79,10 @@ public class Board_View extends View<Board_Model>{
         stage.setTitle("KingOfTokyo byNoobsquad - Game");
         this.model = model;
         
+        serviceLocator = ServiceLocator.getServiceLocator();
         ServiceLocator.getServiceLocator().getLogger().info("KingOfTokyo view initialized");
         
+        // Initialisierung der Affenbilder zur Darstellung auf dem Board
         player1Pictures = new ArrayList<Image>();
         player1Pictures.add((new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"RiApe_brown_angry.png")));
         player1Pictures.add((new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"RiApe_brown_King.png")));
@@ -87,27 +92,13 @@ public class Board_View extends View<Board_Model>{
         player2Pictures.add(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"LeApe_purple_angry.png"));
         player2Pictures.add(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"LeApe_purple_King.png"));
         player2Pictures.add(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"LeApe_purple_sad.png"));
-        
-//        dicePictures = new TreeMap<Integer, Image>();
-//        dicePictures.put(1 ,new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_one.png"));
-//        dicePictures.put(2, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_two.png"));
-//        dicePictures.put(3, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_three.png"));
-//        dicePictures.put(4, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_attack.png"));
-//        dicePictures.put(5, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_heart.png"));
-//        
-//        dicePicturesOk = new TreeMap<Integer, Image>();
-//        dicePicturesOk.put(1 ,new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_one_ok.png"));
-//        dicePicturesOk.put(2, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_two_ok.png"));
-//        dicePicturesOk.put(3, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_three_ok.png"));
-//        dicePicturesOk.put(4, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_attack_ok.png"));
-//        dicePicturesOk.put(5, new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_heart_ok.png"));
     }
 
+    // Das Gui wird hier erstellt und die einzelnen Gui Elemente
     @Override
     protected Scene create_GUI() {
     	
     	ServiceLocator sl = ServiceLocator.getServiceLocator();  
-	    Logger logger = sl.getLogger();
 	    t = sl.getTranslator();
 	    
 	    MenuBar menuBar = new MenuBar();
@@ -184,7 +175,7 @@ public class Board_View extends View<Board_Model>{
                
         lblPlayer1Name = new Label();
         lblPlayer1Name.setId("lblPlayer1Name");
-        lblPlayer1Name.setText("Spieler 1");
+        lblPlayer1Name.setText("Player 1");
         hboxPlayer1HealthPoints.getChildren().add(lblPlayer1Name);
         
         
@@ -206,7 +197,7 @@ public class Board_View extends View<Board_Model>{
         
         lblPlayer1VictoryPoints = new Label();
         lblPlayer1VictoryPoints.setId("lblPlayer1VictoryPoints");
-        lblPlayer1VictoryPoints.setText("Player1");
+        lblPlayer1VictoryPoints.setText("0");
         hboxPlayer1VictoryPoints.getChildren().add(lblPlayer1VictoryPoints);
         HBox.setMargin(lblPlayer1VictoryPoints, new Insets(0,10,0,0));
                
@@ -279,7 +270,7 @@ public class Board_View extends View<Board_Model>{
         btnRoll.setPrefWidth(131);
         btnRoll.setPrefHeight(26);
         btnRoll.setId("btnRoll");
-        btnRoll.setText("wuerfeln");
+        btnRoll.setText(t.getString("button.roll"));
         vboxBtnRoll.getChildren().add(btnRoll);
         VBox.setMargin(btnRoll, is);
         
@@ -319,7 +310,7 @@ public class Board_View extends View<Board_Model>{
         
         lblPlayer2Name = new Label();
         lblPlayer2Name.setId("lblPlayer2Name");
-        lblPlayer2Name.setText("Spieler 2");
+        lblPlayer2Name.setText("Player 2");
         hboxPlayer2HealthPoints.getChildren().add(lblPlayer2Name);
         
         lblPlayer2HealthPoints = new Label();
@@ -353,7 +344,7 @@ public class Board_View extends View<Board_Model>{
         
         lblPlayer2VictoryPoints = new Label();
         lblPlayer2VictoryPoints.setId("lblPlayer2VictoryPoints");
-        lblPlayer2VictoryPoints.setText("Player2");
+        lblPlayer2VictoryPoints.setText("0");
         hboxPlayer2VictoryPoints.getChildren().add(lblPlayer2VictoryPoints);
         HBox.setMargin(lblPlayer2VictoryPoints, new Insets(0,0,0,10));
         
@@ -373,7 +364,7 @@ public class Board_View extends View<Board_Model>{
 		btnLeaveTokyo = new Button();
 		
 		btnLeaveTokyo.setId("btnLeaveTokyo");
-		btnLeaveTokyo.setText("Tokyo verlassen");
+		btnLeaveTokyo.setText(t.getString("button.leaveTokyo"));
 		btnLeaveTokyo.setAlignment(Pos.CENTER);
 		hboxLeaveTokyo.getChildren().add(btnLeaveTokyo);
 		
@@ -430,18 +421,34 @@ public class Board_View extends View<Board_Model>{
         VBox.setMargin(tfChat, new Insets(5));
         
         btnSend = new Button();
-        btnSend.setText("senden");
+        btnSend.setText(t.getString("button.send"));
         chatArea.getChildren().add(btnSend);
         VBox.setMargin(btnSend, new Insets(0,0,0,5));
         
-//      BackgroundImage myBI= new BackgroundImage(new Image("Hintergrundbild_KoT.png"),32, 32, false, true)
-
+        //Button newConnection
+        hboxNewCon = new HBox();
+        hboxNewCon.setAlignment(Pos.CENTER);
+        hboxNewCon.setId("hboxNewCon");
+        root.setBottom(hboxNewCon);
         
+		btnNewConnection = new Button();
+		btnNewConnection.setId("btnNewConnection");
+		btnNewConnection.setText(t.getString("button.newconnection"));
+		btnNewConnection.setStyle("-fx-font-size: 15px");
+		HBox.setMargin(btnNewConnection, new Insets(10,10,10,10));
+		hboxNewCon.getChildren().add(btnNewConnection);
+		btnNewConnection.setVisible(false);
+        
+		lblNewConnection = new Label();
+		lblNewConnection.setId("lblNewConnection");
+		lblNewConnection.setText(t.getString("label.newconnection"));
+		HBox.setMargin(lblNewConnection, new Insets(10,10,10,10));
+		hboxNewCon.getChildren().add(lblNewConnection);
+		lblNewConnection.setVisible(false);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
        
-
         return scene;
     }
     
@@ -457,9 +464,11 @@ public class Board_View extends View<Board_Model>{
         btnRoll.setText(t.getString("button.roll"));
         btnLeaveTokyo.setText(t.getString("button.leaveTokyo"));
         btnSend.setText(t.getString("button.send"));
+        btnNewConnection.setText(t.getString("button.newconnection"));
         
         tfChat.setPromptText(t.getString("textfield.chat"));
         
+        lblNewConnection.setText(t.getString("label.newconnection"));
         int state = model.getGameState();
         switch (state){
         case 0:

@@ -75,6 +75,15 @@ public class Login_Controller extends Controller<Login_Model, Login_View>{
 				(observable, oldValue, newValue) -> {
 					validatePortNumber(newValue);
 				});
+		
+		//-----------------------------------------------------------------------------------
+        // register ourselves to handle window-closing event
+        view.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+            	Platform.exit();
+            }
+        });
 			
 		view.tfPort.setText("14000");
     }

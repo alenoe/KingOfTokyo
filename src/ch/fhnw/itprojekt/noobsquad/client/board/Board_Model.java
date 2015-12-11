@@ -11,10 +11,12 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Player;
+import javafx.application.Platform;
 import ch.fhnw.itprojekt.noobsquad.client.serverCommunication.ServerConnection;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.DiceM;
 import ch.fhnw.itprojekt.noobsquad.client.interfaces.Observer;
 import ch.fhnw.itprojekt.noobsquad.client.interfaces.Subject;
+import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
 import ch.fhnw.itprojekt.noobsquad.abstractClasses.Model;
 import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
 
@@ -34,7 +36,7 @@ public class Board_Model extends Model implements Subject{
 	private boolean changed;
 	private final Object MUTEX = new Object();
 	//__________________________________________
-
+	
 	private ServerConnection serverThread;
 	private ServiceLocator serviceLocator;
 	
@@ -51,7 +53,6 @@ public class Board_Model extends Model implements Subject{
 	public Board_Model() {
 		observers = new ArrayList<>();
 		serverThread = new ServerConnection(this);
-		serverThread.getServerconnection();
 		
 		serviceLocator = ServiceLocator.getServiceLocator();        
 		serviceLocator.getLogger().info("KingOfTokyo model initialized");
@@ -125,6 +126,10 @@ public class Board_Model extends Model implements Subject{
 	
 	public void setGameState(int state){
 		this.gameState = state;
+	}
+	
+	public ServerConnection getServerConnection(){
+		return serverThread;
 	}
 	
 	/**
