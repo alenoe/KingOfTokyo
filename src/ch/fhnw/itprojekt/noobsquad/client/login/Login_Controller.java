@@ -4,11 +4,14 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
-import java.net.InetAddress;
-
 import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
 import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.Controller;
 
+/**
+ * 
+ * @author Simon Zahnd
+ *
+ */
 
 public class Login_Controller extends Controller<Login_Model, Login_View>{
 	
@@ -16,7 +19,6 @@ public class Login_Controller extends Controller<Login_Model, Login_View>{
 	private boolean usernameValid = true;
 	private boolean ipValid = true;
 	private boolean portValid = true;
-	private InetAddress addr;
 	private String k1 = "";
 	private String k2 = "";
 	private String k3 = "";

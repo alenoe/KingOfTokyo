@@ -17,15 +17,13 @@ import ch.fhnw.itprojekt.noobsquad.server.appClasses.Server_View;
  * license.txt).
  * 
  * @author Brad Richards
+ * @author Raphael Denz
  */
 public class JavaFX_App_Template extends Application {
     private static JavaFX_App_Template mainProgram; // singleton
     private Server_View serverView;
     private Splash_View splashView;
-	public static String username;
-	public static String iP;
-	public static int port;
-//    private App_View view;
+
 
     private ServiceLocator serviceLocator; // resources, after initialization
 
@@ -78,7 +76,18 @@ public class JavaFX_App_Template extends Application {
         splashModel.initialize();
     }
     
-
+    /**
+     * This method is called when the splash screen has finished initializing
+     * the application. The initialized resources are in a ServiceLocator
+     * singleton. Our task is to now create the application MVC components, to
+     * hide the splash screen, and to display the application GUI.
+     * 
+     * Multitasking note: This method is called from an event-handler in the
+     * Splash_Controller, which means that it is on the JavaFX Application
+     * Thread, which means that it is allowed to work with GUI components.
+     * http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm
+     */
+    
     public void startApp() {
     	Stage serverStage = new Stage();
         // Create and display the splash screen and model
@@ -99,41 +108,6 @@ public class JavaFX_App_Template extends Application {
 
         // Display the splash screen and begin the initialization
     }
-
-    /**
-     * This method is called when the splash screen has finished initializing
-     * the application. The initialized resources are in a ServiceLocator
-     * singleton. Our task is to now create the application MVC components, to
-     * hide the splash screen, and to display the application GUI.
-     * 
-     * Multitasking note: This method is called from an event-handler in the
-     * Splash_Controller, which means that it is on the JavaFX Application
-     * Thread, which means that it is allowed to work with GUI components.
-     * http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm
-     */
-//    public void startApp() {
-//        Stage appStage = new Stage();
-//		// Resources are now initialized
-//
-//        // Initialize the application MVC components. Note that these components
-//        // can only be initialized now, because they may depend on the
-//        // resources initialized by the splash screen
-//
-//	
-//	    System.out.println("BLABLA");
-//	    // Create and display the splash screen and model
-//        Board_Model boardModel = new Board_Model();
-//        boardView = new Board_View(appStage, boardModel);
-//        new Board_Controller(boardModel, boardView);
-//	    
-//	    splashView.stop();
-//	    splashView = null;
-//	    
-//        // Resources are now initialized
-//        serviceLocator = ServiceLocator.getServiceLocator();
-//	    
-//        boardView.start();
-//	}
 
     /**
      * The stop method is the opposite of the start method. It provides an
@@ -161,27 +135,4 @@ public class JavaFX_App_Template extends Application {
     protected static JavaFX_App_Template getMainProgram() {
         return mainProgram;
     }
-	public static void setUsername(String s){
-		username = s;
-	}
-	
-	public static String getUsername(){
-		return username;
-	}
-	
-	public static void setIP(String s){
-		iP = s;
-	}
-	
-	public static String getIP(){
-		return iP;
-	}
-	
-	public static void setPort(int i){
-		port = i;
-	}
-	
-	public static int getPort(){
-		return port;
-	}
 }

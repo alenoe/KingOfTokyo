@@ -11,6 +11,12 @@ import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Message;
 import ch.fhnw.itprojekt.noobsquad.client.board.Board_Model;
 
+/**
+ * 
+ * @author Simon Zahnd
+ *
+ */
+
 public class ServerConnection implements Runnable{
 	
 	Board_Model model;

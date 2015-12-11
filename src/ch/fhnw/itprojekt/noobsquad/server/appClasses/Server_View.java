@@ -1,5 +1,11 @@
 package ch.fhnw.itprojekt.noobsquad.server.appClasses;
 
+/**
+ * 
+ * @author Alexander Noever
+ * 
+ */
+
 import java.util.Locale;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.Translator;

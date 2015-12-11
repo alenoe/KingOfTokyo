@@ -1,5 +1,11 @@
 package ch.fhnw.itprojekt.noobsquad.client.board;
 
+/**
+ * 
+ * @author Alexander Noever
+ * 
+ */
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;

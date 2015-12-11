@@ -1,5 +1,11 @@
 package ch.fhnw.itprojekt.noobsquad.client.board;
 
+/**
+ * 
+ * @author Heiko Meyer
+ * 
+ */
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -264,7 +270,16 @@ public class Board_Model extends Model implements Subject{
 		}
 	}
 	
-	//Observermethoden
+	/**
+	 * 
+	 * Observermethoden
+	 * Die Implementierung wurde übernommen von http://www.journaldev.com/1739/observer-design-pattern-in-java-example-tutorial
+	 * Die Observer registrieren sich beim Subject und werden über die notifyObservers()-Methode benachrichtigt sich das Update abzuholen.
+	 * In der Implementierung sendet der ServerMessageHandler im Namen des Models eine postMsg() an das Subject, welches notifyObservers() aufruft.
+	 * Der einzige Observer ist der Board_Controller.
+	 * 
+	 * @author Alexander Noever
+	 */
 	//______________________________________________________________________________________
 	//
 

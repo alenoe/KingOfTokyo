@@ -6,6 +6,12 @@ import ch.fhnw.itprojekt.noobsquad.client.board.Board_Model;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.DiceM;
 import javafx.application.Platform;
 
+/**
+ * 
+ * @author Heiko Meyer
+ *
+ */
+
 public class ServerMessageHandler implements Runnable{
 	
 	private Board_Model model;

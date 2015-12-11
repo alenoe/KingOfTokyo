@@ -1,6 +1,10 @@
 package ch.fhnw.itprojekt.noobsquad.gameLogic;
 
-
+/**
+ * 
+ * @author Simon Zahnd
+ *
+ */
 
 public class Button_Lock_Unlock {
 	

@@ -1,5 +1,11 @@
 package ch.fhnw.itprojekt.noobsquad.server.appClasses;
 
+/**
+ * 
+ * @author Simon Zahnd
+ * 
+ */
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 

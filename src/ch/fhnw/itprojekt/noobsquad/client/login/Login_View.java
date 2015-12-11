@@ -6,19 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.Locale;
-
 import ch.fhnw.itprojekt.noobsquad.client.abstractClasses.*;
-import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
-import ch.fhnw.itprojekt.noobsquad.server.supportClasses.Translator;
 
 /**
  * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
@@ -26,6 +20,12 @@ import ch.fhnw.itprojekt.noobsquad.server.supportClasses.Translator;
  * license.txt).
  * 
  * @author Brad Richards
+ */
+
+/**
+ * 
+ * @author Alexander Noever
+ *
  */
 public class Login_View extends View<Login_Model>{
 	
@@ -46,6 +46,7 @@ public class Login_View extends View<Login_Model>{
         stage.setTitle("KingOfTokyo byNoobsquad - Login");
     }
 
+    /** Das Gui wird initialisiert und die Gui Elemente bereitgestellt. */
     @Override
     protected Scene create_GUI() {
        
@@ -92,21 +93,17 @@ public class Login_View extends View<Login_Model>{
         tfIP.setId("tfIP");
         gridPane.add(tfIP, 2, 2);
         GridPane.setMargin(tfIP, is);
-		tfIP.setText(model.getLokalHost());
 		tfIP.setPromptText("deine jetzige IP: "+model.getLokalHost());
 
         tfPort = new TextField();
         tfPort.setId("tfPort");
         gridPane.add(tfPort, 2, 3);
         GridPane.setMargin(tfPort, is);
-		tfPort.setText("14000");
-		tfPort.setPromptText("gib eine Portnummer ein.");
+		tfPort.setPromptText("Default Port ist: 14000");
 		
 
         Scene scene = new Scene(root, 300, 300, Color.TRANSPARENT);
-//        scene.getStylesheets().addAll(
-//                this.getClass().getResource("splash.css").toExternalForm());
-
+        
         return scene;
     }
 }

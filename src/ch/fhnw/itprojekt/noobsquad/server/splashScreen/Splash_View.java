@@ -17,6 +17,7 @@ import javafx.stage.StageStyle;
  * license.txt).
  * 
  * @author Brad Richards
+ * @author Raphael Denz
  */
 public class Splash_View extends View<Splash_Model> {
     ProgressBar progress;

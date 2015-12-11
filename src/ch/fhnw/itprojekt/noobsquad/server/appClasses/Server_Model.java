@@ -1,5 +1,11 @@
 package ch.fhnw.itprojekt.noobsquad.server.appClasses;
 
+/**
+ * 
+ * @author Simon Zahnd
+ * 
+ */
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

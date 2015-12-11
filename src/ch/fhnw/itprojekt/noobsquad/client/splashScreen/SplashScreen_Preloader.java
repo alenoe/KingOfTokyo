@@ -31,6 +31,7 @@ import javafx.stage.StageStyle;
  * This example includes all four, but only use the ones you need.
  * 
  * @author Brad Richards
+ * @author Raphael Denz
  */
 public class SplashScreen_Preloader extends Preloader {
     private Stage stage;

@@ -1,5 +1,9 @@
 package ch.fhnw.itprojekt.noobsquad.server.clientCommunication;
 
+/**
+ * @author Heiko Meyer
+ */
+
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Button_Lock_Unlock;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Player;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Message;
@@ -263,6 +267,4 @@ public class ClientMessageHandler implements Runnable{
 			
 		}
 	}
-	
-
 }

@@ -17,6 +17,7 @@ import ch.fhnw.itprojekt.noobsquad.client.supportClasses.Translator;
  * the application name.
  * 
  * @author Brad Richards
+ * @author Raphael Denz
  */
 public class ServiceLocator {
     private static ServiceLocator serviceLocator; // singleton

@@ -1,5 +1,12 @@
 package ch.fhnw.itprojekt.noobsquad.server.supportClasses;
 
+/**
+ * 
+ * @author Brad Richards
+ * @author Raphael Denz
+ * 
+ */
+
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

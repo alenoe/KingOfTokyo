@@ -17,6 +17,7 @@ import javafx.concurrent.Task;
  * license.txt).
  * 
  * @author Brad Richards
+ * @author Raphael Denz
  */
 public class Splash_Model extends Model {
     ServiceLocator serviceLocator;

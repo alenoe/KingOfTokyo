@@ -1,5 +1,9 @@
 package ch.fhnw.itprojekt.noobsquad.server.clientCommunication;
 
+/**
+ * @author Simon Zahnd
+ */
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,7 +24,6 @@ public class ClientConnection extends Thread{
 	private ObjectOutputStream serverOutputStream;
 	private int id;
 	private Server_Model model;
-	
 	private final Logger logger = Logger.getLogger("");
 
 
@@ -35,8 +38,8 @@ public class ClientConnection extends Thread{
 		
 		serverOutputStream = new 
 		ObjectOutputStream(socket.getOutputStream());
-
 	}
+	
 	
 	public void run(){
 		try{
@@ -48,6 +51,8 @@ public class ClientConnection extends Thread{
 		}
 	}
 	
+	//-----------------------------------------------------------------------------------
+	//receive a message from the client and evaluate them in the ClientMessageHandler 
 	public void listen()throws IOException {
 		Message msg = null;
 		
@@ -68,15 +73,19 @@ public class ClientConnection extends Thread{
 		}
 	}
 	
+	
+	
+	//-----------------------------------------------------------------------------------
+	//sends an Object to the clients
 	public synchronized void sendMsg(String type, Object o) throws IOException {
-		
 	    Message hMap = new Message(type, o);
-	   
 	    serverOutputStream.writeObject(hMap);
 	    serverOutputStream.flush();
 	    serverOutputStream.reset();
 	    hMap = null;
 	}
+	
+	
 	
 	public int getConnectionID(){
 		return this.id;

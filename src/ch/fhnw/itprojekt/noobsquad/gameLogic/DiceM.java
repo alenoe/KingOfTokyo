@@ -1,5 +1,11 @@
 package ch.fhnw.itprojekt.noobsquad.gameLogic;
 
+/**
+ * 
+ * @author Alexander Noever
+ * 
+ */
+
 import java.io.Serializable;
 import java.util.TreeMap;
 

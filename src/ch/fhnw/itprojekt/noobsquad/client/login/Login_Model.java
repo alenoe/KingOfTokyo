@@ -12,6 +12,7 @@ import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
  * license.txt).
  * 
  * @author Brad Richards
+ * @author Simon Zahnd
  */
 public class Login_Model extends Model{
 	

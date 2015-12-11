@@ -1,5 +1,10 @@
 package ch.fhnw.itprojekt.noobsquad.gameLogic;
 
+/**
+ * Die Player Objekte werden vom Server erstellt, sobald ein Client sich verbindet.
+ * @author Alexander Noever
+ */
+
 import java.io.Serializable;
 
 

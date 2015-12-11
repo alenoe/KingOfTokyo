@@ -1,5 +1,14 @@
 package ch.fhnw.itprojekt.noobsquad.gameLogic;
 
+/**
+ * Die Klasse wird vom Server aufgerufen und mit den übergebenen Werten werden die Player Objekte angepasst.
+ * Dem PlayM Objekt werden der DiceM und die Player Objekteübergeben.
+ * Auf dem Initialisierten Objekt wird dann die isFinished() Methode übergeben.
+ * Danach wird das Objekt nicht mehr verwendet.
+ * 
+ * @author Alexander Noever
+ */
+
 import java.util.ArrayList;
 
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Player;
@@ -27,6 +36,8 @@ public class PlayM {
 		this.dice = dice;
 	}
 	
+	// Ruft die getNumberOfDiceWithValue() des DiceM Objektes auf und prüft auf VictoryPoints(Value 1-3)
+
 	public int getVictoryPoints(){
 		int victoryPoints = 0;
 		for(int i = 0; i <= 3; i++){
@@ -61,6 +72,8 @@ public class PlayM {
 	public void setPlayEnd(){
 	}
 	
+	
+	// 
 	public ArrayList<Player> isFinished(){
 		
 		//Schaden wird dem Gegner hinzugefügt.

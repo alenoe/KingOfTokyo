@@ -1,5 +1,12 @@
 package ch.fhnw.itprojekt.noobsquad.server.appClasses;
 
+/**
+ * 
+ * @author Brad Richards
+ * @author Simon Zahnd
+ * 
+ */
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.logging.Handler;

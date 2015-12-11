@@ -10,6 +10,7 @@ import javafx.concurrent.Worker;
  * license.txt).
  * 
  * @author Brad Richards
+ * @author Raphael Denz
  */
 public class Splash_Controller extends Controller<Splash_Model, Splash_View> {
 

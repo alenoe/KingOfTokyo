@@ -1,5 +1,11 @@
 package ch.fhnw.itprojekt.noobsquad.client.board;
 
+/**
+ * 
+ * @author Heiko Meyer
+ * 
+ */
+
 import java.util.ArrayList;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Player;
 import ch.fhnw.itprojekt.noobsquad.client.interfaces.Observer;

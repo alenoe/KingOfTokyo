@@ -20,6 +20,7 @@ import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
  * license.txt).
  * 
  * @author Brad Richards
+ * @author Raphael Denz
  */
 public class JavaFX_App_Template extends Application {
     private static JavaFX_App_Template mainProgram; // singleton

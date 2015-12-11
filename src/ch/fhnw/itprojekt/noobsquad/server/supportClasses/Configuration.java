@@ -22,6 +22,7 @@ import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
  * by defining options that the user has no way to change.
  * 
  * @author Brad Richards
+ * @author Raphael Denz
  */
 public class Configuration {
     ServiceLocator sl = ServiceLocator.getServiceLocator();  // for easy reference
