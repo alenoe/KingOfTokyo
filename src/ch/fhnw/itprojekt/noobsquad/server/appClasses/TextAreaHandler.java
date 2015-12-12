@@ -39,7 +39,7 @@ public class TextAreaHandler extends Handler {
                 StringWriter text = new StringWriter();
                 PrintWriter out = new PrintWriter(text);
                 out.println(textArea.getText());
-                out.printf("[%s] [Thread-%d]: %s.%s -> %s", record.getLevel(),
+                out.printf("[%s] [Thread-%d]:\n %s.%s ->\n %s", record.getLevel(),
                         record.getThreadID(), record.getSourceClassName(),
                         record.getSourceMethodName(), record.getMessage());
                 textArea.setText(text.toString());

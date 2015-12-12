@@ -60,7 +60,7 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 		view.btnClose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 				public void handle(ActionEvent e) {
-				Platform.exit();
+				model.stopServerSocket();
 				}
 			});
 		
@@ -111,6 +111,7 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 
 		// Enable or disable button, as appropriate
 		enableDisableButton();
+		
 	}
 	
 	/**

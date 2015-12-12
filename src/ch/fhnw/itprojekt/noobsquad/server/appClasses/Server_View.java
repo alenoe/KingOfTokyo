@@ -40,6 +40,8 @@ public class Server_View extends View<Server_Model>{
     Label lblHostName;
     
 	TextAreaHandler textAreaHandler;
+	
+	ServiceLocator serviceLocator;
 
 	public Server_View(Stage stage, Server_Model model) {
 		super(stage, model);
@@ -47,7 +49,8 @@ public class Server_View extends View<Server_Model>{
 		stage.setTitle("KingOfTokyo byNoobsquad - Server");
 		this.model = model;
 		
-		ServiceLocator.getServiceLocator().getLogger().info("KingOfTokyo Server_View initialized");
+		serviceLocator = ServiceLocator.getServiceLocator();
+		serviceLocator.getLogger().info("KingOfTokyo Server_View initialized");
 		
 	}
 

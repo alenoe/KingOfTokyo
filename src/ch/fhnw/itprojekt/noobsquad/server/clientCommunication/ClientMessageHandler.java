@@ -20,7 +20,7 @@ public class ClientMessageHandler implements Runnable{
 		this.msg = msg;
 		this.client = client;
 		
-		new Thread();
+		new Thread();	
 	}
 
 	@Override
@@ -95,9 +95,8 @@ public class ClientMessageHandler implements Runnable{
 			}
 			model.broadcastToAll("Server_hat_gewuerfelt3", model.getdiceMList().get(0));
 			try {
-				Thread.sleep(100);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			model.executePlay(client.getConnectionID());
@@ -120,7 +119,6 @@ public class ClientMessageHandler implements Runnable{
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				model.broadcastToAll("Player1execute", model.getPlayerList().get(0));

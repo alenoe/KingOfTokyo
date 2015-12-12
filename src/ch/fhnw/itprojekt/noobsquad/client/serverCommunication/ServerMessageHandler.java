@@ -3,6 +3,7 @@ package ch.fhnw.itprojekt.noobsquad.client.serverCommunication;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Message;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Player;
 import ch.fhnw.itprojekt.noobsquad.client.board.Board_Model;
+import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.DiceM;
 import javafx.application.Platform;
 
@@ -17,12 +18,16 @@ public class ServerMessageHandler implements Runnable{
 	private Board_Model model;
 	private Message msg;
 	private ServerConnection client;
+	ServiceLocator serviceLocator;
 	
 	public ServerMessageHandler(ServerConnection client, Board_Model model, Message msg){
 		this.model = model;
 		this.msg = msg;
 		this.client = client;
 		new Thread();
+		
+		serviceLocator = ServiceLocator.getServiceLocator();
+		serviceLocator.getLogger().info("ServerMessageHandler initialized");
 	}
 
 	@Override
@@ -87,6 +92,11 @@ public class ServerMessageHandler implements Runnable{
 			
 		case "Server_hat_gewuerfelt3":
 			model.setDice((DiceM) msg.getContent());
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				
+			}
 			Platform.runLater(() -> {
 				model.postMessage("dice");
 				model.postMessage("btnDicesetDisable(true)");
@@ -298,6 +308,11 @@ public class ServerMessageHandler implements Runnable{
 				Platform.runLater(() -> {
 					model.postMessage("btnSendsetDisable("+startChat+")");
 				});
+		break;
+		
+		case "quit":
+			model.postMessage("Server_quit");
+			break;
 		}
 	}
 }

@@ -7,8 +7,10 @@ package ch.fhnw.itprojekt.noobsquad.server.appClasses;
  */
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -16,6 +18,7 @@ import ch.fhnw.itprojekt.noobsquad.abstractClasses.Model;
 import ch.fhnw.itprojekt.noobsquad.server.clientCommunication.ClientConnection;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.*;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
+import javafx.application.Platform;
 
 
 public class Server_Model extends Model{
@@ -41,7 +44,7 @@ public class Server_Model extends Model{
     
    public Server_Model(){
 	   diceMList.add(diceM);
-	   ServiceLocator sl = ServiceLocator.getServiceLocator();
+	   sl = ServiceLocator.getServiceLocator();
 	   for (int i=0; i <6; i++ ){
 			Button_Lock_Unlock p = new Button_Lock_Unlock();
 			pressedBtnList.add(p);
@@ -78,9 +81,11 @@ public class Server_Model extends Model{
         		 logger.info("Port: "+port+" Spiel kann losgehen.");
         		 break;	        	
         	 }
-         }    
-	   }
-		   catch(Exception e) {
+         }
+	   } catch(BindException e){
+		   logger.info("Der Port ist schon besetzt, wählen Sie einen freien Port aus.");
+	   } catch(Exception e) {
+		   e.printStackTrace();
 			   System.out.println(e);
 			   logger.info("Port "+port+ " ist schon besetzt oder ist fehlerhaft. Bitte einen anderen gueltigen/offenen Port waehlen.");
 		   }
@@ -152,4 +157,18 @@ public class Server_Model extends Model{
 	   playerList.add(player);
    }
    
+   public void stopServerSocket(){
+	   if(!(socketConnection == null && socketConnection.isClosed())){
+		   if(clientList.size() != 0){
+			   for(ClientConnection ct:clientList){
+				   try {
+					ct.sendMsg("quit", -1);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			   }
+		   }
+	   } 
+	   Platform.exit();
+   }
 }

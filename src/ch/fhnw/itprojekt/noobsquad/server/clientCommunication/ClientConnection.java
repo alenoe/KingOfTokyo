@@ -25,8 +25,6 @@ public class ClientConnection extends Thread{
 	private int id;
 	private Server_Model model;
 	private final Logger logger = Logger.getLogger("");
-
-
 	
 	public ClientConnection(int id, Socket socket, Server_Model model) throws IOException{
 		this.socket = socket;
@@ -63,7 +61,6 @@ public class ClientConnection extends Thread{
 				new Thread(messageHandler).start();
 	
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (EOFException e){
 				serverInputStream.close();

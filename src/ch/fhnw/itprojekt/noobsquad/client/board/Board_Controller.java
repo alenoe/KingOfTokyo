@@ -123,28 +123,33 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		view.btnSend.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				model.sendChatMessage(view.tfChat.getText());
-				
-				Platform.runLater(() -> {
-					view.tfChat.setText("");;
-				});
-			}
+					model.sendChatMessage(view.tfChat.getText());
+					
+					Platform.runLater(() -> {
+						view.tfChat.setText("");;
+					});
+				}
 		});
 		
+		view.btnNewConnection.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				main.restart();
+			}
+		});	
+		
 			if(!model.getServerConnection().getServerconnection()){
-				
-				view.btnNewConnection.setVisible(true);
-				view.lblNewConnection.setVisible(true);
-				view.hboxNewCon.setStyle("-fx-background-color: #FFFFFF");
-				view.btnNewConnection.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent e) {
-						main.restart();
-					}
-				});			
+				enableRestart();
 			}
 			
         serviceLocator.getLogger().info("Board controller initialized");
+    }
+    
+    // Implementation Restart
+    public void enableRestart(){
+		view.btnNewConnection.setVisible(true);
+		view.lblNewConnection.setVisible(true);
+		view.hboxNewCon.setStyle("-fx-background-color: #FFFFFF");
     }
 
 	@Override
@@ -320,6 +325,12 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	break;
 				case "chatMessage":
 					view.taChat.appendText(model.getChatMessage()+"\n");
+				case "Server_quit":
+					enableRestart();
+					view.btnLeaveTokyo.setDisable(true);
+					view.btnRoll.setDisable(true);
+					view.btnSend.setDisable(true);
+					view.tfChat.setEditable(false);
 		        }
         	} catch (NullPointerException e){
         		e.printStackTrace();

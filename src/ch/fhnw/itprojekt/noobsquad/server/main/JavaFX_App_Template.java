@@ -128,6 +128,7 @@ public class JavaFX_App_Template extends Application {
         // More cleanup code as needed
 
         serviceLocator.getLogger().info("Application terminated");
+ 	   System.exit(0);
     }
     
 
