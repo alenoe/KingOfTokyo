@@ -274,6 +274,14 @@ public class Board_Model extends Model implements Subject{
 		}
 	}
 	
+//	public void startNewGame(){
+//		try {
+//			serverThread.sendMsg("GameEnd", "GameEnd");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
 	/**
 	 * 
 	 * Observermethoden

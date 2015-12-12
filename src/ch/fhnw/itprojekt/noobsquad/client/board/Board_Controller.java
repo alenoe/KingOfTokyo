@@ -138,6 +138,20 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 			}
 		});	
 		
+		view.btnAgain.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+					main.restart();
+				}
+		});
+		
+		view.btnClose.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				Platform.exit();
+			}
+		});
+		
 			if(!model.getServerConnection().getServerconnection()){
 				enableRestart();
 			}
@@ -250,6 +264,12 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
+		        	view.aGameEnd.setTitle(view.t.getString("label.gameend.lose"));
+		        	ImageView p1looser = new ImageView(view.player1Pictures.get(2));
+		        	p1looser.setFitWidth(260);
+		        	p1looser.setFitHeight(358);
+		        	view.aGameEnd.setGraphic(p1looser);
+		        	view.aGameEnd.showAndWait();
 		        	break;
 		        case "Player2lost":
 		        	model.setGameState(2);
@@ -262,6 +282,12 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
+		        	view.aGameEnd.setTitle(view.t.getString("label.gameend.lose"));
+		        	ImageView p2looser = new ImageView(view.player2Pictures.get(2));
+		        	p2looser.setFitWidth(260);
+		        	p2looser.setFitHeight(358);
+		        	view.aGameEnd.setGraphic(p2looser);
+		        	view.aGameEnd.showAndWait();
 		        	break;
 		        case "Player1won":
 		        	model.setGameState(3);
@@ -274,6 +300,12 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
+		        	view.aGameEnd.setTitle(view.t.getString("label.gameend.win"));
+		        	ImageView p1winner = new ImageView(view.player1Pictures.get(1));
+		        	p1winner.setFitWidth(260);
+		        	p1winner.setFitHeight(358);
+		        	view.aGameEnd.setGraphic(p1winner);
+		        	view.aGameEnd.showAndWait();
 		        	break;
 		        case "Player2won":
 		        	model.setGameState(4);
@@ -286,6 +318,12 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
+		        	view.aGameEnd.setTitle(view.t.getString("label.gameend.win"));
+		        	ImageView p2winner = new ImageView(view.player2Pictures.get(1));
+		        	p2winner.setFitWidth(260);
+		        	p2winner.setFitHeight(358);
+		        	view.aGameEnd.setGraphic(p2winner);
+		        	view.aGameEnd.showAndWait();
 		        	break;
 		        case "LockbtnDice1:":
 		        	view.btnDice1.setGraphic(new ImageView(model.getDiePicture(0)));

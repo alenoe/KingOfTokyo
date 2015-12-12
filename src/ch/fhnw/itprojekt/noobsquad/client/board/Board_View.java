@@ -8,7 +8,10 @@ import ch.fhnw.itprojekt.noobsquad.abstractClasses.View;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -62,6 +65,9 @@ public class Board_View extends View<Board_Model>{
 	Label lblGameEnd;
 	Label lblNewConnection;
 	
+	Alert aGameEnd;
+	Button btnAgain;
+	Button btnClose;
 	HBox hboxNewCon;
 	
 	TextArea taChat;
@@ -448,7 +454,20 @@ public class Board_View extends View<Board_Model>{
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
-       
+        
+        //Alert Dialog Pane zur Darstellung des Gewinners.
+        aGameEnd = new Alert(AlertType.CONFIRMATION);
+        aGameEnd.getButtonTypes().clear();
+        ButtonType again = new ButtonType(t.getString("button.again"));
+        ButtonType close = new ButtonType(t.getString("button.close"));
+        aGameEnd.getButtonTypes().addAll(again, close);
+        aGameEnd.setHeaderText(null);
+    	aGameEnd.setContentText(t.getString("dialog.gameend.content"));
+        btnAgain = (Button) aGameEnd.getDialogPane().lookupButton(again);
+        btnAgain.setId("btnAgain");
+        btnClose = (Button) aGameEnd.getDialogPane().lookupButton(close);
+        btnClose.setId("btnClose");
+        
         return scene;
     }
     

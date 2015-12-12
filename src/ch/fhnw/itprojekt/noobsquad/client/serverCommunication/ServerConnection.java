@@ -50,7 +50,6 @@ public class ServerConnection implements Runnable{
 		} catch (NullPointerException e1){
 			Platform.exit();
 		} catch (IOException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}  
 		Message msg = null;
@@ -65,7 +64,6 @@ public class ServerConnection implements Runnable{
 				
 				
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				serviceLocator.getLogger().info("Class was not found: "+e);
 			} catch(IOException e){
 				try {
@@ -105,6 +103,14 @@ public class ServerConnection implements Runnable{
 			t.start();
 			return true;
 		}
+	
+//	public void closeClient(){
+//		try {
+//			client.close();			
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	/** Methode zum versenden von Messages an den Server **/
 	
