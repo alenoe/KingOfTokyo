@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -30,7 +29,6 @@ public class Server_Model extends Model{
     private static int client_id = 0;
     ServiceLocator sl;
     Logger logger;
-   
     
 	//-----------------------------------------------------------------------------------
     //Lists save the current clients and the gamescore from the dices and players
@@ -107,11 +105,10 @@ public class Server_Model extends Model{
    
    public synchronized void broadcastToOne(int i, String type, Object o){
 	   try {
-		clientList.get(i).sendMsg(type, o);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		   clientList.get(i).sendMsg(type, o);
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   }
    }
    
    //-----------------------------------------------------------------------------------

@@ -137,14 +137,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 				main.restart();
 			}
 		});	
-		
-		view.btnAgain.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-					main.restart();
-				}
-		});
-		
+				
 		view.btnClose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {

@@ -263,6 +263,8 @@ public class ClientMessageHandler implements Runnable{
 			
 			break;
 			
+//		case "GameEnd":
+//			model.restartServer();
 		}
 	}
 }

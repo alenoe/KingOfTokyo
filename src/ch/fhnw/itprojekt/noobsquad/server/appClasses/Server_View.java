@@ -36,7 +36,6 @@ public class Server_View extends View<Server_Model>{
     
     Button btnStart;
     Button btnClose;
-    Button btnDatabase;
     Label lblHostName;
     
 	TextAreaHandler textAreaHandler;
@@ -128,13 +127,7 @@ public class Server_View extends View<Server_Model>{
         btnClose.setText(t.getString("button.close"));
         entryArea.add(btnClose, 2, 1);
         GridPane.setMargin(btnClose, new Insets(5, 5, 0, 50));
-        
-        btnDatabase = new Button();
-        btnDatabase.setId("btnDatabase");
-        btnDatabase.setText(t.getString("button.database"));
-        entryArea.add(btnDatabase, 2, 2);
-        GridPane.setMargin(btnDatabase, new Insets(5, 5, 0, 50));
-        
+                
         textAreaHandler = new TextAreaHandler();
         taLogger = textAreaHandler.getTextArea();
         taLogger.setId("taLogger");
@@ -157,7 +150,6 @@ public class Server_View extends View<Server_Model>{
 	    // Other controls
 	    btnStart.setText(t.getString("button.start"));
 	    btnClose.setText(t.getString("button.close"));
-	    btnDatabase.setText(t.getString("button.database"));
 	    
 	    //TextField Promt
 	    tfPort.setPromptText(t.getString("textfield.prompt.port"));

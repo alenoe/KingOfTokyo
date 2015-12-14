@@ -66,7 +66,6 @@ public class Board_View extends View<Board_Model>{
 	Label lblNewConnection;
 	
 	Alert aGameEnd;
-	Button btnAgain;
 	Button btnClose;
 	HBox hboxNewCon;
 	
@@ -209,7 +208,7 @@ public class Board_View extends View<Board_Model>{
                
         lblPlayer1TokyoStatus = new Label();
         lblPlayer1TokyoStatus.setId("lblPlayer1TokyoStatus");
-        lblPlayer1TokyoStatus.setText("In Tokyo?");
+        lblPlayer1TokyoStatus.setText(t.getString("label.inTokyo.out"));
         hboxPlayer1VictoryPoints.getChildren().add(lblPlayer1TokyoStatus);
         
         //Constraints setzen
@@ -345,7 +344,7 @@ public class Board_View extends View<Board_Model>{
         
 		 lblPlayer2TokyoStatus = new Label();
 		 lblPlayer2TokyoStatus.setId("lblPlayer2TokyoStatus");
-		 lblPlayer2TokyoStatus.setText("In Tokyo?");
+		 lblPlayer2TokyoStatus.setText(t.getString("label.inTokyo.out"));
 		 hboxPlayer2VictoryPoints.getChildren().add(lblPlayer2TokyoStatus);
         
         lblPlayer2VictoryPoints = new Label();
@@ -458,13 +457,10 @@ public class Board_View extends View<Board_Model>{
         //Alert Dialog Pane zur Darstellung des Gewinners.
         aGameEnd = new Alert(AlertType.CONFIRMATION);
         aGameEnd.getButtonTypes().clear();
-        ButtonType again = new ButtonType(t.getString("button.again"));
         ButtonType close = new ButtonType(t.getString("button.close"));
-        aGameEnd.getButtonTypes().addAll(again, close);
+        aGameEnd.getButtonTypes().addAll(close);
         aGameEnd.setHeaderText(null);
     	aGameEnd.setContentText(t.getString("dialog.gameend.content"));
-        btnAgain = (Button) aGameEnd.getDialogPane().lookupButton(again);
-        btnAgain.setId("btnAgain");
         btnClose = (Button) aGameEnd.getDialogPane().lookupButton(close);
         btnClose.setId("btnClose");
         
@@ -473,6 +469,10 @@ public class Board_View extends View<Board_Model>{
     
     protected void updateTexts() {
 	    Translator t = ServiceLocator.getServiceLocator().getTranslator();
+	    
+	    //Dialog Pane
+	    btnClose.setText(t.getString("button.close"));
+	    aGameEnd.setContentText(t.getString("dialog.gameend.content"));
 	        
 	    // The menu entries
 	    menuFile.setText(t.getString("program.menu.file"));

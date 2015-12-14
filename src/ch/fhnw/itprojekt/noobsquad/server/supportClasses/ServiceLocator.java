@@ -33,6 +33,7 @@ public class ServiceLocator {
     private Logger logger;
     private Configuration configuration;
     private Translator translator;
+    private int port;
 
     /**
      * Factory method for returning the singleton
@@ -88,5 +89,13 @@ public class ServiceLocator {
     
     public void setTranslator(Translator translator) {
         this.translator = translator;
+    }
+    
+    public int getPort(){
+    	return port;
+    }
+    
+    public void setPort(int port){
+    	this.port = port;
     }
 }

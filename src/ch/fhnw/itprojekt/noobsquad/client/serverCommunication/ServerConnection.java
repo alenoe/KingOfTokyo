@@ -48,7 +48,7 @@ public class ServerConnection implements Runnable{
 		try {
 			clientInputStream = new ObjectInputStream(client.getInputStream());
 		} catch (NullPointerException e1){
-			Platform.exit();
+			e1.printStackTrace();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}  
