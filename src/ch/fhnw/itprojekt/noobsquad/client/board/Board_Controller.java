@@ -159,6 +159,10 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		view.hboxNewCon.setStyle("-fx-background-color: #FFFFFF");
     }
 
+    /**
+     * Die Update Methode holt sich die Message des Subjekts und prüft ihren Inhalt.
+     * Je nach erhaltenem String führt der Controller andere Operationen durch.
+     */
 	@Override
 	public void update() {
 		String msg = (String) subject.getUpdate(this);
@@ -185,8 +189,8 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	} else {
 		        		view.lblPlayer1TokyoStatus.setText(view.t.getString("label.tokyo.out"));
 		        	}
-		//        	view.imgVPlayer1Monster.setImage(view.player1Pictures.get(0));
 		        	break;
+		        	
 		        case "player2":
 		        	this.player2 = model.getPlayer(1);
 		    		view.lblPlayer2Name.setText(player2.getName());
@@ -206,9 +210,11 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        case "btnRollsetDisable(true)":
 		        	view.btnRoll.setDisable(true);
 		        	break;
+		        	
 		        case "btnRollsetDisable(false)":
 		        	view.btnRoll.setDisable(false);
 		        	break;
+		        	
 		        case "btnListDicesetDisable(true)":
 		        	view.btnDice1.setDisable(true);
 		        	view.btnDice2.setDisable(true);
@@ -217,6 +223,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.btnDice5.setDisable(true);
 		        	view.btnDice6.setDisable(true);
 		    		break;
+		    		
 		        case "btnListDicesetDisable(false)":
 		        	view.btnDice1.setDisable(false);
 		        	view.btnDice2.setDisable(false);
@@ -225,18 +232,25 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.btnDice5.setDisable(false);
 		        	view.btnDice6.setDisable(false);		        	
 		        	break;
+		        	
 		        case "btnLeaveTokyosetDisable(true)":
 		        	view.btnLeaveTokyo.setDisable(true);
 		        	break;
+		        	
 		        case "btnLeaveTokyosetDisable(false)":
 		        	view.btnLeaveTokyo.setDisable(false);
 		        	break;
+		        	
 		        case "btnSendsetDisable(true)":
 		        	view.btnSend.setDisable(true);
 		        	break;
+		        	
 		        case "btnSendsetDisable(false)":
 		        	view.btnSend.setDisable(false);
 		        	break;
+		        	
+		        	
+		        	
 		        case "dice":
 		        	model.getDice();
 		        	view.btnDice1.setGraphic(new ImageView(model.getDiePicture(0)));
@@ -246,6 +260,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.btnDice5.setGraphic(new ImageView(model.getDiePicture(4)));
 		        	view.btnDice6.setGraphic(new ImageView(model.getDiePicture(5)));
 		        	break;
+		        	
 		        case "Player1lost":
 		        	model.setGameState(1);
 		        	view.lblGameEnd.setText(view.t.getString("label.gameend.lose"));
@@ -254,7 +269,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(1));
 		        	view.btnRoll.setDisable(true);
 		        	view.btnLeaveTokyo.setDisable(true);
-		        	view.btnSend.setDisable(true);
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
@@ -265,6 +279,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.aGameEnd.setGraphic(p1looser);
 		        	view.aGameEnd.showAndWait();
 		        	break;
+		        	
 		        case "Player2lost":
 		        	model.setGameState(2);
 		        	view.lblGameEnd.setText(view.t.getString("label.gameend.lose"));
@@ -273,7 +288,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(2));
 		        	view.btnRoll.setDisable(true);
 		        	view.btnLeaveTokyo.setDisable(true);
-		        	view.btnSend.setDisable(true);
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
@@ -284,6 +298,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.aGameEnd.setGraphic(p2looser);
 		        	view.aGameEnd.showAndWait();
 		        	break;
+		        	
 		        case "Player1won":
 		        	model.setGameState(3);
 		        	view.lblGameEnd.setText(view.t.getString("label.gameend.win"));
@@ -292,7 +307,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(2));
 		        	view.btnRoll.setDisable(true);
 		        	view.btnLeaveTokyo.setDisable(true);
-		        	view.btnSend.setDisable(true);
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
@@ -303,6 +317,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.aGameEnd.setGraphic(p1winner);
 		        	view.aGameEnd.showAndWait();
 		        	break;
+		        	
 		        case "Player2won":
 		        	model.setGameState(4);
 		        	view.lblGameEnd.setText(view.t.getString("label.gameend.win"));
@@ -311,7 +326,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(1));
 		        	view.btnRoll.setDisable(true);
 		        	view.btnLeaveTokyo.setDisable(true);
-		        	view.btnSend.setDisable(true);
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
@@ -322,50 +336,72 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.aGameEnd.setGraphic(p2winner);
 		        	view.aGameEnd.showAndWait();
 		        	break;
+		        	
+		        	
+		        	
 		        case "LockbtnDice1:":
 		        	view.btnDice1.setGraphic(new ImageView(model.getDiePicture(0)));
 		        	break;
+		        	
 		        case "UnlockbtnDice1:":
 		        	view.btnDice1.setGraphic(new ImageView(model.getDiePicture(0)));
 		        	break;
+		        	
 		        case "LockbtnDice2:":
 		        	view.btnDice2.setGraphic(new ImageView(model.getDiePicture(1)));
 		        	break;
+		        	
 		        case "UnlockbtnDice2:":
 		        	view.btnDice2.setGraphic(new ImageView(model.getDiePicture(1)));
 		        	break;
+		        	
 		        case "LockbtnDice3:":
 		        	view.btnDice3.setGraphic(new ImageView(model.getDiePicture(2)));
 		        	break;
+		        	
 		        case "UnlockbtnDice3:":
 		        	view.btnDice3.setGraphic(new ImageView(model.getDiePicture(2)));
 		        	break;
+		        	
 		        case "LockbtnDice4:":
 		        	view.btnDice4.setGraphic(new ImageView(model.getDiePicture(3)));
 		        	break;
+		        	
 		        case "UnlockbtnDice4:":
 		        	view.btnDice4.setGraphic(new ImageView(model.getDiePicture(3)));
 		        	break;
+		        	
 		        case "LockbtnDice5:":
 		        	view.btnDice5.setGraphic(new ImageView(model.getDiePicture(4)));
 		        	break;
+		        	
 		        case "UnlockbtnDice5:":
 		        	view.btnDice5.setGraphic(new ImageView(model.getDiePicture(4)));
 		        	break;
+		        	
 		        case "LockbtnDice6:":
 		        	view.btnDice6.setGraphic(new ImageView(model.getDiePicture(5)));
 		        	break;
+		        	
 		        case "UnlockbtnDice6:":
 		        	view.btnDice6.setGraphic(new ImageView(model.getDiePicture(5)));
 		        	break;
+		        	
+		        	
+		        	
 				case "chatMessage":
 					view.taChat.appendText(model.getChatMessage()+"\n");
+					break;
+					
+					
+					
 				case "Server_quit":
 					enableRestart();
 					view.btnLeaveTokyo.setDisable(true);
 					view.btnRoll.setDisable(true);
 					view.btnSend.setDisable(true);
 					view.tfChat.setEditable(false);
+					break;
 		        }
         	} catch (NullPointerException e){
         		e.printStackTrace();

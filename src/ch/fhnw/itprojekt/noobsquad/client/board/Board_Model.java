@@ -295,6 +295,11 @@ public class Board_Model extends Model implements Subject{
 	//______________________________________________________________________________________
 	//
 
+	
+	/**
+	 * Die register(Observer obj) methode registriert das observierende Objekt beim Subjekt und legt sie in die 
+	 * ArrayListe ab.
+	 */
 	@Override
 	public void register(Observer obj) {
 		 if(obj == null) throw new NullPointerException("Null Observer");
@@ -303,6 +308,9 @@ public class Board_Model extends Model implements Subject{
 	        }		
 	}
 
+	/**
+	 * removes an Observer from the ArrayList
+	 */
 	@Override
 	public void unregister(Observer obj) {
 		synchronized (MUTEX) {
@@ -310,6 +318,9 @@ public class Board_Model extends Model implements Subject{
 	        }		
 	}
 
+	/**
+	 * benachrichtigt alle Observer, dass sie die update() Methode aufrufen
+	 */
 	@Override
 	public void notifyObservers() {
 		List<Observer> observersLocal = null;
@@ -325,11 +336,19 @@ public class Board_Model extends Model implements Subject{
         }	
 	}
 
+	/**
+	 * gibt das observierte Objekt zurueck.
+	 */
 	@Override
 	public Object getUpdate(Observer obj) {
 		return this.obsMessage;
 	}
 	
+	/**
+	 * wenn eine Message gepostet wird, werden alle Observer ueber die notifyObservers() Methode 
+	 * benachrichtigt die Message abzuholen.
+	 * @param msg
+	 */
 	//method to post message to the topic
     public synchronized void postMessage(String msg){
         serviceLocator.getLogger().info("Message Posted to Topic:"+msg);

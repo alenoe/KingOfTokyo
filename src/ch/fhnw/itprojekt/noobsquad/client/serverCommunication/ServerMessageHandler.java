@@ -43,7 +43,7 @@ public class ServerMessageHandler implements Runnable{
 			});
 			break;
 			
-			//updated die View und gibt die W�rfel dem "Player 1" frei.
+			//updated die View und gibt die Wuerfel dem "Player 1" frei.
 		case "Player2":
 			model.setPlayer2((Player) msg.getContent());
       		try {
@@ -57,7 +57,7 @@ public class ServerMessageHandler implements Runnable{
 			});
 			break;
 		
-		//dem Spieler1 werden die Gui Elemente zum w�rfeln freigegeben.	
+		//dem Spieler1 werden die Gui Elemente zum wuerfeln freigegeben.	
 		case "Spieler1wuerfeln":
 			boolean s = (boolean) msg.getContent();
 			boolean btnLeaveTokyoShow = model.btnLeaveTokyoEnable(s, model.getPlayer1());
@@ -70,7 +70,7 @@ public class ServerMessageHandler implements Runnable{
 				
 			break;
 		
-		//dem Spieler2 werden die Gui Elemente zum w�rfeln freigegeben.	
+		//dem Spieler2 werden die Gui Elemente zum wuerfeln freigegeben.	
 		case "Spieler2wuerfeln":
 			boolean s2 = (boolean) msg.getContent();
 			boolean btnLeaveTokyoShow2 = model.btnLeaveTokyoEnable(s2, model.getPlayer2());
@@ -82,15 +82,8 @@ public class ServerMessageHandler implements Runnable{
 			});
 			
 			break;
-		
-		case "Server_hat_gewuerfelt":
-			model.setDice((DiceM) msg.getContent());
-			Platform.runLater(() -> {
-				model.postMessage("dice");
-			});			
-			break;
 			
-		case "Server_hat_gewuerfelt3":
+		case "Server_hat_gewuerfelt":
 			model.setDice((DiceM) msg.getContent());
 			try {
 				Thread.sleep(100);
@@ -166,7 +159,7 @@ public class ServerMessageHandler implements Runnable{
 			break;
 			
 		case "Player2won":
-			System.out.println("Player2Won");
+			System.out.println("Player2won");
 
 			model.setPlayersRound("");;
 			Platform.runLater(() -> {
@@ -177,7 +170,7 @@ public class ServerMessageHandler implements Runnable{
 			break;
 			
 		case "Player1won":
-			System.out.println("Player1Won");
+			System.out.println("Player1won");
 			model.setPlayersRound("");;
 			Platform.runLater(() -> {
 				model.postMessage("player1");

@@ -64,7 +64,7 @@ public class ClientMessageHandler implements Runnable{
 					model.getdiceMList().get(0).setLock(i, false);
 				}
 
-				model.broadcastToAll("Server_hat_gewuerfelt3", model.getdiceMList().get(0));
+				model.broadcastToAll("Server_hat_gewuerfelt", model.getdiceMList().get(0));
 			break;
 			
 		
@@ -79,7 +79,7 @@ public class ClientMessageHandler implements Runnable{
 			for(int i = 0; i<model.getdiceMList().get(0).getSize(); i++){
 				model.getdiceMList().get(0).setLock(i, false);
 			}
-			model.broadcastToAll("Server_hat_gewuerfelt3", model.getdiceMList().get(0));
+			model.broadcastToAll("Server_hat_gewuerfelt", model.getdiceMList().get(0));
 			break;
 			
 		case "Roll3":
@@ -93,7 +93,7 @@ public class ClientMessageHandler implements Runnable{
 			for(int i = 0; i<model.getdiceMList().get(0).getSize(); i++){
 				model.getdiceMList().get(0).setLock(i, false);
 			}
-			model.broadcastToAll("Server_hat_gewuerfelt3", model.getdiceMList().get(0));
+			model.broadcastToAll("Server_hat_gewuerfelt", model.getdiceMList().get(0));
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
@@ -263,8 +263,6 @@ public class ClientMessageHandler implements Runnable{
 			
 			break;
 			
-//		case "GameEnd":
-//			model.restartServer();
 		}
 	}
 }
