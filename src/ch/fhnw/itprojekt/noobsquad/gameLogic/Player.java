@@ -2,6 +2,7 @@ package ch.fhnw.itprojekt.noobsquad.gameLogic;
 
 /**
  * Die Player Objekte werden vom Server erstellt, sobald ein Client sich verbindet.
+ * In dem PlayerObjekt werden die Spiellogischen Variablen gespeichert und angepasst.
  * @author Alexander Noever
  */
 
@@ -28,10 +29,25 @@ public class Player implements Serializable{
 		this.cantLeaveTokyo = true;
 	}
 	
+	/**
+	 * -------------------------------------------------------------------------------------
+	 * 						Getter und Setter Methoden
+	 */
+	
+	// Getter fuer den Namen des Spielers
 	public String getName(){
 		return this.playerName;
 	}
 	
+	// Getter und Setter für die Lebenspunkte
+	public int getLifePoints(){
+		return this.lifePoints;
+	}
+	
+	/**
+	 * Der Setter prüft ebenfalls ob der Spieler innerhalb des Maximums, bzw. Minimums liegt.
+	 * @param Lebenspunkte
+	 */
 	public void setLifePoints(int i){
 		if(i >= 10){
 			this.lifePoints = 10;
@@ -40,13 +56,18 @@ public class Player implements Serializable{
 		} else {
 			this.lifePoints = i;			
 		}
-
 	}
 	
-	public int getLifePoints(){
-		return this.lifePoints;
+	
+	// Getter und Setter für die Siegespunkte
+	public int getVictoryPoints(){
+		return this.victoryPoints;
 	}
 	
+	/**
+	 * Der Setter prüft ebenfalls ob der Spieler innerhalb des Maximums, bzw. Minimums liegt.
+	 * @param Lebenspunkte
+	 */
 	public void setVictoryPoints(int i){
 
 		if(this.victoryPoints+i >= 20){
@@ -56,8 +77,11 @@ public class Player implements Serializable{
 			this.victoryPoints += i;
 		}
 	}
-	public int getVictoryPoints(){
-		return this.victoryPoints;
+	
+	
+	// Getter und Setter fuer den inTokyo Status
+	public boolean getInTokyo(){
+		return this.inTokyo;
 	}
 	public void setInTokyo(boolean tokyo){
 		if(tokyo == true){
@@ -67,15 +91,13 @@ public class Player implements Serializable{
 			this.inTokyo = tokyo;
 		}
 	}
-
 	
-	public String toString(){
-		return "Player: "+this.playerName+" LifePoints: "+this.lifePoints+" VictoryPoints: "+this.victoryPoints+" inTokyo: "+this.inTokyo+" Can't Leave Tokyo: "+this.cantLeaveTokyo;
-	}
-	public boolean getInTokyo(){
-		return this.inTokyo;
-	}
 
+	// Getter und Setter für den CantLeaveTokyo Status
+	/**
+	 * Wird zur Ueberpruefung verwendet, ob ein Spieler Tokyo verlassen darf
+	 * @return
+	 */
 	public boolean getCantLeaveTokyo() {
 		return cantLeaveTokyo;
 	}
@@ -84,4 +106,13 @@ public class Player implements Serializable{
 		this.cantLeaveTokyo = cantLeaveTokyo;
 	}
 
+	/**
+	 * _________________________________________________________________________________
+	 */
+	
+	
+	// toString Methode für die Klasse
+	public String toString(){
+		return "Player: "+this.playerName+" LifePoints: "+this.lifePoints+" VictoryPoints: "+this.victoryPoints+" inTokyo: "+this.inTokyo+" Can't Leave Tokyo: "+this.cantLeaveTokyo;
+	}
 }

@@ -1,7 +1,9 @@
 package ch.fhnw.itprojekt.noobsquad.gameLogic;
 
 /**
- * 
+ * Die Wuerfelklasse stellt einen Wuerfel mit einer roll Methode zur Generierung
+ * von zufälligen Zahlen zwischen 1 und 5. Er bildet die Grundlage zur Durchführung
+ * von Spielzuegen
  * @author Alexander Noever
  * 
  */
@@ -27,7 +29,17 @@ public class DieM implements Serializable{
 		this.lock = false;
 	}
 	
-	//Der Wï¿½rfel wird neu gewï¿½rfelt und das zugehï¿½rige Bild wird zugewiesen.
+	
+	/**
+	 * -------------------------------------------------------------------------------------
+	 * 				Die Spiellogischen Methoden der Klasse.
+	 */
+	
+	
+	/**
+	 * Der Wuerfel wird neu gewuerfelt und das zugehuerige Bild wird zugewiesen.
+	 * @return value
+	 */
 	
 	public int roll(){
 		this.value = (int) Math.floor(Math.random() * 5) + 1;
@@ -36,13 +48,11 @@ public class DieM implements Serializable{
 		return value;
 	}
 	
-	//Stringausgabe des Wï¿½rfels
-	
-	public String toString(){
-		return "ID: " + this.id + ", value: " + this.value + " Anzeige: " + this.facePicture;
-	}
-	
-	//Initialisierung der Wï¿½rfelbilder
+	/**
+	 * Initialisierung der Wuerfelbilder
+	 * Die Wuerfelbilder werden vom Board zur Anzeige erfragt. 
+	 * @return TreeMap mit Wuerfelbildern
+	 */
 	
 	public TreeMap<Integer, String> initializeFacePictures(){
 		facePictures.put(1, "ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"dice_one.png");
@@ -62,8 +72,13 @@ public class DieM implements Serializable{
 		return facePicturesLock;
 	}
 	
-	// Lock getter/setter
+	/**
+	 * --------------------------------------------------------------------------------------
+	 * 						Getter und Setter Methoden der Instanzvariablen
+	 * 
+	 */
 	
+	// Lock getter/setter
 	public boolean getLock(){
 		return this.lock;
 	}
@@ -71,15 +86,9 @@ public class DieM implements Serializable{
 	public void setLock(boolean state){
 		this.lock = state;
 	}
-	
-	//Schlï¿½sselfunktion fï¿½r die Lock Variable
-	
-//	public void removeLock(){
-//		this.lock = false;
-//	}
+		
 	
 	//Value getter + setter
-	
 	public int getValue(){
 		return this.value;
 	}
@@ -88,14 +97,14 @@ public class DieM implements Serializable{
 		this.value = value;
 	}
 	
-	//ID getter
 	
+	//ID getter
 	public int getID(){
 		return this.id;
 	}
 	
-	//FacePicture getter/setter
 	
+	//FacePicture getter/setter
 	public String getFacePicture(){
 		return this.facePicture;
 	}
@@ -104,8 +113,8 @@ public class DieM implements Serializable{
 		return this.facePicture = facePictures.get(this.value);
 	}
 	
-	//FacePictureLock getter/setter
 	
+	//FacePictureLock getter/setter
 	public String getFacePictureLock(){
 		return this.facePictureLock;
 	}
