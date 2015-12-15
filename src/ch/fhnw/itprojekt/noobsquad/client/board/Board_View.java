@@ -79,6 +79,16 @@ public class Board_View extends View<Board_Model>{
 	ServiceLocator serviceLocator;
 	Translator t;
 		
+	
+	/**
+	 * Die Board_View Klasse erbt von der abstrakten Klasse View und stellt damit die visuelle Komponente des Boards dar.
+	 * Diese View beinhaltet den Construktor, eine create_GUI methode und eine updateText methode.
+	 * Der Constructor und die create_GUI methode entstammen der abstrakten Klasse View - geschrieben von Bradley Richards 
+	 * Die updateText methode wird zur Uebersetzung der GuiElemente verwendet und ist an ein Beispiel aus Bradley Richards Vorlesung
+	 * angelehnt.
+	 * @param stage
+	 * @param model
+	 */
     public Board_View(Stage stage, Board_Model model) {
         super(stage, model);
         stage.setTitle("KingOfTokyo byNoobsquad - Game");
@@ -99,13 +109,19 @@ public class Board_View extends View<Board_Model>{
         player2Pictures.add(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"LeApe_purple_sad.png"));
     }
 
-    // Das Gui wird hier erstellt und die einzelnen Gui Elemente
+    
+    /**
+     * Das GUI besteht aus zwei wesentlichen Komponenten, einer GridPane namens playArea
+     * und einer VBox chatArea, beide sind in eine BorderPane eingebettet.
+     */
     @Override
     protected Scene create_GUI() {
     	
+    	// ServiceLocator und Translator werden gesetzt.
     	ServiceLocator sl = ServiceLocator.getServiceLocator();  
 	    t = sl.getTranslator();
 	    
+	    // Die MenuBar enthält die Sprachauswahl
 	    MenuBar menuBar = new MenuBar();
 	    menuFile = new Menu(t.getString("program.menu.file"));
 	    menuFileLanguage = new Menu(t.getString("program.menu.file.language"));
@@ -124,21 +140,21 @@ public class Board_View extends View<Board_Model>{
         root.setId("KingOfTokyoMap");
         
         
-//______________________________________________________________________________________________
-//							START OF GRIDPANE !!! PLAYAREA !!!
-//
+/**______________________________________________________________________________________________
+ *							START OF GRIDPANE !!! PLAYAREA !!!
+ */
         
         menuHelp = new Menu(t.getString("program.menu.help"));
         menuBar.getMenus().addAll(menuFile, menuHelp);
         root.setTop(menuBar);
         
-        //play Area Gui Elemente hinzufï¿½gen.
+        // playArea der BorderPane hinzufuegen.
         GridPane playArea = new GridPane();
         root.setCenter(playArea);
         Insets is = new Insets(5);
         
         
-        //Player1 VBox GuiElemente
+        // Player1 VBox GuiElemente
         VBox leftPlayer = new VBox();
         playArea.add(leftPlayer, 0, 0);
         leftPlayer.setAlignment(Pos.CENTER);
@@ -146,7 +162,8 @@ public class Board_View extends View<Board_Model>{
         leftPlayer.setPrefHeight(259);
         GridPane.setMargin(leftPlayer, is);
         
-        //Player1 ImageView Monster
+        
+        // Player1 ImageView Monster
         imgVPlayer1Monster = new ImageView(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"RiApe_brown_angry.png"));
         imgVPlayer1Monster.setFitWidth(220);//250
         imgVPlayer1Monster.setFitHeight(358);//175
@@ -155,7 +172,8 @@ public class Board_View extends View<Board_Model>{
         imgVPlayer1Monster.setId("imgVPplayer1Monster");
         leftPlayer.getChildren().add(imgVPlayer1Monster);
         
-        //Player1 Healthpoints HBox
+        
+        // Player1 LifePoints HBox
         HBox hboxPlayer1HealthPoints = new HBox();
         hboxPlayer1HealthPoints.setPrefWidth(200); 
         hboxPlayer1HealthPoints.setPrefHeight(100);
@@ -163,7 +181,7 @@ public class Board_View extends View<Board_Model>{
         leftPlayer.getChildren().add(hboxPlayer1HealthPoints);
         hboxPlayer1HealthPoints.setStyle("-fx-background-color: #FFFFFF");
 
-        
+        // Player1 heart Icon
         ImageView heartPlayer1 = new ImageView(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"heart.png"));
         heartPlayer1.setFitWidth(100);
         heartPlayer1.setFitHeight(35);
@@ -172,12 +190,14 @@ public class Board_View extends View<Board_Model>{
         hboxPlayer1HealthPoints.getChildren().add(heartPlayer1);
         HBox.setMargin(heartPlayer1, new Insets(0,10,0,0));
         
+        // Player1 LifePoints Label
         lblPlayer1HealthPoints = new Label();
         lblPlayer1HealthPoints.setId("lblPlayer1HealthPoints");
         lblPlayer1HealthPoints.setText("10");
         hboxPlayer1HealthPoints.getChildren().add(lblPlayer1HealthPoints);
         HBox.setMargin(lblPlayer1HealthPoints, new Insets(0,10,0,0));
-               
+        
+        // Player1 UserName Label
         lblPlayer1Name = new Label();
         lblPlayer1Name.setId("lblPlayer1Name");
         lblPlayer1Name.setText("Player 1");
@@ -192,6 +212,7 @@ public class Board_View extends View<Board_Model>{
         leftPlayer.getChildren().add(hboxPlayer1VictoryPoints);
         hboxPlayer1VictoryPoints.setStyle("-fx-background-color: #FFFFFF");
         
+        // Player1 VictoryPoints Icon
         ImageView starPlayer1 = new ImageView(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"blue-star-hi.png"));
         starPlayer1.setFitWidth(100);
         starPlayer1.setFitHeight(35);
@@ -200,23 +221,24 @@ public class Board_View extends View<Board_Model>{
         hboxPlayer1VictoryPoints.getChildren().add(starPlayer1);
         HBox.setMargin(starPlayer1, new Insets(0,10,0,0));
         
+        // Player1 VictoryPoints Label
         lblPlayer1VictoryPoints = new Label();
         lblPlayer1VictoryPoints.setId("lblPlayer1VictoryPoints");
         lblPlayer1VictoryPoints.setText("0");
         hboxPlayer1VictoryPoints.getChildren().add(lblPlayer1VictoryPoints);
         HBox.setMargin(lblPlayer1VictoryPoints, new Insets(0,10,0,0));
-               
+        
+        // Player1 TokyoStatus Label
         lblPlayer1TokyoStatus = new Label();
         lblPlayer1TokyoStatus.setId("lblPlayer1TokyoStatus");
         lblPlayer1TokyoStatus.setText(t.getString("label.inTokyo.out"));
         hboxPlayer1VictoryPoints.getChildren().add(lblPlayer1TokyoStatus);
         
-        //Constraints setzen
-//        playArea.setConstraints(leftPlayer, 0, 0, 1, 1, HPos.LEFT, null, Priority.NEVER, Priority.SOMETIMES, is);
         
 //--------------------------------------------------------------------------------------------------
         
-        //Wï¿½rfelflï¿½che Gui Elemente
+        
+        //Wuerfelflaeche Gui Elemente der playArea hinzufuegen
         GridPane dicePane = new GridPane();
         playArea.add(dicePane, 1, 0);
         dicePane.setAlignment(Pos.CENTER);
@@ -265,13 +287,14 @@ public class Board_View extends View<Board_Model>{
         dicePane.add(btnDice6, 2, 1);
         GridPane.setMargin(btnDice6, new Insets(5));
         
+        
+        // Button roll unterhalb der Wuerfel
         VBox vboxBtnRoll = new VBox();
         dicePane.add(vboxBtnRoll, 1, 2);
         vboxBtnRoll.setPrefSize(81, 60);
         vboxBtnRoll.setAlignment(Pos.CENTER);
 
         btnRoll = new Button();
-//        vboxBtnRoll.getChildren().add(btnRoll);
         btnRoll.setPrefWidth(131);
         btnRoll.setPrefHeight(26);
         btnRoll.setId("btnRoll");
@@ -279,12 +302,11 @@ public class Board_View extends View<Board_Model>{
         vboxBtnRoll.getChildren().add(btnRoll);
         VBox.setMargin(btnRoll, is);
         
-        //Constraints setzen
-//        playArea.setConstraints(dicePane, 1, 0, 1, 1, HPos.CENTER, null, Priority.SOMETIMES, Priority.SOMETIMES, is);
         
 //--------------------------------------------------------------------------------------------------
         
-      //Player2 VBox GuiElemente
+        
+        // Player2 VBox GuiElemente
         VBox rightPlayer = new VBox();
         playArea.add(rightPlayer, 2, 0);
         rightPlayer.setAlignment(Pos.CENTER);
@@ -293,8 +315,7 @@ public class Board_View extends View<Board_Model>{
         GridPane.setMargin(rightPlayer, is);
         
         
-        
-        //Player2 ImageView Monster
+        // Player2 ImageView Monster
         imgVPlayer2Monster = new ImageView(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"LeApe_purple_angry.png"));
         imgVPlayer2Monster.setFitWidth(220);
         imgVPlayer2Monster.setFitHeight(358);
@@ -304,8 +325,7 @@ public class Board_View extends View<Board_Model>{
         rightPlayer.getChildren().add(imgVPlayer2Monster);
         
         
-        
-        //Player2 Healthpoints HBox
+        // Player2 Healthpoints HBox
         HBox hboxPlayer2HealthPoints = new HBox();
         hboxPlayer2HealthPoints.setPrefWidth(200);
         hboxPlayer2HealthPoints.setPrefHeight(100);
@@ -313,17 +333,20 @@ public class Board_View extends View<Board_Model>{
         rightPlayer.getChildren().add(hboxPlayer2HealthPoints);
         hboxPlayer2HealthPoints.setStyle("-fx-background-color: #FFFFFF");
         
+        // Player2 UserName Label
         lblPlayer2Name = new Label();
         lblPlayer2Name.setId("lblPlayer2Name");
         lblPlayer2Name.setText("Player 2");
         hboxPlayer2HealthPoints.getChildren().add(lblPlayer2Name);
         
+        // Player2 LifePoints Label
         lblPlayer2HealthPoints = new Label();
         lblPlayer2HealthPoints.setId("lblPlayer2HealthPoints");
         lblPlayer2HealthPoints.setText("10");
         hboxPlayer2HealthPoints.getChildren().add(lblPlayer2HealthPoints);
         HBox.setMargin(lblPlayer2HealthPoints, new Insets(0,0,0,10));
         
+        // Player2 LifePoints Icon
         ImageView heartPlayer2 = new ImageView(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"heart.png"));
         heartPlayer2.setFitWidth(100);
         heartPlayer2.setFitHeight(35);
@@ -331,7 +354,6 @@ public class Board_View extends View<Board_Model>{
         heartPlayer2.preserveRatioProperty().set(true);
         hboxPlayer2HealthPoints.getChildren().add(heartPlayer2);
         HBox.setMargin(heartPlayer2, new Insets(0,0,0,10));
-        
         
         
         //Player2 VictoryPoints HBox
@@ -342,17 +364,20 @@ public class Board_View extends View<Board_Model>{
         rightPlayer.getChildren().add(hboxPlayer2VictoryPoints);
         hboxPlayer2VictoryPoints.setStyle("-fx-background-color: #FFFFFF");
         
-		 lblPlayer2TokyoStatus = new Label();
-		 lblPlayer2TokyoStatus.setId("lblPlayer2TokyoStatus");
-		 lblPlayer2TokyoStatus.setText(t.getString("label.inTokyo.out"));
-		 hboxPlayer2VictoryPoints.getChildren().add(lblPlayer2TokyoStatus);
+        // Player2 TokyoStatus Label
+		lblPlayer2TokyoStatus = new Label();
+		lblPlayer2TokyoStatus.setId("lblPlayer2TokyoStatus");
+		lblPlayer2TokyoStatus.setText(t.getString("label.inTokyo.out"));
+		hboxPlayer2VictoryPoints.getChildren().add(lblPlayer2TokyoStatus);
         
+		// Player2 VictoryPoints Label
         lblPlayer2VictoryPoints = new Label();
         lblPlayer2VictoryPoints.setId("lblPlayer2VictoryPoints");
         lblPlayer2VictoryPoints.setText("0");
         hboxPlayer2VictoryPoints.getChildren().add(lblPlayer2VictoryPoints);
         HBox.setMargin(lblPlayer2VictoryPoints, new Insets(0,0,0,10));
         
+        // Player2 VictoryPoints Icon
         ImageView starPlayer2 = new ImageView(new Image("ch"+File.separator+"fhnw"+File.separator+"itprojekt"+File.separator+"noobsquad"+File.separator+"client"+File.separator+"pictures"+File.separator+"blue-star-hi.png"));
         starPlayer2.setFitWidth(100);
         starPlayer2.setFitHeight(35);
@@ -362,7 +387,7 @@ public class Board_View extends View<Board_Model>{
 		HBox.setMargin(starPlayer2, new Insets(0,0,0,10));
         
       
-        //Tokyo verlassen
+        // Button Tokyo verlassen
 		HBox hboxLeaveTokyo = new HBox();
 		hboxLeaveTokyo.setAlignment(Pos.CENTER);
 		playArea.add(hboxLeaveTokyo, 1, 1);
@@ -394,24 +419,26 @@ public class Board_View extends View<Board_Model>{
 		
 		
 		
-//        playArea.setConstraints(rightPlayer, 2, 0, 1, 1, null, null, Priority.NEVER, Priority.SOMETIMES, is);
 
 //								END OF GRIDPANE !!! PLAYAREA !!!
 //_________________________________________________________________________________________________________
 //		
 //								START OF VBOX !!!CHAT AREA !!!
         
-        //ChatArea Gui Elemente hinzufï¿½gen.
+        //ChatArea Gui Elemente hinzufuegen.
         VBox chatArea = new VBox();
         root.setRight(chatArea);
         chatArea.setAlignment(Pos.CENTER);
         chatArea.setPrefWidth(242);
         chatArea.setPrefHeight(658);
         
+        
         VBox chatView = new VBox();
         chatArea.getChildren().add(chatView);
         chatView.setPrefSize(242, 422);
         
+        
+        // Chat TextArea zeigt die gesendeten und erhaltenen Chat Nachrichten an
         taChat = new TextArea();
         taChat.setId("taChat");
         taChat.setPrefSize(232, 410);
@@ -419,16 +446,19 @@ public class Board_View extends View<Board_Model>{
         chatView.getChildren().add(taChat);
         VBox.setMargin(taChat, new Insets(5));
         
+        // Chat Text Field nimmt die Eingabe des Spielers auf
         tfChat = new TextField();
         tfChat.setId("tfChat");
         tfChat.setPromptText(t.getString("textfield.chat"));
         chatArea.getChildren().add(tfChat);
         VBox.setMargin(tfChat, new Insets(5));
         
+        // Chat Button send löst den Eventhandler im Controller aus.
         btnSend = new Button();
         btnSend.setText(t.getString("button.send"));
         chatArea.getChildren().add(btnSend);
         VBox.setMargin(btnSend, new Insets(0,0,0,5));
+        
         
         //Button newConnection
         hboxNewCon = new HBox();
@@ -436,6 +466,18 @@ public class Board_View extends View<Board_Model>{
         hboxNewCon.setId("hboxNewCon");
         root.setBottom(hboxNewCon);
         
+        
+//		END OF VBOX !!!CHAT AREA !!!
+//_________________________________________________________________________________________________________
+//
+//		START OF  !!!NEW CONNECTION!!!
+        
+        
+        // Button löst Eventhandler im Controller aus
+        /**
+         *  Per default sind der Button und das Label invisible und werden nur angezeigt, wenn
+         *  der Client die Verbindung zum Server verliert.
+         */
 		btnNewConnection = new Button();
 		btnNewConnection.setId("btnNewConnection");
 		btnNewConnection.setText(t.getString("button.newconnection"));
@@ -454,6 +496,11 @@ public class Board_View extends View<Board_Model>{
         Scene scene = new Scene(root);
         scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         
+        /**
+         * Der Alert wird angezeigt sobald ein Spieler gewonnen, bzw. verloren hat.
+         * Es wird ihm sein Monster in der jeweiligen Stimmung angezeigt und ein Button,
+         * um das Spiel zu verlassen.
+         */
         //Alert Dialog Pane zur Darstellung des Gewinners.
         aGameEnd = new Alert(AlertType.CONFIRMATION);
         aGameEnd.getButtonTypes().clear();
@@ -467,6 +514,11 @@ public class Board_View extends View<Board_Model>{
         return scene;
     }
     
+    /**
+     * Diese Methode wird aufgerufen, wenn die Sprachauswahl geaendert wird.
+     * Sie geht über alle GUI Elemente und holt den entsprechenden String aus dem 
+     * Eigenschaften File.
+     */
     protected void updateTexts() {
 	    Translator t = ServiceLocator.getServiceLocator().getTranslator();
 	    
