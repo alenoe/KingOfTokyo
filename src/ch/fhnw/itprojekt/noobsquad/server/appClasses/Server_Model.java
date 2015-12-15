@@ -156,17 +156,21 @@ public class Server_Model extends Model{
    }
    
    public void stopServerSocket(){
-	   if(!(socketConnection == null && socketConnection.isClosed())){
-		   if(clientList.size() != 0){
-			   for(ClientConnection ct:clientList){
-				   try {
-					ct.sendMsg("quit", -1);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			   }
-		   }
-	   } 
+	   try{
+		   if(!(socketConnection == null && socketConnection.isClosed())){
+			   if(clientList.size() != 0){
+				   for(ClientConnection ct:clientList){
+					   try {
+						ct.sendMsg("quit", -1);
+						} catch (IOException e) {
+							e.printStackTrace();
+						} 
+				   }
+			   } 
+			} 
+	   } catch (NullPointerException e){
+			Platform.exit();
+	   }
 	   Platform.exit();
    }
 }

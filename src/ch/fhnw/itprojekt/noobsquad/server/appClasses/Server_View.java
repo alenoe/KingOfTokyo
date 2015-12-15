@@ -28,7 +28,6 @@ public class Server_View extends View<Server_Model>{
 	
 	Menu menuFile;
     Menu menuFileLanguage;
-    Menu menuHelp;
     
     TextField tfIP;
     TextField tfPort;
@@ -91,8 +90,7 @@ public class Server_View extends View<Server_Model>{
         BorderPane root = new BorderPane();
         root.setPrefSize(409, 219);
         
-        menuHelp = new Menu(t.getString("program.menu.help"));
-        menuBar.getMenus().addAll(menuFile, menuHelp);
+        menuBar.getMenus().addAll(menuFile);
         root.setTop(menuBar);
         
 
@@ -178,7 +176,6 @@ public class Server_View extends View<Server_Model>{
 	    // The menu entries
 	    menuFile.setText(t.getString("program.menu.file"));
 	    menuFileLanguage.setText(t.getString("program.menu.file.language"));
-	    menuHelp.setText(t.getString("program.menu.help"));
 	        
 	    // Buttons
 	    btnStart.setText(t.getString("button.start"));

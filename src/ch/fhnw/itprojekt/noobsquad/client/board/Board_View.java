@@ -39,7 +39,6 @@ public class Board_View extends View<Board_Model>{
 	
 	Menu menuFile;
     Menu menuFileLanguage;
-    Menu menuHelp;
 
 	Button btnDice1;
 	Button btnDice2;
@@ -141,8 +140,7 @@ public class Board_View extends View<Board_Model>{
        
         
         // Menu wird der BorderPane hinzugefuegt
-        menuHelp = new Menu(t.getString("program.menu.help"));
-        menuBar.getMenus().addAll(menuFile, menuHelp);
+        menuBar.getMenus().addAll(menuFile);
         root.setTop(menuBar);
         
         
@@ -532,7 +530,6 @@ public class Board_View extends View<Board_Model>{
 	    // The menu entries
 	    menuFile.setText(t.getString("program.menu.file"));
 	    menuFileLanguage.setText(t.getString("program.menu.file.language"));
-        menuHelp.setText(t.getString("program.menu.help"));
 	        
 	    // Buttons
         btnRoll.setText(t.getString("button.roll"));

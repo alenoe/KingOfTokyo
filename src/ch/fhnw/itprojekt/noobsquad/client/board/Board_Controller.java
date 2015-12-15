@@ -254,6 +254,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(1));
 		        	view.btnRoll.setDisable(true);
 		        	view.btnLeaveTokyo.setDisable(true);
+		        	view.btnSend.setDisable(true);
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
@@ -272,6 +273,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(2));
 		        	view.btnRoll.setDisable(true);
 		        	view.btnLeaveTokyo.setDisable(true);
+		        	view.btnSend.setDisable(true);
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
@@ -290,6 +292,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(2));
 		        	view.btnRoll.setDisable(true);
 		        	view.btnLeaveTokyo.setDisable(true);
+		        	view.btnSend.setDisable(true);
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
@@ -308,6 +311,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.imgVPlayer2Monster.setImage(view.player2Pictures.get(1));
 		        	view.btnRoll.setDisable(true);
 		        	view.btnLeaveTokyo.setDisable(true);
+		        	view.btnSend.setDisable(true);
 		        	for(Button b: dicebtnList){
 		        		b.setDisable(true);
 		        	}
