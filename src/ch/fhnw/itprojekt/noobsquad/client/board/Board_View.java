@@ -138,15 +138,18 @@ public class Board_View extends View<Board_Model>{
     	
         BorderPane root = new BorderPane();
         root.setId("KingOfTokyoMap");
+       
+        
+        // Menu wird der BorderPane hinzugefuegt
+        menuHelp = new Menu(t.getString("program.menu.help"));
+        menuBar.getMenus().addAll(menuFile, menuHelp);
+        root.setTop(menuBar);
         
         
 /**______________________________________________________________________________________________
  *							START OF GRIDPANE !!! PLAYAREA !!!
  */
         
-        menuHelp = new Menu(t.getString("program.menu.help"));
-        menuBar.getMenus().addAll(menuFile, menuHelp);
-        root.setTop(menuBar);
         
         // playArea der BorderPane hinzufuegen.
         GridPane playArea = new GridPane();
@@ -522,7 +525,7 @@ public class Board_View extends View<Board_Model>{
     protected void updateTexts() {
 	    Translator t = ServiceLocator.getServiceLocator().getTranslator();
 	    
-	    //Dialog Pane
+	    // Dialog Pane
 	    btnClose.setText(t.getString("button.close"));
 	    aGameEnd.setContentText(t.getString("dialog.gameend.content"));
 	        
@@ -531,14 +534,16 @@ public class Board_View extends View<Board_Model>{
 	    menuFileLanguage.setText(t.getString("program.menu.file.language"));
         menuHelp.setText(t.getString("program.menu.help"));
 	        
-	        // Other controls
+	    // Buttons
         btnRoll.setText(t.getString("button.roll"));
         btnLeaveTokyo.setText(t.getString("button.leaveTokyo"));
         btnSend.setText(t.getString("button.send"));
         btnNewConnection.setText(t.getString("button.newconnection"));
         
+	    // TextField Promt
         tfChat.setPromptText(t.getString("textfield.chat"));
         
+        // Labels
         lblNewConnection.setText(t.getString("label.newconnection"));
         int state = model.getGameState();
         switch (state){

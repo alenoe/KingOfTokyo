@@ -42,6 +42,15 @@ public class Server_View extends View<Server_Model>{
 	
 	ServiceLocator serviceLocator;
 
+	/**
+	 * Die Server_View Klasse erbt von der abstrakten Klasse View und stellt damit die visuelle Komponente des Servers dar.
+	 * Diese View beinhaltet den Construktor, eine create_GUI methode und eine updateText methode.
+	 * Der Constructor und die create_GUI methode entstammen der abstrakten Klasse View - geschrieben von Bradley Richards 
+	 * Die updateText methode wird zur Uebersetzung der GuiElemente verwendet und ist an ein Beispiel aus Bradley Richards Vorlesung
+	 * angelehnt.
+	 * @param stage
+	 * @param model
+	 */
 	public Server_View(Stage stage, Server_Model model) {
 		super(stage, model);
 		
@@ -53,12 +62,18 @@ public class Server_View extends View<Server_Model>{
 		
 	}
 
+    /**
+     * Das GUI besteht aus zwei wesentlichen Komponenten, einer GridPane namens entryArea
+     * und einem TextAreaHandler, beide sind in eine BorderPane eingebettet.
+     */
 	@Override
 	protected Scene create_GUI() {
-
+		
+    	// ServiceLocator und Translator werden gesetzt.
 		ServiceLocator sl = ServiceLocator.getServiceLocator();  
 	    Translator t = sl.getTranslator();
 	    
+	    // Die MenuBar enthält die Sprachauswahl
 	    MenuBar menuBar = new MenuBar();
 	    menuFile = new Menu(t.getString("program.menu.file"));
 	    menuFileLanguage = new Menu(t.getString("program.menu.file.language"));
@@ -79,6 +94,12 @@ public class Server_View extends View<Server_Model>{
         menuHelp = new Menu(t.getString("program.menu.help"));
         menuBar.getMenus().addAll(menuFile, menuHelp);
         root.setTop(menuBar);
+        
+
+/**______________________________________________________________________________________________
+ *							START OF GRIDPANE !!! ENTRYAREA !!!
+ */
+        
         
         //Serverentry Area
         GridPane entryArea = new GridPane();
@@ -127,7 +148,13 @@ public class Server_View extends View<Server_Model>{
         btnClose.setText(t.getString("button.close"));
         entryArea.add(btnClose, 2, 1);
         GridPane.setMargin(btnClose, new Insets(5, 5, 0, 50));
-                
+              
+
+/**______________________________________________________________________________________________
+ *							START OF !!! TEXTAREAHANDLER !!!
+ */
+        
+        
         textAreaHandler = new TextAreaHandler();
         taLogger = textAreaHandler.getTextArea();
         taLogger.setId("taLogger");
@@ -139,6 +166,12 @@ public class Server_View extends View<Server_Model>{
 		return scene;
 	}
 	
+	
+    /**
+     * Diese Methode wird aufgerufen, wenn die Sprachauswahl geaendert wird.
+     * Sie geht über alle GUI Elemente und holt den entsprechenden String aus dem 
+     * Eigenschaften File.
+     */
 	protected void updateTexts() {
 		Translator t = ServiceLocator.getServiceLocator().getTranslator();
 	        
@@ -147,7 +180,7 @@ public class Server_View extends View<Server_Model>{
 	    menuFileLanguage.setText(t.getString("program.menu.file.language"));
 	    menuHelp.setText(t.getString("program.menu.help"));
 	        
-	    // Other controls
+	    // Buttons
 	    btnStart.setText(t.getString("button.start"));
 	    btnClose.setText(t.getString("button.close"));
 	    
