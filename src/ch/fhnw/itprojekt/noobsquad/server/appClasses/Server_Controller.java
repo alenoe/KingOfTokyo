@@ -6,7 +6,6 @@ package ch.fhnw.itprojekt.noobsquad.server.appClasses;
  * 
  */
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 
 import java.net.InetAddress;

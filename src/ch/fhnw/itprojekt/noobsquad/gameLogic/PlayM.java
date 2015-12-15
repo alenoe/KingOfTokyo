@@ -12,20 +12,19 @@ package ch.fhnw.itprojekt.noobsquad.gameLogic;
 import java.util.ArrayList;
 
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Player;
+import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
 
 public class PlayM {
 	
-	public static final int MAX_VP=20;
-	public static final int MAX_HP=10;
-	
-	private boolean playEnd;
 	private Player playerActive;
 	private Player playerNotActive;
 	private ArrayList<Player> playerList;
 	private DiceM dice;
+	private ServiceLocator serviceLocator;
 	
 	public PlayM(int currentPlayerIndex, ArrayList<Player> playerList, DiceM dice){
-		this.playEnd = false;
+		
+		this.serviceLocator = ServiceLocator.getServiceLocator();
 		this.playerActive = playerList.get(currentPlayerIndex);
 		if(currentPlayerIndex == 0){
 			this.playerNotActive = playerList.get(1);
@@ -34,10 +33,20 @@ public class PlayM {
 		}
 		this.playerList = playerList;
 		this.dice = dice;
+		
+		serviceLocator.getLogger().info("new PlayM initialized");
 	}
 	
-	// Ruft die getNumberOfDiceWithValue() des DiceM Objektes auf und prüft auf VictoryPoints(Value 1-3)
-
+	/**
+	 * -------------------------------------------------------------------------------------
+	 * 				Die Spiellogischen Methoden der Klasse.
+	 */
+	
+	
+	/**
+	 *  Ruft die getNumberOfDiceWithValue() des DiceM Objektes auf und prüft auf VictoryPoints(Value 1-3)
+	 * @return victoryPoints
+	 */
 	public int getVictoryPoints(){
 		int victoryPoints = 0;
 		for(int i = 0; i <= 3; i++){
@@ -59,24 +68,35 @@ public class PlayM {
 		} return victoryPoints;		
 	}
 	
+	
+	/**
+	 * ruft die getNumberOfDiceWithValue() des DiceM Objektes auf und prüft auf erhaltene LifePoints(Value 5)
+	 * @return LifePoints+
+	 */
 	public int getHeal(){
 		int heal = dice.getNumberOfDiceWithValue(5);			
 		return heal;	
 	}
 	
+	
+	/**
+	 * ruft die getNumberOfDiceWithValue() des DiceM Objektes auf und prüft auf erhaltene LifePoints(Value 4)
+	 * @return damage
+	 */
 	public int getDamage(){
 		int damage = dice.getNumberOfDiceWithValue(4);
 		return damage;
 	}
+		
 	
-	public void setPlayEnd(){
-	}
-	
-	
-	// 
+	/**
+	 * Die methode wertet die Würfel aus und verändert anhand der Position und vorangegangener Ereignisse
+	 * die Spielerwerte. 
+	 * @return ArrayList<Player>
+	 */
 	public ArrayList<Player> isFinished(){
 		
-		//Schaden wird dem Gegner hinzugefügt.
+		//Schaden wird dem nicht aktiven Spieler hinzugefügt.
 		if(playerNotActive.getLifePoints() > playerNotActive.getLifePoints() - getDamage()){
 			playerNotActive.setLifePoints(playerNotActive.getLifePoints() - getDamage());
 			playerNotActive.setCantLeaveTokyo(false);
@@ -85,25 +105,24 @@ public class PlayM {
 			playerNotActive.setCantLeaveTokyo(true);
 		}
 		
-		//Verteilung der Herzeinheiten als Lebenspunkte für den Spieler.
+		
+		//Verteilung der Herzeinheiten als LifePoints für den aktiven Spieler.
 		if(playerActive.getInTokyo() == false){
 				playerActive.setLifePoints(playerActive.getLifePoints() + getHeal());				
 			}
+		
 
 		//Wenn der Spieler in Tokyo ist, erhält er für diese Runde seine zwei Bonuspunkte.
 		if(playerActive.getInTokyo() == true){
 			playerActive.setVictoryPoints(getVictoryPoints() + 2);
+			
 		//Falls nicht erhält er seine gewürfelten Punkte.	
 		} else {
 			playerActive.setVictoryPoints(getVictoryPoints());
 		}
 		
-		//Beendet den Spielzug
-		this.playEnd = true;
+		
+		//Beendet den Spielzug und gibt die SpielerListe zurück.
 		return playerList;
-	}
-	
-	public boolean getPlayEnd(){
-		return playEnd;
 	}
 }

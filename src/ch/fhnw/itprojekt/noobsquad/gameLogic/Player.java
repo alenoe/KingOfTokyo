@@ -9,12 +9,15 @@ package ch.fhnw.itprojekt.noobsquad.gameLogic;
 import java.io.Serializable;
 
 
-
-
 //Das Playerobjekt kann innerhalb des Messageobjektes versendet werden (serialisiert).
 
 public class Player implements Serializable{
-		
+	
+	private final int MAX_LP = 10;
+	private final int MIN_LP = 0;
+	private final int MAX_VP = 20;
+	private final int MIN_VP = 0;
+	
 	private int lifePoints;
 	private int victoryPoints;
 	private String playerName;
@@ -22,8 +25,8 @@ public class Player implements Serializable{
 	private boolean cantLeaveTokyo;
 	
 	public Player(String playerName){
-		this.lifePoints = 10;
-		this.victoryPoints = 0;
+		this.lifePoints = MAX_LP;
+		this.victoryPoints = MIN_VP;
 		this.playerName = playerName;
 		this.inTokyo = false;
 		this.cantLeaveTokyo = true;
@@ -31,7 +34,7 @@ public class Player implements Serializable{
 	
 	/**
 	 * -------------------------------------------------------------------------------------
-	 * 						Getter und Setter Methoden
+	 * 							Getter und Setter Methoden
 	 */
 	
 	// Getter fuer den Namen des Spielers
@@ -50,9 +53,9 @@ public class Player implements Serializable{
 	 */
 	public void setLifePoints(int i){
 		if(i >= 10){
-			this.lifePoints = 10;
+			this.lifePoints = MAX_LP;
 		} else if(i <= 0){
-			this.lifePoints = 0;
+			this.lifePoints = MIN_LP;
 		} else {
 			this.lifePoints = i;			
 		}
@@ -70,9 +73,9 @@ public class Player implements Serializable{
 	 */
 	public void setVictoryPoints(int i){
 
-		if(this.victoryPoints+i >= 20){
+		if(this.victoryPoints+i >= MAX_VP){
 			System.out.println(this.playerName+" hat gewonnen.");
-			this.victoryPoints = 20;
+			this.victoryPoints = MAX_VP;
 		}else{
 			this.victoryPoints += i;
 		}

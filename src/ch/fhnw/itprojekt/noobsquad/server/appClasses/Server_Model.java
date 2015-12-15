@@ -72,7 +72,8 @@ public class Server_Model extends Model{
 	        	 logger.info(client_id + ". Client hinzugefuegt " + pipe.toString());
 	        	 ClientConnection ct = new ClientConnection(client_id, pipe, this);
 	        	 clientList.add(ct);
-	        	 ct.start();
+	        	 Thread t = new Thread(ct);
+	        	 t.start();
 	        	 client_id++;
 	        	 socketCounter++;
         	 }else{
