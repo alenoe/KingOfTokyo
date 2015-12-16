@@ -102,7 +102,6 @@ public class ClientMessageHandler implements Runnable{
 			model.executePlay(client.getConnectionID());
 			int gameState = model.winnerCheck();
 			if(model.winnerCheck() == 0){
-			System.out.println(model.getPlayerList().toString());
 			model.broadcastToAll("Player1execute", model.getPlayerList().get(0));
 			model.broadcastToAll("Player2execute", model.getPlayerList().get(1));
 			} else {
@@ -110,6 +109,7 @@ public class ClientMessageHandler implements Runnable{
 				case 1:
 					model.broadcastToOne(0, "Player1lost", model.getPlayerList().get(0));
 					model.broadcastToOne(1, "Player2won", model.getPlayerList().get(1));
+					
 					break;
 				case 2:
 					model.broadcastToOne(0, "Player1won", model.getPlayerList().get(0));
@@ -262,6 +262,9 @@ public class ClientMessageHandler implements Runnable{
 			model.broadcastToAll("Message", model.getPlayerList().get(client.getConnectionID()).getName()+": "+message);
 			
 			break;
+			
+		case "GameEnd":
+			model.stopServerSocket();
 			
 		}
 	}

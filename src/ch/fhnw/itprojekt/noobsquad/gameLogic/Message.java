@@ -35,9 +35,5 @@ public class Message implements Serializable{
 		super();
 		this.Type = type;
 		this.Content = content;
-	}
-	public static void handle(){
-		
-	}
-		
+	}		
 }

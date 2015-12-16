@@ -7,6 +7,7 @@ package ch.fhnw.itprojekt.noobsquad.client.board;
  */
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -277,12 +278,15 @@ public class Board_Model extends Model implements Subject{
 		}
 	}
 	
-	public void startNewGame(){
+	public void endGame(){
 		try {
 			serverThread.sendMsg("GameEnd", "GameEnd");
+		} catch (SocketException e){
+			serviceLocator.getLogger().info("SocketException: Der Server ist nicht erreichbar.\n");
 		} catch (IOException e) {
-			e.printStackTrace();
+			serviceLocator.getLogger().info(e.toString());
 		}
+
 	}
 	
 	

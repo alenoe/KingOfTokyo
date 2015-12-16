@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.net.SocketException;
 
 import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
 import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
@@ -110,7 +111,10 @@ public class ServerConnection implements Runnable{
 	    clientOutputStream.writeObject(msg);
 	    clientOutputStream.flush();
 	    clientOutputStream.reset();
-	    } catch(EOFException e2){
+	    } catch(SocketException e){
+	    	clientOutputStream.close();
+	    	serviceLocator.getLogger().info("SocketException: Serververbindung ist abgebrochen.");
+		} catch(EOFException e2){
 	    	e2.printStackTrace();
 	    } catch(IOException e1){
 	    	e1.printStackTrace();

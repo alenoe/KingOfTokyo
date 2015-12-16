@@ -140,6 +140,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		view.btnClose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				model.endGame();
 				Platform.exit();
 			}
 		});

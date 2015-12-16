@@ -20,11 +20,9 @@ public class PlayM {
 	private Player playerNotActive;
 	private ArrayList<Player> playerList;
 	private DiceM dice;
-	private ServiceLocator serviceLocator;
 	
 	public PlayM(int currentPlayerIndex, ArrayList<Player> playerList, DiceM dice){
 		
-		this.serviceLocator = ServiceLocator.getServiceLocator();
 		this.playerActive = playerList.get(currentPlayerIndex);
 		if(currentPlayerIndex == 0){
 			this.playerNotActive = playerList.get(1);
@@ -34,7 +32,6 @@ public class PlayM {
 		this.playerList = playerList;
 		this.dice = dice;
 		
-		serviceLocator.getLogger().info("new PlayM initialized");
 	}
 	
 	/**

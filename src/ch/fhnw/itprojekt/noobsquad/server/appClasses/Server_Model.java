@@ -6,7 +6,6 @@ package ch.fhnw.itprojekt.noobsquad.server.appClasses;
  * 
  */
 
-import java.io.IOException;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -62,14 +61,12 @@ public class Server_Model extends Model{
 	   try {
          socketConnection = new ServerSocket(port);
 
-         System.out.println(port +": Server wartet auf Clients...");
          logger.info("Port: " + port + " : Server wartet auf Clients...");
          
          while(!socketConnection.isClosed()){
         	 if(socketCounter < 2){
         		 pipe = socketConnection.accept();
         
-	        	 System.out.println(client_id + ". Client hinzugefuegt");
 	        	 logger.info(client_id + ". Client hinzugefuegt " + pipe.toString());
 	        	 ClientConnection ct = new ClientConnection(client_id, pipe, this);
 	        	 clientList.add(ct);
@@ -87,7 +84,6 @@ public class Server_Model extends Model{
 		   logger.info("Der Port ist schon besetzt, wählen Sie einen freien Port aus.");
 	   } catch(Exception e) {
 		   e.printStackTrace();
-			   System.out.println(e);
 			   logger.info("Port "+port+ " ist schon besetzt oder ist fehlerhaft. Bitte einen anderen gueltigen/offenen Port waehlen.");
 		   }
 	   }   
@@ -97,21 +93,12 @@ public class Server_Model extends Model{
       
    public synchronized void broadcastToAll(String type, Object o) {
 	   for(ClientConnection ct: clientList) {
-		   try {
 			ct.sendMsg(type,o);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	   }
    }
    
    public synchronized void broadcastToOne(int i, String type, Object o){
-	   try {
 		   clientList.get(i).sendMsg(type, o);
-	   } catch (IOException e) {
-		   e.printStackTrace();
-	   }
    }
    
    //-----------------------------------------------------------------------------------
@@ -141,8 +128,10 @@ public class Server_Model extends Model{
    }
    public int winnerCheck(){
 	   if(playerList.get(0).getLifePoints() <= 0 || playerList.get(1).getVictoryPoints() >= 20){
+		   logger.info("Spiel ist beendet: Spieler 2 hat gewonnen!");
 		   return 1;
 	   } else if(playerList.get(1).getLifePoints() <= 0 || playerList.get(0).getVictoryPoints() >= 20){
+		   logger.info("Spiel ist beendet: Spieler 1 hat gewonnen!");
 		   return 2;
 
 	   } else {
@@ -163,11 +152,7 @@ public class Server_Model extends Model{
 		   if(!(socketConnection == null && socketConnection.isClosed())){
 			   if(clientList.size() != 0){
 				   for(ClientConnection ct:clientList){
-					   try {
 						ct.sendMsg("quit", -1);
-						} catch (IOException e) {
-							e.printStackTrace();
-						} 
 				   }
 			   } 
 			} 
