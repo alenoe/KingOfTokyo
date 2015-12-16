@@ -17,6 +17,7 @@ import ch.fhnw.itprojekt.noobsquad.abstractClasses.Model;
 import ch.fhnw.itprojekt.noobsquad.server.clientCommunication.ClientConnection;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.*;
 import ch.fhnw.itprojekt.noobsquad.server.supportClasses.ServiceLocator;
+
 import javafx.application.Platform;
 
 
@@ -73,6 +74,7 @@ public class Server_Model extends Model{
 	        	 ClientConnection ct = new ClientConnection(client_id, pipe, this);
 	        	 clientList.add(ct);
 	        	 Thread t = new Thread(ct);
+	        	 t.setDaemon(true);
 	        	 t.start();
 	        	 client_id++;
 	        	 socketCounter++;
@@ -155,6 +157,7 @@ public class Server_Model extends Model{
 	   playerList.add(player);
    }
    
+   // stops the server and tells the clients about it.
    public void stopServerSocket(){
 	   try{
 		   if(!(socketConnection == null && socketConnection.isClosed())){

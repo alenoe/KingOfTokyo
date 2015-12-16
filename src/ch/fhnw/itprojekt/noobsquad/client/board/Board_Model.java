@@ -7,9 +7,9 @@ package ch.fhnw.itprojekt.noobsquad.client.board;
  */
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
+
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Player;
 import ch.fhnw.itprojekt.noobsquad.client.serverCommunication.ServerConnection;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.DiceM;
@@ -45,7 +45,6 @@ public class Board_Model extends Model implements Subject{
 	private int gameState = 0;
 	
 	private String playersRound = "Player1";
-	InetAddress addr;
 	private String chatMessage;
   
 	public Board_Model() {

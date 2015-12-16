@@ -13,6 +13,10 @@ import java.io.Serializable;
 
 public class Player implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4975836913986272099L;
 	private final int MAX_LP = 10;
 	private final int MIN_LP = 0;
 	private final int MAX_VP = 20;

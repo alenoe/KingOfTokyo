@@ -13,6 +13,8 @@ import java.io.Serializable;
 import java.util.TreeMap;
 
 public class DieM implements Serializable{
+	
+	private static final long serialVersionUID = -4975836913986272099L;
 	private int id, value;
 	private boolean lock;
 	private String facePicture, facePictureLock; 

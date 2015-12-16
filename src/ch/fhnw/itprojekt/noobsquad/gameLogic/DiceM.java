@@ -17,6 +17,8 @@ import ch.fhnw.itprojekt.noobsquad.gameLogic.DieM;
 
 public class DiceM implements Serializable{
 	
+	private static final long serialVersionUID = -4975836913986272099L;
+	
 	public TreeMap<Integer, DieM> diceMap = new TreeMap<Integer, DieM>();
 	
 	public DiceM(int numberOfDice){

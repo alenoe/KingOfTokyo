@@ -11,7 +11,6 @@ import java.net.Socket;
 import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
 import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Message;
-import javafx.application.Platform;
 import ch.fhnw.itprojekt.noobsquad.client.board.Board_Model;
 
 /**
@@ -100,25 +99,19 @@ public class ServerConnection implements Runnable{
 	            e1.printStackTrace();
 			}
 			Thread t = new Thread(this);
+			t.setDaemon(true);
 			t.start();
 			return true;
 		}
 	
-//	public void closeClient(){
-//		try {
-//			client.close();			
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
 	
 	/** Methode zum versenden von Messages an den Server **/
 	
 	public synchronized void sendMsg(String type, Object o) throws IOException {
 	
-	    Message hMap = new Message(type, o);
+	    Message msg = new Message(type, o);
 	    try{
-	    clientOutputStream.writeObject(hMap);
+	    clientOutputStream.writeObject(msg);
 	    clientOutputStream.flush();
 	    clientOutputStream.reset();
 	    } catch(EOFException e2){
@@ -126,6 +119,6 @@ public class ServerConnection implements Runnable{
 	    } catch(IOException e1){
 	    	e1.printStackTrace();
 	    }
-	    hMap = null;
+	    msg = null;
 	}
 }

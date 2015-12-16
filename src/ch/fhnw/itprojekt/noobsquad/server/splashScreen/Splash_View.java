@@ -3,7 +3,6 @@ package ch.fhnw.itprojekt.noobsquad.server.splashScreen;
 
 import ch.fhnw.itprojekt.noobsquad.abstractClasses.View;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -21,8 +20,7 @@ import javafx.stage.StageStyle;
  */
 public class Splash_View extends View<Splash_Model> {
     ProgressBar progress;
-    private Label lblStatus;
-
+    
     public Splash_View(Stage stage, Splash_Model model) {
         super(stage, model);
         stage.initStyle(StageStyle.TRANSPARENT); // also undecorated

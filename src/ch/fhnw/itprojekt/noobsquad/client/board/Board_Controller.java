@@ -9,17 +9,18 @@ package ch.fhnw.itprojekt.noobsquad.client.board;
  */
 
 import java.util.ArrayList;
-import ch.fhnw.itprojekt.noobsquad.gameLogic.Player;
+
 import ch.fhnw.itprojekt.noobsquad.client.interfaces.Observer;
 import ch.fhnw.itprojekt.noobsquad.client.interfaces.Subject;
 import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
+import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
+import ch.fhnw.itprojekt.noobsquad.abstractClasses.Controller;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
-import ch.fhnw.itprojekt.noobsquad.abstractClasses.Controller;
 
 public class Board_Controller extends Controller<Board_Model, Board_View> implements Observer{
 	
