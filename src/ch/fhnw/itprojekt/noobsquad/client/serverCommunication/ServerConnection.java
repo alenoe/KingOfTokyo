@@ -38,23 +38,21 @@ public class ServerConnection implements Runnable{
 	
 	@Override
 	public void run() {
+		// TODO Auto-generated method stub
 		
-		try{
-			listen();
-		} catch (EOFException e){
-			e.printStackTrace();
-		} catch (IOException e){
-			e.printStackTrace();
-		}
-	}
-	
-	public void listen()throws IOException {
-		
+		try {
+			clientInputStream = new ObjectInputStream(socket.getInputStream());
+		} catch (NullPointerException e1){
+			e1.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}  
 		Message msg = null;
+		
 		
 		while(!this.socket.isClosed()){
 			try {
-				clientInputStream = new ObjectInputStream(socket.getInputStream());
+
 				msg = (Message) clientInputStream.readObject();
 				Runnable messageHandler = new ServerMessageHandler(this, model, msg);
 				new Thread(messageHandler).start();
