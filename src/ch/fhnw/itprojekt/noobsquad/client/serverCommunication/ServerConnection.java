@@ -112,6 +112,7 @@ public class ServerConnection implements Runnable{
 	    clientOutputStream.flush();
 	    clientOutputStream.reset();
 	    } catch(SocketException e){
+	    	model.postMessage("Server_quit");
 	    	clientOutputStream.close();
 	    	serviceLocator.getLogger().info("SocketException: Serververbindung ist abgebrochen.");
 		} catch(EOFException e2){
