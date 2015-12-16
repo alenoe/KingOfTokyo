@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ConnectException;
-import java.net.InetAddress;
 import java.net.Socket;
 
 import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
@@ -21,14 +20,11 @@ import ch.fhnw.itprojekt.noobsquad.client.board.Board_Model;
 
 public class ServerConnection implements Runnable{
 	
-	Board_Model model;
-	
-	private Socket client;
-	private static ObjectOutputStream clientOutputStream;
+	private Socket socket;
+	private ObjectOutputStream clientOutputStream;
 	private ObjectInputStream clientInputStream;
-	ServiceLocator serviceLocator;
-	
-	InetAddress addr;
+	private ServiceLocator serviceLocator;
+	private Board_Model model;	
 	
 	public ServerConnection(Board_Model model){
 		this.model = model;
@@ -45,7 +41,7 @@ public class ServerConnection implements Runnable{
 		// TODO Auto-generated method stub
 		
 		try {
-			clientInputStream = new ObjectInputStream(client.getInputStream());
+			clientInputStream = new ObjectInputStream(socket.getInputStream());
 		} catch (NullPointerException e1){
 			e1.printStackTrace();
 		} catch (IOException e2) {
@@ -54,7 +50,7 @@ public class ServerConnection implements Runnable{
 		Message msg = null;
 		
 		
-		while(!this.client.isClosed()){
+		while(!this.socket.isClosed()){
 			try {
 
 				msg = (Message) clientInputStream.readObject();
@@ -81,9 +77,9 @@ public class ServerConnection implements Runnable{
 			System.out.println("controller übergeben!");
 			
 			try {
-	            client = new Socket(JavaFX_App_Template.getIP(), JavaFX_App_Template.getPort());
+				socket = new Socket(JavaFX_App_Template.getIP(), JavaFX_App_Template.getPort());
 	            System.out.println("Netzwerkverbindung konnte hergestellt werden");
-	            clientOutputStream = new ObjectOutputStream(client.getOutputStream());
+	            clientOutputStream = new ObjectOutputStream(socket.getOutputStream());
 	            sendMsg("Username", JavaFX_App_Template.getUsername());
 			} catch (ConnectException e){
 				serviceLocator.getLogger().info(e.toString());

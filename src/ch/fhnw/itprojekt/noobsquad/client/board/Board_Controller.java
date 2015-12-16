@@ -24,8 +24,8 @@ import javafx.scene.image.ImageView;
 
 public class Board_Controller extends Controller<Board_Model, Board_View> implements Observer{
 	
-	ServiceLocator serviceLocator;
-	private static ArrayList<Button> dicebtnList;
+	private ServiceLocator serviceLocator;
+	private ArrayList<Button> dicebtnList;
 	private Subject subject;
 	
     public Board_Controller(JavaFX_App_Template main, Board_Model model, Board_View view) {

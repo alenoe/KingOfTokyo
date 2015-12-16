@@ -41,12 +41,25 @@ public class Login_View extends View<Login_Model>{
 	TextField tfPort;
 	Button btnConnect;
 
+	
+	/**
+	 * Die Board_View Klasse erbt von der abstrakten Klasse View und stellt damit die visuelle Komponente des Boards dar.
+	 * Diese View beinhaltet den Construktor und eine create_GUI methode.
+	 * Der Constructor und die create_GUI methode entstammen der abstrakten Klasse View - geschrieben von Bradley Richards.
+	 * @param stage
+	 * @param model
+	 */
+	
+	
     public Login_View(Stage stage, Login_Model model) {
         super(stage, model);
         stage.setTitle("KingOfTokyo byNoobsquad - Login");
     }
 
-    /** Das Gui wird initialisiert und die Gui Elemente bereitgestellt. */
+    /** Das Gui wird initialisiert und die Gui Elemente bereitgestellt. 
+     *  Das Gui besteht aus einer BorderPane, welche eine GridPane mit 
+     *  den Buttons, Labels und TextFields beinhaltet.   
+     */
     @Override
     protected Scene create_GUI() {
        

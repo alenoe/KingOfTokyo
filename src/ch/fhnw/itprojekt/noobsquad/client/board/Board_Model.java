@@ -57,7 +57,7 @@ public class Board_Model extends Model implements Subject{
 	
 	/** 
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	 * :::::::::::::::::::::::SETTER UND GETTER::::::::::::::::::::::::::::
+	 * :::::::::::::SETTER UND GETTER FUER INSTANZVARIABLEN::::::::::::::::
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 */
 	
@@ -129,19 +129,13 @@ public class Board_Model extends Model implements Subject{
 		return serverThread;
 	}
 	
+	
 	/**
-	 * 
-	 * 
-	 * 
+	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	 * ::::::::::::::::GETTER METHODEN FUER SPIELVARIABLEN:::::::::::::::::
+	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 */
 
-
-	
-	
-	
-	public void incrementRollCounter(){
-		rollCounter = rollCounter ++;
-	}
 	
 	public boolean btnLeaveTokyoEnable(boolean b, Player p){
 		if (p.getInTokyo() == true && p.getCantLeaveTokyo() == false && b == false){
@@ -207,8 +201,18 @@ public class Board_Model extends Model implements Subject{
 	public String getDiePicture(int diceIndex){
 		return this.d1.getDieFacePicture(diceIndex);
 	}
-	//_________________________________________________________________________________________________
-	// Controller induced Messages to Server.
+	
+	public void incrementRollCounter(){
+		rollCounter = rollCounter ++;
+	}
+
+
+	/**
+	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	 * ::::::::::::::::SERVER KOMMUNIKATIONS METHODEN::::::::::::::::::::::
+	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	 */
+	
 	
 	public void diceBtnLockUnlock(int diceIndex){
 		try {
@@ -280,6 +284,13 @@ public class Board_Model extends Model implements Subject{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	 * ::::::::::::::::::::::::OBSERVER METHODEN:::::::::::::::::::::::::::
+	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	 */
 	
 	/**
 	 * 
