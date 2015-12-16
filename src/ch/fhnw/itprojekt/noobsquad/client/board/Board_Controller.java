@@ -25,8 +25,6 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 	
 	ServiceLocator serviceLocator;
 	private static ArrayList<Button> dicebtnList;
-	private Player player1;
-	private Player player2;
 	private Subject subject;
 	
     public Board_Controller(JavaFX_App_Template main, Board_Model model, Board_View view) {
@@ -152,12 +150,22 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
         serviceLocator.getLogger().info("Board controller initialized");
     }
     
-    // Implementation Restart
+    /**
+     * Die View zeigt den Button und das Label zur Wiederherstellung der 
+     * Verbindung an.
+     */
     public void enableRestart(){
 		view.btnNewConnection.setVisible(true);
 		view.lblNewConnection.setVisible(true);
 		view.hboxNewCon.setStyle("-fx-background-color: #FFFFFF");
     }
+    
+	// setzt das Subjekt für den Observer
+	@Override
+	public void setSubject(Subject sub) {
+		this.subject=sub;
+		
+	}  
 
     /**
      * Die Update Methode holt sich die Message des Subjekts und prüft ihren Inhalt.
@@ -165,47 +173,52 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
      */
 	@Override
 	public void update() {
+		
+		/**
+		 * Die update() Methode holt sich die Nachricht vom Subject und evaluiert den Inhalt
+		 */
 		String msg = (String) subject.getUpdate(this);
         if(msg == null){
-            System.out.println(":: No new message");
+            serviceLocator.getLogger().info(":: No new message");
         }else {
         	try{
-		        System.out.println(":: Consuming message::"+msg);
+        		serviceLocator.getLogger().info(":: Consuming message::"+msg);
 		        switch (msg){
+		  
 		        
-		
-		        //____________________________________________________________
-		        //newGame start messages
-		        //
-		        
-		
+		        /**
+		         *  Holt das Player Objekt und setzt es als Player1 ein. 
+		         *  Setzt die Werte im View ein.
+		         */
 		        case "player1":
-		        	this.player1 = model.getPlayer(0);
-		    		view.lblPlayer1Name.setText(player1.getName());
-		        	view.lblPlayer1HealthPoints.setText(Integer.toString(player1.getLifePoints()));
-		        	view.lblPlayer1VictoryPoints.setText(Integer.toString(player1.getVictoryPoints()));
-		        	if(player1.getInTokyo() == true){
+		    		view.lblPlayer1Name.setText(model.getPlayerName(0));
+		        	view.lblPlayer1HealthPoints.setText(Integer.toString(model.getPlayerHealthPoints(0)));
+		        	view.lblPlayer1VictoryPoints.setText(Integer.toString(model.getPlayerVictoryPoints(0)));
+		        	if(model.getPlayer(0).getInTokyo() == true){
 		        	view.lblPlayer1TokyoStatus.setText(view.t.getString("label.tokyo.in"));
 		        	} else {
 		        		view.lblPlayer1TokyoStatus.setText(view.t.getString("label.tokyo.out"));
 		        	}
 		        	break;
-		        	
+		        
+		        /**
+		         *  Holt das Player Objekt und setzt es als Player1 ein.
+		         *  Setzt die Werte im View ein. 
+		         */
 		        case "player2":
-		        	this.player2 = model.getPlayer(1);
-		    		view.lblPlayer2Name.setText(player2.getName());
-		        	view.lblPlayer2HealthPoints.setText(Integer.toString(player2.getLifePoints()));
-		        	view.lblPlayer2VictoryPoints.setText(Integer.toString(player2.getVictoryPoints()));
-		        	if(player2.getInTokyo() == true){
+		    		view.lblPlayer2Name.setText(model.getPlayerName(1));
+		        	view.lblPlayer2HealthPoints.setText(Integer.toString(model.getPlayerHealthPoints(1)));
+		        	view.lblPlayer2VictoryPoints.setText(Integer.toString(model.getPlayerVictoryPoints(1)));
+		        	if(model.getPlayer(1).getInTokyo() == true){
 		        	view.lblPlayer2TokyoStatus.setText(view.t.getString("label.tokyo.in"));
 		        	} else {
 		        		view.lblPlayer2TokyoStatus.setText(view.t.getString("label.tokyo.out"));
 		        	}
 		        	break;
 		        	
-		        	//
-		        	//Buttons setDisable Messages
-		        	//
+	        	/** 
+	        	 * Buttons setDisable Nachrichten sperren oder entsperren die jeweiligen Buttons.
+	        	 */
 		        	
 		        case "btnRollsetDisable(true)":
 		        	view.btnRoll.setDisable(true);
@@ -250,9 +263,10 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	break;
 		        	
 		        	
-		        	
+		        /**
+		         *  holt das Wuerfel Objekt vom Model und setzt die neuen Bilder im View ein.	
+		         */
 		        case "dice":
-		        	model.getDice();
 		        	view.btnDice1.setGraphic(new ImageView(model.getDiePicture(0)));
 		        	view.btnDice2.setGraphic(new ImageView(model.getDiePicture(1)));
 		        	view.btnDice3.setGraphic(new ImageView(model.getDiePicture(2)));
@@ -260,7 +274,12 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	view.btnDice5.setGraphic(new ImageView(model.getDiePicture(4)));
 		        	view.btnDice6.setGraphic(new ImageView(model.getDiePicture(5)));
 		        	break;
-		        	
+		        
+		        
+		        /** Die Winner/Loser Nachrichten geben dem Observer die Nachricht, welche View
+		         * Updates er durchzuführen hat und dieser holt sich die entsprechenden Daten
+		         * und übergibt sie dem View.
+		         */
 		        case "Player1lost":
 		        	model.setGameState(1);
 		        	view.lblGameEnd.setText(view.t.getString("label.gameend.lose"));
@@ -338,7 +357,10 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	break;
 		        	
 		        	
-		        	
+		        /**
+		         *  Die LockbtnDiceX/UnlockbtnDiceX Nachrichten holen sich die entsprechenden Daten
+		         *  aus dem Model und lassen auf der View anzeigen, ob der Würfel gelocked ist oder nicht.
+		         */
 		        case "LockbtnDice1:":
 		        	view.btnDice1.setGraphic(new ImageView(model.getDiePicture(0)));
 		        	break;
@@ -388,13 +410,18 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
 		        	break;
 		        	
 		        	
-		        	
+		        /**
+		         * Chat Nachrichten in der View angezeigt.
+		         */
 				case "chatMessage":
 					view.taChat.appendText(model.getChatMessage()+"\n");
 					break;
 					
 					
-					
+				/**
+				 * Wenn der Server stopt werden die Buttons gesperrt und der
+				 * Button zur Wiederherstellung der Verbindung wird angezeigt.	
+				 */
 				case "Server_quit":
 					enableRestart();
 					view.btnLeaveTokyo.setDisable(true);
@@ -407,13 +434,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View> implem
         		e.printStackTrace();
         	}
         }
-	}
-
-	@Override
-	public void setSubject(Subject sub) {
-		this.subject=sub;
-		
-	}   
+	} 
 }
 
 

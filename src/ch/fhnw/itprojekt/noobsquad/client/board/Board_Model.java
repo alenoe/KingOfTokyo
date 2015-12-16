@@ -154,9 +154,9 @@ public class Board_Model extends Model implements Subject{
 		
 	public String getPlayerName(int playerIndex){
 		switch (playerIndex){
-		case 1:
+		case 0:
 			return this.player1.getName();
-		case 2:
+		case 1:
 			return this.player2.getName();
 		default:
 			return "";
