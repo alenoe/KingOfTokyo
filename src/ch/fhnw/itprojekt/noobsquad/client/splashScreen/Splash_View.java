@@ -1,6 +1,5 @@
 package ch.fhnw.itprojekt.noobsquad.client.splashScreen;
 
-
 import ch.fhnw.itprojekt.noobsquad.abstractClasses.View;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -20,32 +19,31 @@ import javafx.stage.StageStyle;
  * @author Raphael Denz
  */
 public class Splash_View extends View<Splash_Model> {
-    ProgressBar progress;
-    private Label lblStatus;
+	ProgressBar progress;
+	private Label lblStatus;
 
-    public Splash_View(Stage stage, Splash_Model model) {
-        super(stage, model);
-        stage.initStyle(StageStyle.TRANSPARENT); // also undecorated
-    }
+	public Splash_View(Stage stage, Splash_Model model) {
+		super(stage, model);
+		stage.initStyle(StageStyle.TRANSPARENT); // also undecorated
+	}
 
-    @Override
-    protected Scene create_GUI() {
-        BorderPane root = new BorderPane();
-        root.setId("splash");
+	@Override
+	protected Scene create_GUI() {
+		BorderPane root = new BorderPane();
+		root.setId("splash");
 
-        lblStatus = new Label("Woof");
-        root.setCenter(lblStatus);
-        
-        progress = new ProgressBar();
-        HBox bottomBox = new HBox();
-        bottomBox.setId("progressbox");
-        bottomBox.getChildren().add(progress);
-        root.setBottom(bottomBox);
+		lblStatus = new Label("Woof");
+		root.setCenter(lblStatus);
 
-        Scene scene = new Scene(root, 300, 300, Color.TRANSPARENT);
-        scene.getStylesheets().addAll(
-                this.getClass().getResource("splash.css").toExternalForm());
+		progress = new ProgressBar();
+		HBox bottomBox = new HBox();
+		bottomBox.setId("progressbox");
+		bottomBox.getChildren().add(progress);
+		root.setBottom(bottomBox);
 
-        return scene;
-    }
+		Scene scene = new Scene(root, 300, 300, Color.TRANSPARENT);
+		scene.getStylesheets().addAll(this.getClass().getResource("splash.css").toExternalForm());
+
+		return scene;
+	}
 }

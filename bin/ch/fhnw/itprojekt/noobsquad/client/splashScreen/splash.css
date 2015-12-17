@@ -2,7 +2,7 @@
     -fx-background-image: url("ReApe_grey_angry.png");
     -fx-background-color: transparent;
     -fx-background-repeat: stretch;   
-    -fx-background-size: 300 300;
+    -fx-background-size: 300.0 300.0;
     -fx-background-position: center center;
 }
 

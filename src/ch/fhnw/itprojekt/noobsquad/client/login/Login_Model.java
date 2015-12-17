@@ -13,18 +13,17 @@ import ch.fhnw.itprojekt.noobsquad.client.main.JavaFX_App_Template;
  * @author Brad Richards
  * @author Simon Zahnd
  */
-public class Login_Model extends Model{
-	
-    InetAddress addr;
-    
-    public Login_Model() {
-       
-    }
-    
-    
-    //-----------------------------------------------------------------------------------
-  	// Current IP
-    public String getLokalHost() { // wird in der View direkt aufgerufen.
+public class Login_Model extends Model {
+
+	InetAddress addr;
+
+	public Login_Model() {
+
+	}
+
+	// -----------------------------------------------------------------------------------
+	// Current IP
+	public String getLokalHost() { // wird in der View direkt aufgerufen.
 		try {
 			addr = InetAddress.getLocalHost();
 		} catch (UnknownHostException e) {
@@ -32,14 +31,14 @@ public class Login_Model extends Model{
 			e.printStackTrace();
 		}
 		return addr.getHostAddress();
-    }
-    
-    //-----------------------------------------------------------------------------------
-  	// Save the Username, IP and Port in the mainClass from the Login
-    public void setUpUser(String username, String iP, int port){
+	}
+
+	// -----------------------------------------------------------------------------------
+	// Save the Username, IP and Port in the mainClass from the Login
+	public void setUpUser(String username, String iP, int port) {
 		JavaFX_App_Template.setUsername(username);
 		JavaFX_App_Template.setIP(iP);
 		JavaFX_App_Template.setPort(port);
-    }
-    
+	}
+
 }

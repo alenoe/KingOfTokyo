@@ -33,6 +33,7 @@ public class Configuration {
 
     public Configuration() {
         // Load default properties from wherever the code is
+    	// In this code is defined what the default-language is
         defaultOptions = new Properties();
         String defaultFilename = sl.getAPP_NAME() + "_defaults.cfg";
         InputStream inStream = sl.getAPP_CLASS().getResourceAsStream(defaultFilename);
@@ -49,6 +50,8 @@ public class Configuration {
         }
 
         // Define locally-saved properties; link to the default values
+        // If localOptions won't be overwritten (again), the language
+        // will be the one, that is defined as default-language
         localOptions = new Properties(defaultOptions);
 
         // Load the local configuration file, if it exists.
@@ -72,6 +75,9 @@ public class Configuration {
         }
     }
     
+    // If called, this method saves the language.
+    // With the next start of the program, the
+    // saved language would be used to set language.
     public void save() {
         FileOutputStream propFile = null;
         try {

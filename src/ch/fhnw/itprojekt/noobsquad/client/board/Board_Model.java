@@ -26,128 +26,126 @@ import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
  * 
  * @author Brad Richards
  */
-public class Board_Model extends Model implements Subject{
-	
-	//Observervariabeln
-	//___________________________________________
+public class Board_Model extends Model implements Subject {
+
+	// Observervariabeln
+	// ___________________________________________
 	private List<Observer> observers;
 	private String obsMessage;
 	private boolean changed;
 	private final Object MUTEX = new Object();
-	//__________________________________________
-	
+	// __________________________________________
+
 	private ServerConnection serverThread;
 	private ServiceLocator serviceLocator;
-	
+
 	private Player player1 = new Player("");
 	private Player player2 = new Player("");
 	private DiceM d1 = new DiceM(6);
 	private int rollCounter = 0;
 	private int gameState = 0;
-	
+
 	private String playersRound = "Player1";
 	private String chatMessage;
-  
+
 	public Board_Model() {
 		observers = new ArrayList<>();
 		serverThread = new ServerConnection(this);
-		
-		serviceLocator = ServiceLocator.getServiceLocator();        
+
+		serviceLocator = ServiceLocator.getServiceLocator();
 		serviceLocator.getLogger().info("Board model initialized");
 	}
-	
-	/** 
+
+	/**
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 * :::::::::::::SETTER UND GETTER FUER INSTANZVARIABLEN::::::::::::::::
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 */
-	
-	public void setRollCounter(int i){
+
+	public void setRollCounter(int i) {
 		this.rollCounter = i;
 	}
-	
-	public int getRollCounter(){
+
+	public int getRollCounter() {
 		return this.rollCounter;
 	}
-	
-	public void setPlayersRound(String playersRound){
+
+	public void setPlayersRound(String playersRound) {
 		this.playersRound = playersRound;
 	}
-	
-	public String getPlayersRound(){
+
+	public String getPlayersRound() {
 		return this.playersRound;
 	}
-	
-	public Player getPlayer(int playerIndex){
-		if(playerIndex == 0){
+
+	public Player getPlayer(int playerIndex) {
+		if (playerIndex == 0) {
 			return this.player1;
 		} else {
 			return this.player2;
 		}
 	}
-	
-	public void setPlayer1(Player player1){
+
+	public void setPlayer1(Player player1) {
 		this.player1 = player1;
 	}
-	
-	public Player getPlayer1(){
+
+	public Player getPlayer1() {
 		return this.player1;
 	}
-	
-	public void setPlayer2(Player player2){
+
+	public void setPlayer2(Player player2) {
 		this.player2 = player2;
 	}
-	
-	public Player getPlayer2(){
+
+	public Player getPlayer2() {
 		return this.player2;
 	}
-	
-	public void setDice(DiceM dice){
+
+	public void setDice(DiceM dice) {
 		this.d1 = dice;
 	}
-	
-	public DiceM getDice(){
+
+	public DiceM getDice() {
 		return this.d1;
 	}
-	
-	public void setChatMessage(String chatMessage){
+
+	public void setChatMessage(String chatMessage) {
 		this.chatMessage = chatMessage;
 	}
-	
-	public String getChatMessage(){
+
+	public String getChatMessage() {
 		return this.chatMessage;
 	}
-	
-	public int getGameState(){
+
+	public int getGameState() {
 		return this.gameState;
 	}
-	
-	public void setGameState(int state){
+
+	public void setGameState(int state) {
 		this.gameState = state;
 	}
-	
-	public ServerConnection getServerConnection(){
+
+	public ServerConnection getServerConnection() {
 		return serverThread;
 	}
-	
-	
+
 	/**
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 * ::::::::::::::::GETTER METHODEN FUER SPIELVARIABLEN:::::::::::::::::
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 */
 
-	
-	public boolean btnLeaveTokyoEnable(boolean b, Player p){
-		if (p.getInTokyo() == true && p.getCantLeaveTokyo() == false && b == false){
+	public boolean btnLeaveTokyoEnable(boolean b, Player p) {
+		if (p.getInTokyo() == true && p.getCantLeaveTokyo() == false && b == false) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-		
-	public String getPlayerName(int playerIndex){
-		switch (playerIndex){
+
+	public String getPlayerName(int playerIndex) {
+		switch (playerIndex) {
 		case 0:
 			return this.player1.getName();
 		case 1:
@@ -156,9 +154,9 @@ public class Board_Model extends Model implements Subject{
 			return "";
 		}
 	}
-	
-	public int getPlayerHealthPoints(int playerIndex){
-		switch (playerIndex){
+
+	public int getPlayerHealthPoints(int playerIndex) {
+		switch (playerIndex) {
 		case 0:
 			return this.player1.getLifePoints();
 		case 1:
@@ -167,9 +165,9 @@ public class Board_Model extends Model implements Subject{
 			return 0;
 		}
 	}
-	
-	public int getPlayerVictoryPoints(int playerIndex){
-		switch (playerIndex){
+
+	public int getPlayerVictoryPoints(int playerIndex) {
+		switch (playerIndex) {
 		case 0:
 			return this.player1.getVictoryPoints();
 		case 1:
@@ -178,52 +176,53 @@ public class Board_Model extends Model implements Subject{
 			return 0;
 		}
 	}
-	
-	public String getPlayerTokyoStatus(int playerIndex){
-		switch (playerIndex){
+
+	public String getPlayerTokyoStatus(int playerIndex) {
+		switch (playerIndex) {
 		case 0:
-			if(player1.getInTokyo() == true){
+			if (player1.getInTokyo() == true) {
 				return "hat Tokyo besetzt!";
-			} return "befindet sich nicht in Tokyo.";
+			}
+			return "befindet sich nicht in Tokyo.";
 		case 1:
-			if(player2.getInTokyo() == true){
+			if (player2.getInTokyo() == true) {
 				return "hat Tokyo besetzt!";
-			} return "befindet sich nicht in Tokyo.";
+			}
+			return "befindet sich nicht in Tokyo.";
 		default:
 			return "";
 		}
-	}	
-	
-	public int getDiceValue(int DieIndex){
+	}
+
+	public int getDiceValue(int DieIndex) {
 		return this.d1.getDieValue(DieIndex);
 
 	}
-	
-	public String getDiePicture(int diceIndex){
+
+	public String getDiePicture(int diceIndex) {
 		return this.d1.getDieFacePicture(diceIndex);
 	}
-	
-	public void incrementRollCounter(){
-		rollCounter = rollCounter ++;
-	}
 
+	public void incrementRollCounter() {
+		rollCounter = rollCounter++;
+	}
 
 	/**
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 * ::::::::::::::::SERVER KOMMUNIKATIONS METHODEN::::::::::::::::::::::
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 */
-	
-	
-	public void diceBtnLockUnlock(int diceIndex){
+
+	public void diceBtnLockUnlock(int diceIndex) {
 		try {
-			serverThread.sendMsg("Btn_Lock_Unlock"+(diceIndex+1), diceIndex);
+			serverThread.sendMsg("Btn_Lock_Unlock" + (diceIndex + 1), diceIndex);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public void playerLeavesTokyo(){
+
+	public void playerLeavesTokyo() {
 		try {
 			serverThread.sendMsg("PlayerLeavesTokyo", 0);
 		} catch (IOException e1) {
@@ -231,9 +230,8 @@ public class Board_Model extends Model implements Subject{
 			e1.printStackTrace();
 		}
 	}
-	
-	
-	public void sendChatMessage(String chatMessage){
+
+	public void sendChatMessage(String chatMessage) {
 		try {
 			serverThread.sendMsg("ChatMessage", chatMessage);
 		} catch (IOException e1) {
@@ -241,10 +239,10 @@ public class Board_Model extends Model implements Subject{
 			e1.printStackTrace();
 		}
 	}
-	
-	public boolean roll(){
-		switch (rollCounter){
-		case 0:	
+
+	public boolean roll() {
+		switch (rollCounter) {
+		case 0:
 			try {
 				serverThread.sendMsg("Roll1", "Roll1");
 			} catch (IOException e1) {
@@ -252,16 +250,16 @@ public class Board_Model extends Model implements Subject{
 				e1.printStackTrace();
 			}
 			rollCounter++;
-				this.postMessage("btnListDicesetDisable(false)");
+			this.postMessage("btnListDicesetDisable(false)");
 
 			return false;
-		case 1:	
+		case 1:
 			try {
 				serverThread.sendMsg("Roll2", "Roll2");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-				}
+			}
 			rollCounter++;
 			return false;
 		case 2:
@@ -273,53 +271,55 @@ public class Board_Model extends Model implements Subject{
 			}
 			rollCounter = 0;
 			return true;
-		default: 
+		default:
 			return false;
 		}
 	}
-	
-	public void endGame(){
+
+	public void endGame() {
 		try {
 			serverThread.sendMsg("GameEnd", "GameEnd");
-		} catch (SocketException e){
+		} catch (SocketException e) {
 			serviceLocator.getLogger().info("SocketException: Der Server ist nicht erreichbar.\n");
 		} catch (IOException e) {
 			serviceLocator.getLogger().info(e.toString());
 		}
 
 	}
-	
-	
+
 	/**
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 * ::::::::::::::::::::::::OBSERVER METHODEN:::::::::::::::::::::::::::
 	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	 */
-	
+
 	/**
 	 * 
-	 * Observermethoden
-	 * Die Implementierung wurde übernommen von http://www.journaldev.com/1739/observer-design-pattern-in-java-example-tutorial
-	 * Die Observer registrieren sich beim Subject und werden über die notifyObservers()-Methode benachrichtigt sich das Update abzuholen.
-	 * In der Implementierung sendet der ServerMessageHandler im Namen des Models eine postMsg() an das Subject, welches notifyObservers() aufruft.
-	 * Der einzige Observer ist der Board_Controller.
+	 * Observermethoden Die Implementierung wurde übernommen von
+	 * http://www.journaldev.com/1739/observer-design-pattern-in-java-example-
+	 * tutorial Die Observer registrieren sich beim Subject und werden über die
+	 * notifyObservers()-Methode benachrichtigt sich das Update abzuholen. In
+	 * der Implementierung sendet der ServerMessageHandler im Namen des Models
+	 * eine postMsg() an das Subject, welches notifyObservers() aufruft. Der
+	 * einzige Observer ist der Board_Controller.
 	 * 
 	 * @author Alexander Noever
 	 */
-	//______________________________________________________________________________________
+	// ______________________________________________________________________________________
 	//
 
-	
 	/**
-	 * Die register(Observer obj) methode registriert das observierende Objekt beim Subjekt und legt sie in die 
-	 * ArrayListe ab.
+	 * Die register(Observer obj) methode registriert das observierende Objekt
+	 * beim Subjekt und legt sie in die ArrayListe ab.
 	 */
 	@Override
 	public void register(Observer obj) {
-		 if(obj == null) throw new NullPointerException("Null Observer");
-	        synchronized (MUTEX) {
-	        if(!observers.contains(obj)) observers.add(obj);
-	        }		
+		if (obj == null)
+			throw new NullPointerException("Null Observer");
+		synchronized (MUTEX) {
+			if (!observers.contains(obj))
+				observers.add(obj);
+		}
 	}
 
 	/**
@@ -328,8 +328,8 @@ public class Board_Model extends Model implements Subject{
 	@Override
 	public void unregister(Observer obj) {
 		synchronized (MUTEX) {
-	        observers.remove(obj);
-	        }		
+			observers.remove(obj);
+		}
 	}
 
 	/**
@@ -338,16 +338,17 @@ public class Board_Model extends Model implements Subject{
 	@Override
 	public void notifyObservers() {
 		List<Observer> observersLocal = null;
-        //synchronization is used to make sure any observer registered after message is received is not notified
-        synchronized (MUTEX) {
-            if (!changed)
-                return;
-            observersLocal = new ArrayList<>(this.observers);
-            this.changed=false;
-        }
-        for (Observer obj : observersLocal) {
-            obj.update();
-        }	
+		// synchronization is used to make sure any observer registered after
+		// message is received is not notified
+		synchronized (MUTEX) {
+			if (!changed)
+				return;
+			observersLocal = new ArrayList<>(this.observers);
+			this.changed = false;
+		}
+		for (Observer obj : observersLocal) {
+			obj.update();
+		}
 	}
 
 	/**
@@ -357,17 +358,18 @@ public class Board_Model extends Model implements Subject{
 	public Object getUpdate(Observer obj) {
 		return this.obsMessage;
 	}
-	
+
 	/**
-	 * wenn eine Message gepostet wird, werden alle Observer ueber die notifyObservers() Methode 
-	 * benachrichtigt die Message abzuholen.
+	 * wenn eine Message gepostet wird, werden alle Observer ueber die
+	 * notifyObservers() Methode benachrichtigt die Message abzuholen.
+	 * 
 	 * @param msg
 	 */
-	//method to post message to the topic
-    public synchronized void postMessage(String msg){
-        serviceLocator.getLogger().info("Message Posted to Topic:"+msg);
-        this.obsMessage=msg;
-        this.changed=true;
-        notifyObservers();
-    }
+	// method to post message to the topic
+	public synchronized void postMessage(String msg) {
+		serviceLocator.getLogger().info("Message Posted to Topic:" + msg);
+		this.obsMessage = msg;
+		this.changed = true;
+		notifyObservers();
+	}
 }

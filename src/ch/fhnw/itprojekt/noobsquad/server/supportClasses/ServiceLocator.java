@@ -27,6 +27,7 @@ public class ServiceLocator {
     final private String APP_NAME = "JavaFX_App_Template";
     
     // Supported locales (for translations)
+    // It's possible to define certain languages more specific, like German for Switzerland.
     final private Locale[] locales = new Locale[] { new Locale("en"), new Locale("de") };
 
     // Resources
