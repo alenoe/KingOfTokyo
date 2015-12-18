@@ -8,9 +8,9 @@ import ch.fhnw.itprojekt.noobsquad.gameLogic.DiceM;
 import javafx.application.Platform;
 
 /**
- * 
  * @author Heiko Meyer
- *
+ * Der ServerMessageHandler behandelt die eingehenden Nachrichten des Servers. Je nach Nachricht, wird 
+ * die View des Boards aktualisiert und/oder dem Server die Nachricht weitergeleitet. 
  */
 
 public class ServerMessageHandler implements Runnable {
@@ -29,13 +29,20 @@ public class ServerMessageHandler implements Runnable {
 		serviceLocator = ServiceLocator.getServiceLocator();
 		serviceLocator.getLogger().info("ServerMessageHandler initialized");
 	}
-
+	
+	/**
+	 * Die run-Methode wird von der ServerConnection-Klasse aufgerufen, um die Nachrichten des Servers
+	 * zu behandeln. Die Nachrichten werden mit getType entpackt und anschliessend ausgewertet. 
+	 * Mit der postMessage-Methode des Boardmodels wird die Änderung dem Controller mitgeteilt, der wiederum die View anpasst. 
+	 *
+	 */
 	@Override
 	public void run() {
 		String k = msg.getType();
 
 		switch (k) {
 
+		// setzt im Model den Player1 und updated die View
 		case "Player1":
 			model.setPlayer1((Player) msg.getContent());
 			Platform.runLater(() -> {
@@ -43,13 +50,12 @@ public class ServerMessageHandler implements Runnable {
 			});
 			break;
 
-		// updated die View und gibt die Wuerfel dem "Player 1" frei.
+			// gibt die Würfel dem Player1 frei und updatet die View
 		case "Player2":
 			model.setPlayer2((Player) msg.getContent());
 			try {
 				client.sendMsg("Spieler1amZug", "Spieler1");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			Platform.runLater(() -> {
@@ -57,7 +63,7 @@ public class ServerMessageHandler implements Runnable {
 			});
 			break;
 
-		// dem Spieler1 werden die Gui Elemente zum wuerfeln freigegeben.
+			// dem Spieler1 werden die Gui-Elemente zum Würfeln freigegeben.	
 		case "Spieler1wuerfeln":
 			boolean s = (boolean) msg.getContent();
 			boolean btnLeaveTokyoShow = model.btnLeaveTokyoEnable(s, model.getPlayer1());
@@ -70,7 +76,7 @@ public class ServerMessageHandler implements Runnable {
 
 			break;
 
-		// dem Spieler2 werden die Gui Elemente zum wuerfeln freigegeben.
+		// dem Spieler2 werden die Gui-Elemente zum Würfeln freigegeben.	
 		case "Spieler2wuerfeln":
 			boolean s2 = (boolean) msg.getContent();
 			boolean btnLeaveTokyoShow2 = model.btnLeaveTokyoEnable(s2, model.getPlayer2());
@@ -83,6 +89,7 @@ public class ServerMessageHandler implements Runnable {
 
 			break;
 
+			// 	Die Würfel werden dem Model übergeben und in der View dargestellt
 		case "Server_hat_gewuerfelt":
 			model.setDice((DiceM) msg.getContent());
 			try {
@@ -96,6 +103,8 @@ public class ServerMessageHandler implements Runnable {
 			});
 			break;
 
+		// Je nachdem welcher Spieler am Zug war, werden dem Gegenspieler die Buttons freigegeben.
+		// Im Model wird der Player1 aktualisiert	
 		case "Player1execute":
 			model.setPlayer1((Player) msg.getContent());
 
@@ -106,14 +115,12 @@ public class ServerMessageHandler implements Runnable {
 					try {
 						client.sendMsg("Spieler2amZug", "Spieler2");
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				} else if (model.getPlayersRound() == "Player2") {
 					try {
 						client.sendMsg("Spieler1amZug", "Spieler1");
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					model.setPlayersRound("Player1");
@@ -122,7 +129,8 @@ public class ServerMessageHandler implements Runnable {
 			});
 
 			break;
-
+			
+		// Im Model wird Player2 aktualisiert und die View upgedatet
 		case "Player2execute":
 
 			model.setPlayer2((Player) msg.getContent());
@@ -133,13 +141,16 @@ public class ServerMessageHandler implements Runnable {
 			});
 			model.setDice(null);
 			break;
-
+			
+		// Der Status von Player1 "in Tokyo" wird im Model updated. 
 		case "Player1updateTokyo":
 
 			model.setPlayer1((Player) msg.getContent());
 			;
 			break;
-
+			
+		// Der Status von Player2 "in Tokyo" wird im Model updatet. Anschliessend wird
+		// die View updatet. 
 		case "Player2updateTokyo":
 
 			model.setPlayer2((Player) msg.getContent());
@@ -150,7 +161,8 @@ public class ServerMessageHandler implements Runnable {
 				model.postMessage("player2");
 			});
 			break;
-
+			
+		// Im Falle dass Player1 verloren hat
 		case "Player1lost":
 
 			model.setPlayersRound("");
@@ -162,6 +174,7 @@ public class ServerMessageHandler implements Runnable {
 			});
 			break;
 
+		// Im Falle dass Player2 gewonnen hat	
 		case "Player2won":
 			System.out.println("Player2won");
 
@@ -173,7 +186,8 @@ public class ServerMessageHandler implements Runnable {
 				model.postMessage("Player2won");
 			});
 			break;
-
+		
+		// wie oben	
 		case "Player1won":
 			System.out.println("Player1won");
 			model.setPlayersRound("");
@@ -186,6 +200,7 @@ public class ServerMessageHandler implements Runnable {
 
 			break;
 
+		// wie oben		
 		case "Player2lost":
 			System.out.println("Player2lost");
 			model.setPlayersRound("");
@@ -196,7 +211,8 @@ public class ServerMessageHandler implements Runnable {
 				model.postMessage("Player2lost");
 			});
 			break;
-
+			
+			// Würfel werden im Model gesetzt, je nach Message wird der Würfel gelocked oder unlocked
 		case "LockDice1":
 			model.setDice((DiceM) msg.getContent());
 			;
@@ -313,6 +329,8 @@ public class ServerMessageHandler implements Runnable {
 
 			break;
 
+		// Chat wird gestartet wenn zwei Spieler vorhanden sind. Send-Button wird in der View
+		// freigegeben
 		case "StartChat":
 			boolean startChat = (boolean) msg.getContent();
 
@@ -320,7 +338,9 @@ public class ServerMessageHandler implements Runnable {
 				model.postMessage("btnSendsetDisable(" + startChat + ")");
 			});
 			break;
-
+			
+		// Wenn der Server geschlossen wird, wird die Message "quit" verschickt. Danach wird
+		// der Button zur Wiederherstellung der Verbindung freigeschaltet.
 		case "quit":
 			model.postMessage("Server_quit");
 			break;

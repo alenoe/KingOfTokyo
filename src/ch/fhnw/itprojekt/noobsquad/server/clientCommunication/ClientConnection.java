@@ -2,6 +2,12 @@ package ch.fhnw.itprojekt.noobsquad.server.clientCommunication;
 
 /**
  * @author Simon Zahnd
+ * 
+ *  * Hier wird das Message Objekt vom Client empfangen (ObjectInputstream) und zur Auswertung an den 
+ * ClientMessageHandler weitergegeben.
+ * 
+ * Zudem werden hier die Messages Objekte mit der Methode sendMsg an die Clients versendet (ObjectOutputStream)
+ * sendMsg wird in den Broadcast Methoden im ClientMessageHander verwendet.
  */
 
 import java.io.EOFException;
@@ -46,8 +52,7 @@ public class ClientConnection extends Thread {
 	}
 
 	// -----------------------------------------------------------------------------------
-	// receive a message from the client and evaluate them in the
-	// ClientMessageHandler
+	//Message Objekt empfangen und an den ClientMessageHandler weitergeben. 
 	public void listen() throws IOException {
 		Message msg = null;
 
@@ -75,7 +80,8 @@ public class ClientConnection extends Thread {
 	}
 
 	// -----------------------------------------------------------------------------------
-	// sends an Object to the clients
+	//Versendet das Message Objekt.
+		//Diese Methode wird von den Broadcast Methoden aus dem Model aufgerufen. 
 	public synchronized void sendMsg(String type, Object o) {
 		try {
 			Message hMap = new Message(type, o);
@@ -91,6 +97,8 @@ public class ClientConnection extends Thread {
 		}
 	}
 
+	//-----------------------------------------------------------------------------------
+	//ID des Clients zurueckgeben.
 	public int getConnectionID() {
 		return this.id;
 	}

@@ -16,21 +16,19 @@ import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
 /**
- * A log-handler that writes to a TextArea. Platform.runLater is a means of
- * putting work onto the JavaFX application thread. Anything that modifies with
- * the GUI should be on this thread. In this case, the critical line is
- * textArea.setText(...).
+ * A log-handler that writes to a TextArea. Platform.runLater is a means
+ * of putting work onto the JavaFX application thread. Anything that
+ * modifies with the GUI should be on this thread. In this case, the
+ * critical line is textArea.setText(...).
  * 
  * Adapted from:
- * http://stackoverflow.com/questions/10785560/write-logger-message-to-file-and-
- * textarea-while-maintaining-default-behaviour-in
+ * http://stackoverflow.com/questions/10785560/write-logger-message-to-file-and-textarea-while-maintaining-default-behaviour-in
  */
 public class TextAreaHandler extends Handler {
 
-	// A Handler object takes log messages from a Logger and exports them.
-	// It might for example, write them to a console or write them to a file,
-	// or send them to a network logging service, or forward them to an OS log,
-	// or whatever.
+//	A Handler object takes log messages from a Logger and exports them. 
+//	It might for example, write them to a console or write them to a file, 
+//	or send them to a network logging service, or forward them to an OS log, or whatever.
 
 	private TextArea textArea = new TextArea();
 

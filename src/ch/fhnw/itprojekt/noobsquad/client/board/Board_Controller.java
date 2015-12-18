@@ -5,7 +5,8 @@ package ch.fhnw.itprojekt.noobsquad.client.board;
 /**
  * 
  * @author Heiko Meyer
- * 
+ * Der Controller legt fest, welche View zur Anwendung kommt. Ausserdem aktualisiert 
+ * er mithilfe der Update-Methode die View, wenn er über Änderungen informiert wird.
  */
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 		super(model, view);
 
 		this.subject = model;
-		model.register(this);
+		model.register(this); // Observer wird beim Subject (hier Model) registriert
 		serviceLocator = ServiceLocator.getServiceLocator();
 
 		dicebtnList = new ArrayList<Button>();
@@ -51,6 +52,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 		view.btnLeaveTokyo.setDisable(true);
 		view.btnSend.setDisable(true);
 
+		// Button, um zu würfeln bis 3 Würfe getätigt wurden. 
 		view.btnRoll.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -62,6 +64,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 			}
 		});
 
+		// Button, um Tokyo zu verlassen
 		view.btnLeaveTokyo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -73,6 +76,10 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 			}
 		});
 
+		/**
+		 * Diejenigen Buttons, welche man behalten will, werden geblockt.
+		**/
+		
 		view.btnDice1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -117,6 +124,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 			}
 		});
 
+		// Versenden von Chatnachrichten
 		view.btnSend.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -129,6 +137,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 			}
 		});
 
+		// Login wird neu gestartet, Board wird geschlossen.
 		view.btnNewConnection.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -136,6 +145,7 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 			}
 		});
 
+		//	schliesst den JavaFx-Thread
 		view.btnClose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -144,6 +154,10 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 			}
 		});
 
+		
+		// 	Wenn keine Verbindung zum Server besteht, wird enableRestart aufgerufen,
+		//	damit der Button und das Label für eine neue Verbindung erscheint
+		
 		if (!model.getServerConnection().getServerconnection()) {
 			enableRestart();
 		}
@@ -151,35 +165,32 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 		serviceLocator.getLogger().info("Board controller initialized");
 	}
     
-	/**
-	 * Die View zeigt den Button und das Label zur Wiederherstellung der
-	 * Verbindung an.
-	 */
+    //    
+    // Die View zeigt den Button und das Label zur Wiederherstellung der 
+    // Verbindung an.
+    //  
 	public void enableRestart() {
 		view.btnNewConnection.setVisible(true);
 		view.lblNewConnection.setVisible(true);
 		view.hboxNewCon.setStyle("-fx-background-color: #FFFFFF");
 	}
 
-	// setzt das Subjekt f�r den Observer
+	// setzt das Subjekt für den Observer
 	@Override
 	public void setSubject(Subject sub) {
 		this.subject = sub;
 
 	}
 
-	/**
-	 * Die Update Methode holt sich die Message des Subjekts und pr�ft ihren
-	 * Inhalt. Je nach erhaltenem String f�hrt der Controller andere Operationen
-	 * durch.
-	 */
+	//    
+	// Die Update-Methode holt sich die Message des Subjekts und prüft ihren Inhalt.
+	// Je nachdem, welcher String ausgewertet wird,führt der Controller andere Operationen durch.
+	//  
 	@Override
 	public void update() {
 
-		/**
-		 * Die update() Methode holt sich die Nachricht vom Subject und
-		 * evaluiert den Inhalt
-		 */
+		// Die Update-Methode holt sich die Nachricht vom Subject und prüft den Inhalt
+		
 		String msg = (String) subject.getUpdate(this);
 		if (msg == null) {
 			serviceLocator.getLogger().info(":: No new message");
@@ -188,10 +199,8 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 				serviceLocator.getLogger().info(":: Consuming message::" + msg);
 				switch (msg) {
 
-				/**
-				 * Holt das Player Objekt und setzt es als Player1 ein. Setzt
-				 * die Werte im View ein.
-				 */
+				
+				// Holt das Player-Objekt und setzt es als Player1 ein und setzt die Werte im View ein. 
 				case "player1":
 					view.lblPlayer1Name.setText(model.getPlayerName(0));
 					view.lblPlayer1HealthPoints.setText(Integer.toString(model.getPlayerHealthPoints(0)));
@@ -203,10 +212,8 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 					}
 					break;
 
-				/**
-				 * Holt das Player Objekt und setzt es als Player1 ein. Setzt
-				 * die Werte im View ein.
-				 */
+					        
+				//	Holt das Player-Objekt und setzt es als Player2 ein und setzt die Werte im View ein. 
 				case "player2":
 					view.lblPlayer2Name.setText(model.getPlayerName(1));
 					view.lblPlayer2HealthPoints.setText(Integer.toString(model.getPlayerHealthPoints(1)));
@@ -218,11 +225,8 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 					}
 					break;
 
-				/**
-				 * Buttons setDisable Nachrichten sperren oder entsperren die
-				 * jeweiligen Buttons.
-				 */
-
+	        
+				//	Die setDisable-Nachrichten sperren oder entsperren die jeweiligen Buttons.
 				case "btnRollsetDisable(true)":
 					view.btnRoll.setDisable(true);
 					break;
@@ -264,11 +268,9 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 				case "btnSendsetDisable(false)":
 					view.btnSend.setDisable(false);
 					break;
-
-				/**
-				 * holt das Wuerfel Objekt vom Model und setzt die neuen Bilder
-				 * im View ein.
-				 */
+	        
+					
+				// Holt das Würfel-Objekt vom Model und setzt die neuen Bilder im View ein.	
 				case "dice":
 					view.btnDice1.setGraphic(new ImageView(model.getDiePicture(0)));
 					view.btnDice2.setGraphic(new ImageView(model.getDiePicture(1)));
@@ -278,12 +280,10 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 					view.btnDice6.setGraphic(new ImageView(model.getDiePicture(5)));
 					break;
 
-				/**
-				 * Die Winner/Loser Nachrichten geben dem Observer die
-				 * Nachricht, welche View Updates er durchzuf�hren hat und
-				 * dieser holt sich die entsprechenden Daten und �bergibt sie
-				 * dem View.
-				 */
+					
+				// Die Winner/Loser-Nachrichten geben dem Observer die Nachricht, welche View-
+				// Updates er durchzuführen hat und dieser holt sich die entsprechenden Daten
+				// und übergibt sie dem View.
 				case "Player1lost":
 					model.setGameState(1);
 					view.lblGameEnd.setText(view.t.getString("label.gameend.lose"));
@@ -360,11 +360,9 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 					view.aGameEnd.showAndWait();
 					break;
 
-				/**
-				 * Die LockbtnDiceX/UnlockbtnDiceX Nachrichten holen sich die
-				 * entsprechenden Daten aus dem Model und lassen auf der View
-				 * anzeigen, ob der W�rfel gelocked ist oder nicht.
-				 */
+					
+				// Die LockbtnDice/UnlockbtnDice-Nachrichten holen sich jeweils die entsprechenden Daten
+				// aus dem Model und lassen auf der View anzeigen, ob der Würfel locked ist oder nicht.
 				case "LockbtnDice1:":
 					view.btnDice1.setGraphic(new ImageView(model.getDiePicture(0)));
 					break;
@@ -413,17 +411,15 @@ public class Board_Controller extends Controller<Board_Model, Board_View>impleme
 					view.btnDice6.setGraphic(new ImageView(model.getDiePicture(5)));
 					break;
 
-				/**
-				 * Chat Nachrichten in der View angezeigt.
-				 */
+					
+				//  Chat-Nachrichten werden in der View angezeigt
 				case "chatMessage":
 					view.taChat.appendText(model.getChatMessage() + "\n");
 					break;
 
-				/**
-				 * Wenn der Server stopt werden die Buttons gesperrt und der
-				 * Button zur Wiederherstellung der Verbindung wird angezeigt.
-				 */
+					
+				// Wenn der Server stoppt werden die Buttons gesperrt und der
+				//	Button zur Wiederherstellung der Verbindung wird angezeigt.	
 				case "Server_quit":
 					enableRestart();
 					view.btnLeaveTokyo.setDisable(true);

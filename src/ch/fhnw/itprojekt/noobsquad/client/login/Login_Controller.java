@@ -10,7 +10,9 @@ import ch.fhnw.itprojekt.noobsquad.abstractClasses.Controller;
 /**
  * 
  * @author Simon Zahnd
- *
+ * 
+ * Der Controller ueberwacht die eingaben des Users.
+ * Usernamen, IP und Port muss eingegeben werden.
  */
 
 public class Login_Controller extends Controller<Login_Model, Login_View> {
@@ -144,9 +146,8 @@ public class Login_Controller extends Controller<Login_Model, Login_View> {
 		}
 	}
 
-	// -----------------------------------------------------------------------------------
-	// saves the Username, IP and Port in the mainClass and starts the
-	// SplashScreen
+	//-----------------------------------------------------------------------------------
+  	//saves the Username, IP and Port in the mainClass and starts the SplashScreen
 	public void buttonConnect() {
 		String userName = view.tfUsername.getText();
 		String iP = view.tfIP.getText();

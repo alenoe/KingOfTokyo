@@ -17,6 +17,9 @@ import ch.fhnw.itprojekt.noobsquad.client.board.Board_Model;
  * 
  * @author Simon Zahnd
  *
+ * Hier wird eine Verbindung zum Server aufgebaut.
+ * Der Aufruf dazu kommt aus dem Board_Model
+ * Einkommende Message Objekte werden zur Auswertung dem ServerMessageHandler uebergeben.
  */
 
 public class ServerConnection implements Runnable {
@@ -34,11 +37,10 @@ public class ServerConnection implements Runnable {
 		serviceLocator.getLogger().info("ServerConnection initialized");
 	}
 
-	/** implementiert die run() Methode des Runnable Interface **/
-
+	//-----------------------------------------------------------------------------------
+	//Einkommende Message Objekte vom Server werden hier empfangen und an den ServerMessageHandler weitergegeben.
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 
 		try {
 			clientInputStream = new ObjectInputStream(socket.getInputStream());
@@ -68,11 +70,11 @@ public class ServerConnection implements Runnable {
 		}
 	}
 
-	/**
-	 * stellt eine Verbindung zum Server her. Die Werte kommen aus dem
-	 * JavaFX_App_Template
-	 **/
 
+	//-----------------------------------------------------------------------------------
+	//Mit dem Server eine Verbindung herstellen. Usernamen an Server senden.
+	//Gibt true oder false zurueck: je nach Abfrage im Server_Model wird die Methode enableRestart() aufgerufen. (Connection
+	// ist fehlgeschlagen)
 	public boolean getServerconnection() {
 
 		System.out.println("controller übergeben!");
@@ -101,8 +103,9 @@ public class ServerConnection implements Runnable {
 		return true;
 	}
 
-	/** Methode zum versenden von Messages an den Server **/
 
+	//-----------------------------------------------------------------------------------
+	//Message Objekt an Server senden.
 	public synchronized void sendMsg(String type, Object o) throws IOException {
 
 		Message msg = new Message(type, o);

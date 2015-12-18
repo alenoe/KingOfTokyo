@@ -4,12 +4,11 @@ package ch.fhnw.itprojekt.noobsquad.gameLogic;
  * 
  * @author Simon Zahnd
  * 
+ * Das Message Objekt besteht aus einem String und einem beliebigen Objekt
+ * Das Message Objekt kann vom Server je nach Wunsch an einen oder mehrere Clients gesendet.
+ * Der String teilt dem Client mit um welches Objekt es sich handelt (also welchen cast er durchfuehren muss)
+ * und bestimmt welche weiteren Methoden ausgefuehrt werden sollen.
  */
-//Das Message Objekt besteht aus einem String und einem beliebigen Objekt
-
-//Das Message Objekt kann vom Server je nach Wunsch an einen oder mehrere Clients gesendet.
-//Der String teilt dem Client mit um welches Objekt es sich handelt (also welchen cast er durchfuehren muss)
-//und bestimmt welche weiteren Methoden ausgeführt werden sollen.
 
 import java.io.Serializable;
 

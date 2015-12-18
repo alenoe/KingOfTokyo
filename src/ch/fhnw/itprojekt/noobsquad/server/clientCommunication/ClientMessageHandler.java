@@ -2,6 +2,11 @@ package ch.fhnw.itprojekt.noobsquad.server.clientCommunication;
 
 /**
  * @author Simon Zahnd
+ * 
+ * Hier werden die Message Objekte von den Clients ausgewertet, die Spiellogik ausgeführt und die neusten Updates
+ * an die Clients gesendet.
+ * 
+ * Hinweis: Die einzelnen Messages werden in der Systemspezifikation beschrieben.
  */
 
 import ch.fhnw.itprojekt.noobsquad.gameLogic.Button_Lock_Unlock;
@@ -28,6 +33,8 @@ public class ClientMessageHandler implements Runnable {
 		String k = msg.getType();
 
 		switch (k) {
+		
+		//Usernamen an den ersten und zweiten Client zuruecksenden.
 		case "Username":
 			model.newPlayer((String) msg.getContent());
 			if (client.getConnectionID() == 0) {
@@ -40,19 +47,22 @@ public class ClientMessageHandler implements Runnable {
 			}
 
 			break;
-
+		
+		//Player1: Button roll anzeigen. Player2: Button roll nicht anzeigen.
 		case "Spieler1amZug":
 			model.broadcastToOne(0, "Spieler1wuerfeln", false);
 			model.broadcastToOne(1, "Spieler1wuerfeln", true);
 
 			break;
 
+		//Player1: Button roll nicht anzeigen. Player2: Button roll anzeigen.
 		case "Spieler2amZug":
 			model.broadcastToOne(0, "Spieler2wuerfeln", true);
 			model.broadcastToOne(1, "Spieler2wuerfeln", false);
 
 			break;
 
+		//Erster Wurfs. Schauen ob eine Tatze dabei ist.	
 		case "Roll1":
 
 			for (Button_Lock_Unlock blu : model.getBtnpressedList()) {
@@ -67,6 +77,7 @@ public class ClientMessageHandler implements Runnable {
 			model.broadcastToAll("Server_hat_gewuerfelt", model.getdiceMList().get(0));
 			break;
 
+		//Zweiter Wurf: Wuerfel welche gesperrt wurden wieder entsperren. Schauen ob eine Tatze dabei ist.
 		case "Roll2":
 
 			for (Button_Lock_Unlock blu : model.getBtnpressedList()) {
@@ -81,6 +92,10 @@ public class ClientMessageHandler implements Runnable {
 			model.broadcastToAll("Server_hat_gewuerfelt", model.getdiceMList().get(0));
 			break;
 
+		//Dritter Wurf: Wuerfel welche gesperrt wurden wieder entsperren. Schauen ob eine Tatze dabei ist.
+		//Aktion des Spielzuges ausfuehren.
+		//Hat jemand gewonnen?
+		//aktuelle Player an Clients senden.	
 		case "Roll3":
 
 			for (Button_Lock_Unlock blu : model.getBtnpressedList()) {
@@ -126,6 +141,8 @@ public class ClientMessageHandler implements Runnable {
 
 			break;
 
+		//Status Tokyo wird geaendert
+		//aktuelle Player an Clients senden
 		case "PlayerLeavesTokyo":
 			for (Player p : model.getPlayerList()) {
 				if (p.getInTokyo() == true) {
@@ -139,7 +156,12 @@ public class ClientMessageHandler implements Runnable {
 			model.broadcastToAll("Player2updateTokyo", model.getPlayerList().get(1));
 
 			break;
-
+			
+		//----------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------
+		// Wuerfel sperren und wieder entsperren
+		//----------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------	
 		case "Btn_Lock_Unlock1":
 			int btnNumber = (int) msg.getContent();
 
@@ -251,7 +273,13 @@ public class ClientMessageHandler implements Runnable {
 			}
 
 			break;
-
+			
+		//----------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------
+			
+		//Messages welche vom Chat kommen an beide Clients senden.
 		case "ChatMessage":
 			String message = (String) msg.getContent();
 			model.broadcastToAll("Message",
@@ -259,6 +287,7 @@ public class ClientMessageHandler implements Runnable {
 
 			break;
 
+		//Server schliessen.
 		case "GameEnd":
 			model.stopServerSocket();
 

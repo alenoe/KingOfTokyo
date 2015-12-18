@@ -22,8 +22,7 @@ public class Server_Controller extends Controller<Server_Model, Server_View> {
 
 	JavaFX_App_Template main;
 	private boolean portValid = false;
-	InetAddress addr; // This class represents an Internet Protocol (IP)
-						// address.
+	InetAddress addr; // This class represents an Internet Protocol (IP) address.
 
 	public Server_Controller(JavaFX_App_Template main, Server_Model model, Server_View view) {
 		super(model, view);

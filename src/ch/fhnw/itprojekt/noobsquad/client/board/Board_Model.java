@@ -3,7 +3,8 @@ package ch.fhnw.itprojekt.noobsquad.client.board;
 /**
  * 
  * @author Heiko Meyer
- * 
+ * Board_Model repräsentiert die Daten und Kernfunktionalität des Boards.
+ * Das Board_Model informiert den Controller über Änderungen gemäss Observer-Pattern.
  */
 
 import java.io.IOException;
@@ -19,13 +20,7 @@ import ch.fhnw.itprojekt.noobsquad.client.interfaces.Subject;
 import ch.fhnw.itprojekt.noobsquad.abstractClasses.Model;
 import ch.fhnw.itprojekt.noobsquad.client.supportClasses.ServiceLocator;
 
-/**
- * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
- * is licensed under the terms of the BSD 3-clause license (see the file
- * license.txt).
- * 
- * @author Brad Richards
- */
+
 public class Board_Model extends Model implements Subject {
 
 	// Observervariabeln
@@ -56,10 +51,8 @@ public class Board_Model extends Model implements Subject {
 		serviceLocator.getLogger().info("Board model initialized");
 	}
 
-	/**
-	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	 * :::::::::::::SETTER UND GETTER FUER INSTANZVARIABLEN::::::::::::::::
-	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	/** 
+	 * Getter und Setter für Instanzvariablen
 	 */
 
 	public void setRollCounter(int i) {
@@ -131,9 +124,8 @@ public class Board_Model extends Model implements Subject {
 	}
 
 	/**
-	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	 * ::::::::::::::::GETTER METHODEN FUER SPIELVARIABLEN:::::::::::::::::
-	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	 * Getter-Methoden fuer Spielvariablen
+	 *
 	 */
 
 	public boolean btnLeaveTokyoEnable(boolean b, Player p) {
@@ -177,47 +169,24 @@ public class Board_Model extends Model implements Subject {
 		}
 	}
 
-	public String getPlayerTokyoStatus(int playerIndex) {
-		switch (playerIndex) {
-		case 0:
-			if (player1.getInTokyo() == true) {
-				return "hat Tokyo besetzt!";
-			}
-			return "befindet sich nicht in Tokyo.";
-		case 1:
-			if (player2.getInTokyo() == true) {
-				return "hat Tokyo besetzt!";
-			}
-			return "befindet sich nicht in Tokyo.";
-		default:
-			return "";
-		}
-	}
-
-	public int getDiceValue(int DieIndex) {
-		return this.d1.getDieValue(DieIndex);
-
-	}
-
 	public String getDiePicture(int diceIndex) {
 		return this.d1.getDieFacePicture(diceIndex);
 	}
-
-	public void incrementRollCounter() {
-		rollCounter = rollCounter++;
-	}
+	
 
 	/**
-	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	 * ::::::::::::::::SERVER KOMMUNIKATIONS METHODEN::::::::::::::::::::::
-	 * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	 * 
+	 * Serverkommunikations-Methoden
+	 * 
+	 * Mit der sendMsg-Methode wird jeweils die entsprechende Nachricht
+	 * an den Server gesendet.
+	 * 
 	 */
 
 	public void diceBtnLockUnlock(int diceIndex) {
 		try {
 			serverThread.sendMsg("Btn_Lock_Unlock" + (diceIndex + 1), diceIndex);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -226,7 +195,6 @@ public class Board_Model extends Model implements Subject {
 		try {
 			serverThread.sendMsg("PlayerLeavesTokyo", 0);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -235,18 +203,21 @@ public class Board_Model extends Model implements Subject {
 		try {
 			serverThread.sendMsg("ChatMessage", chatMessage);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
 
+	
+	// Die Roll-Methode repräsentiert 3 Würfe. Nach jedem Wurf wird der Server informiert,
+	// damit er würfeln kann. Mit postMessage wird der Observer benachrichtigt, damit die View
+	// aktualisiert werden kann.
+	
 	public boolean roll() {
 		switch (rollCounter) {
 		case 0:
 			try {
 				serverThread.sendMsg("Roll1", "Roll1");
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			rollCounter++;
@@ -257,7 +228,6 @@ public class Board_Model extends Model implements Subject {
 			try {
 				serverThread.sendMsg("Roll2", "Roll2");
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			rollCounter++;
@@ -295,13 +265,11 @@ public class Board_Model extends Model implements Subject {
 
 	/**
 	 * 
-	 * Observermethoden Die Implementierung wurde �bernommen von
-	 * http://www.journaldev.com/1739/observer-design-pattern-in-java-example-
-	 * tutorial Die Observer registrieren sich beim Subject und werden �ber die
-	 * notifyObservers()-Methode benachrichtigt sich das Update abzuholen. In
-	 * der Implementierung sendet der ServerMessageHandler im Namen des Models
-	 * eine postMsg() an das Subject, welches notifyObservers() aufruft. Der
-	 * einzige Observer ist der Board_Controller.
+	 * Observermethoden
+	 * Die Implementierung wurde �bernommen von http://www.journaldev.com/1739/observer-design-pattern-in-java-example-tutorial
+	 * Die Observer registrieren sich beim Subject und werden �ber die notifyObservers()-Methode benachrichtigt sich das Update abzuholen.
+	 * In der Implementierung sendet der ServerMessageHandler im Namen des Models eine postMsg() an das Subject, welches notifyObservers() aufruft.
+	 * Der einzige Observer ist der Board_Controller.
 	 * 
 	 * @author Alexander Noever
 	 */
@@ -309,8 +277,8 @@ public class Board_Model extends Model implements Subject {
 	//
 
 	/**
-	 * Die register(Observer obj) methode registriert das observierende Objekt
-	 * beim Subjekt und legt sie in die ArrayListe ab.
+	 * Die register(Observer obj) methode registriert das observierende Objekt beim Subjekt und legt sie in die 
+	 * ArrayListe ab.
 	 */
 	@Override
 	public void register(Observer obj) {
@@ -360,9 +328,8 @@ public class Board_Model extends Model implements Subject {
 	}
 
 	/**
-	 * wenn eine Message gepostet wird, werden alle Observer ueber die
-	 * notifyObservers() Methode benachrichtigt die Message abzuholen.
-	 * 
+	 * wenn eine Message gepostet wird, werden alle Observer ueber die notifyObservers() Methode 
+	 * benachrichtigt die Message abzuholen.
 	 * @param msg
 	 */
 	// method to post message to the topic
